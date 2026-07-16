@@ -250,18 +250,15 @@
 
     .result-row {
       display: flex; align-items: center; gap: 1rem;
-      padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+      padding: 1.1rem 0; border-bottom: 1px solid var(--border);
     }
     .swatch { width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.1); }
     .result-row .meta { flex: 1; }
     .result-row .meta strong { display: block; font-size: 0.9rem; }
     .result-row .meta span { font-size: 0.8rem; color: var(--muted); }
     .result-choice {
-      font-size: 0.85rem; font-weight: 600;
-      padding: 0.2rem 0.6rem; border-radius: 999px;
+      font-size: 0.85rem; font-weight: 600; color: #111;
     }
-    .choice-white { background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
-    .choice-black { background: #111; color: #fff; }
     .wcag-pass { color: #16a34a; font-size: 0.75rem; }
     .wcag-fail { color: #dc2626; font-size: 0.75rem; }
 
@@ -271,10 +268,17 @@
     }
 
     @media (max-width: 600px) {
-      .form-row { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .form-group { display: block !important; margin-bottom: 1.25rem; }
+      .form-group label { display: block; max-width: 100% !important; margin-bottom: 0.4rem; }
+      .form-group select,
+      .form-group input[type="number"],
+      .form-group input[type="text"] { width: 100% !important; flex: none; }
       .stimulus-wrap { grid-template-columns: 1fr; gap: 1rem; }
       h1 { font-size: 1.5rem; }
       .card { padding: 1.5rem; }
+      .rating-scale { flex-wrap: nowrap; gap: 0.3rem; }
+      .rating-btn { flex: 1; min-width: 0; width: auto; height: 2.6rem; font-size: 0.8rem; }
     }
 
     /* ── Mode Banner ── */
@@ -1392,7 +1396,7 @@ function buildDebrief() {
           </span>
         </div>
         <div style="min-width:200px">
-          <div class="result-choice ${chosen==='white'?'choice-white':'choice-black'}">You preferred: ${chosen}</div>
+          <div class="result-choice">You preferred: ${chosen}</div>
           <div style="font-size:0.75rem; margin-top:0.3rem; color:${agreedWcag?'#16a34a':'#dc2626'}">
             ${agreedWcag?'✓ Matches WCAG':'✗ Disagrees with WCAG'}
           </div>
