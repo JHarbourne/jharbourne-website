@@ -2,17 +2,19 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Colour Swatch Check</title>
+<title>Contrast Study v3 — Colour Swatches</title>
 <style>
-  body { font-family: system-ui, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
-  h2 { margin-bottom: 12px; font-size: 1rem; color: #444; }
-  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 900px; }
-  .swatch { border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
-  .bg { height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; }
-  .text-sample { font-size: 13px; font-weight: 600; letter-spacing: .02em; }
-  .meta { font-size: 10px; padding: 8px; background: #fff; }
-  .meta strong { font-size: 11px; display: block; margin-bottom: 2px; }
-  .role-tag { display: inline-block; font-size: 9px; padding: 1px 5px; border-radius: 99px; font-weight: 700; margin-bottom: 3px; }
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 24px; background: #f3f4f6; }
+  h1 { font-size: 1.1rem; color: #374151; margin-bottom: 6px; }
+  p.sub { font-size: 0.82rem; color: #6b7280; margin: 0 0 20px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 920px; }
+  .swatch { border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.13); background: #fff; }
+  .bg { height: 110px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; }
+  .txt { font-size: 13px; font-weight: 700; letter-spacing: .03em; }
+  .meta { font-size: 10.5px; padding: 9px 10px; line-height: 1.6; }
+  .meta strong { font-size: 11.5px; display: block; margin-bottom: 3px; }
+  .tag { display: inline-block; font-size: 9px; padding: 2px 6px; border-radius: 99px; font-weight: 800;
+         text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
   .attention { background: #fef3c7; color: #92400e; }
   .control   { background: #e0e7ff; color: #3730a3; }
   .special   { background: #fce7f3; color: #9d174d; }
@@ -20,8 +22,153 @@
 </style>
 </head>
 <body>
-<h2>Contrast Study v3 — Background Colour Swatches</h2>
+<h1>Contrast Study v3 — Background Colour Swatches</h1>
+<p class="sub">8 contested-zone colours all at L<sub>wcag</sub> &asymp; 0.22 (black &asymp; 5.4:1 / white &asymp; 3.9:1). Plus 2 attention checks, 1 grey control, 1 Capgemini special case.</p>
 <div class="grid">
+  <div class="swatch">
+    <div class="bg" style="background:#FFD700">
+      <span class="txt" style="color:#000000">Black text</span>
+      <span class="txt" style="color:#FFFFFF">White text</span>
+    </div>
+    <div class="meta">
+      <span class="tag attention">ATTENTION (easy-black)</span>
+      <strong>Gold #FFD700</strong>
+      Black 14.97:1 ✓ AA ← WCAG winner<br>
+      White 1.4:1 ✗ fail
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="bg" style="background:#001A57">
+      <span class="txt" style="color:#000000">Black text</span>
+      <span class="txt" style="color:#FFFFFF">White text</span>
+    </div>
+    <div class="meta">
+      <span class="tag attention">ATTENTION (easy-white)</span>
+      <strong>Dark Navy #001A57</strong>
+      Black 1.29:1 ✗ fail<br>
+      White 16.34:1 ✓ AA ← WCAG winner
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="bg" style="background:#808080">
+      <span class="txt" style="color:#000000">Black text</span>
+      <span class="txt" style="color:#FFFFFF">White text</span>
+    </div>
+    <div class="meta">
+      <span class="tag control">CONTROL</span>
+      <strong>Mid Grey #808080</strong>
+      Black 5.32:1 ✓ AA ← WCAG winner<br>
+      White 3.95:1 ✗ fail
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="bg" style="background:#1DB8F2">
+      <span class="txt" style="color:#000000">Black text</span>
+      <span class="txt" style="color:#FFFFFF">White text</span>
+    </div>
+    <div class="meta">
+      <span class="tag special">SPECIAL</span>
+      <strong>Capgemini Cyan-Blue #1DB8F2</strong>
+      Black 9.19:1 ✓ AA ← WCAG winner<br>
+      White 2.28:1 ✗ fail
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="bg" style="background:#FF1919">
+      <span class="txt" style="color:#000000">Black text</span>
+      <span class="txt" style="color:#FFFFFF">White text</span>
+    </div>
+    <div class="meta">
+      <span class="tag contested">CONTESTED</span>
+      <strong>Red #FF1919</strong>
+      Black 5.41:1 ✓ AA ← WCAG winner<br>
+      White 3.89:1 ✗ fail
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="bg" style="background:#BD6E00">
+      <span class="txt" style="color:#000000">Black text</span>
+      <span class="txt" style="color:#FFFFFF">White text</span>
+    </div>
+    <div class="meta">
+      <span class="tag contested">CONTESTED</span>
+      <strong>Orange #BD6E00</strong>
+      Black 5.39:1 ✓ AA ← WCAG winner<br>
+      White 3.89:1 ✗ fail
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="bg" style="background:#499200">
+      <span class="txt" style="color:#000000">Black text</span>
+      <span class="txt" style="color:#FFFFFF">White text</span>
+    </div>
+    <div class="meta">
+      <span class="tag contested">CONTESTED</span>
+      <strong>Lime #499200</strong>
+      Black 5.39:1 ✓ AA ← WCAG winner<br>
+      White 3.89:1 ✗ fail
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="bg" style="background:#009700">
+      <span class="txt" style="color:#000000">Black text</span>
+      <span class="txt" style="color:#FFFFFF">White text</span>
+    </div>
+    <div class="meta">
+      <span class="tag contested">CONTESTED</span>
+      <strong>Green #009700</strong>
+      Black 5.43:1 ✓ AA ← WCAG winner<br>
+      White 3.87:1 ✗ fail
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="bg" style="background:#009191">
+      <span class="txt" style="color:#000000">Black text</span>
+      <span class="txt" style="color:#FFFFFF">White text</span>
+    </div>
+    <div class="meta">
+      <span class="tag contested">CONTESTED</span>
+      <strong>Teal #009191</strong>
+      Black 5.46:1 ✓ AA ← WCAG winner<br>
+      White 3.85:1 ✗ fail
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="bg" style="background:#007EFC">
+      <span class="txt" style="color:#000000">Black text</span>
+      <span class="txt" style="color:#FFFFFF">White text</span>
+    </div>
+    <div class="meta">
+      <span class="tag contested">CONTESTED</span>
+      <strong>Sky Blue #007EFC</strong>
+      Black 5.39:1 ✓ AA ← WCAG winner<br>
+      White 3.9:1 ✗ fail
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="bg" style="background:#AA54FF">
+      <span class="txt" style="color:#000000">Black text</span>
+      <span class="txt" style="color:#FFFFFF">White text</span>
+    </div>
+    <div class="meta">
+      <span class="tag contested">CONTESTED</span>
+      <strong>Violet #AA54FF</strong>
+      Black 5.42:1 ✓ AA ← WCAG winner<br>
+      White 3.87:1 ✗ fail
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="bg" style="background:#E300E3">
+      <span class="txt" style="color:#000000">Black text</span>
+      <span class="txt" style="color:#FFFFFF">White text</span>
+    </div>
+    <div class="meta">
+      <span class="tag contested">CONTESTED</span>
+      <strong>Magenta #E300E3</strong>
+      Black 5.38:1 ✓ AA ← WCAG winner<br>
+      White 3.91:1 ✗ fail
+    </div>
+  </div>
 </div>
 </body>
 </html>
