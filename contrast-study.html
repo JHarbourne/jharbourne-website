@@ -84,13 +84,19 @@
     .form-group { margin-bottom: 1.25rem; }
     label { display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem; }
     select, input[type="number"], input[type="text"] {
-      width: 100%; padding: 0.6rem 0.8rem;
+      width: 100%; padding: 0.8rem 1rem;
       border: 1.5px solid var(--border); border-radius: 6px;
       font-size: 0.95rem; background: #fff;
       transition: border-color 0.15s;
     }
     select:focus, input:focus { outline: none; border-color: var(--brand); }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 2rem; }
+    .form-row .form-group { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0; }
+    .form-row .form-group label { flex: 0 1 auto; margin-bottom: 0; max-width: 48%; }
+    .form-row .form-group select,
+    .form-row .form-group input[type="number"],
+    .form-row .form-group input[type="text"] { flex: 1; min-width: 5rem; width: auto; }
+    .form-row .form-group > div[id$="-error"] { flex: 0 0 100%; }
     .checkbox-group { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.25rem; }
     .checkbox-group label { font-weight: 400; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
     .checkbox-group input[type="checkbox"] { width: auto; }
@@ -297,8 +303,8 @@
     <p>This study investigates whether the <em>colour</em> (hue) of a background affects the perceived readability of text – independently of the standard luminance-based ratio. Your responses will help us understand whether the current standard captures real human perception across the full colour spectrum.</p>
     <p>The study takes approximately <strong>8–12 minutes</strong>. You will be shown pairs of text samples and asked to click the one that looks easier to read – like an optician’s chart, but for colour contrast.</p>
     <hr style="border:none; border-top:1px solid var(--border); margin: 1.5rem 0;">
-    <h3>What we collect – and what we don’t</h3>
-    <p>We collect your responses, response times, and some brief questions about your vision and display conditions. We do <strong>not</strong> collect your name, email address, or IP address. Your study data never leaves your own browser – there is no server upload unless you choose to submit it. Raw data files will be deleted once statistical analysis is complete; only anonymised aggregate findings will be published.</p>
+    <h3>What is collected – and what isn’t</h3>
+    <p>This study collects your responses, response times, and some brief questions about your vision and display conditions. It does <strong>not</strong> collect your name, email address, or IP address. Your study data never leaves your own browser – there is no server upload unless you choose to submit it. Raw data files will be deleted once statistical analysis is complete; only anonymised aggregate findings will be published.</p>
     <div class="btn-group">
       <button class="btn btn-primary" onclick="goTo('screening')">Start →</button>
     </div>
@@ -319,7 +325,7 @@
 <div class="page" id="page-screening">
   <div class="card">
     <h2>Two Quick Checks</h2>
-    <p>Before we begin, we need to ask two brief questions to ensure the quality and integrity of the research data.</p>
+    <p>Before you begin, two brief questions to ensure the quality and integrity of the research data.</p>
 
     <div class="form-group">
       <label for="screen_repeat">Have you participated in this study before?</label>
@@ -342,7 +348,7 @@
     </div>
 
     <div id="screen-rx-warning" style="display:none; background:#fef9c3; border:1.5px solid #fbbf24; border-radius:var(--radius); padding:1rem; margin-top:0.75rem;">
-      <p style="margin:0; font-size:0.9rem; color:#78350f;">⚠ <strong>Note:</strong> An out-of-date prescription means your vision may not be optimally corrected during the study. This doesn’t disqualify you – we’ll simply note it in the data so we can account for it in analysis. You’re welcome to continue.</p>
+      <p style="margin:0; font-size:0.9rem; color:#78350f;">⚠ <strong>Note:</strong> An out-of-date prescription means your vision may not be optimally corrected during the study. This doesn’t disqualify you – it will simply be noted in the data to account for it in analysis. You’re welcome to continue.</p>
     </div>
 
     <div id="screen-error" style="display:none; color:#dc2626; font-size:0.9rem; margin-top:0.75rem; font-weight:600;">
@@ -361,8 +367,8 @@
   <div class="card" style="text-align:center; padding:3rem 2.5rem;">
     <div style="font-size:3.5rem; margin-bottom:1.25rem;">🙏</div>
     <h2>Thank you – you’ve already helped!</h2>
-    <p style="max-width:520px; margin:0 auto 1rem;">To keep the results reliable, we ask each person to participate only once. Since you’ve already completed this study, your data is already in the analysis.</p>
-    <p style="max-width:520px; margin:0 auto; color:var(--muted);">We genuinely appreciate your earlier contribution. Results will be published here once the study is complete.</p>
+    <p style="max-width:520px; margin:0 auto 1rem;">To keep the results reliable, each person is asked to participate only once. Since you’ve already completed this study, your data is already in the analysis.</p>
+    <p style="max-width:520px; margin:0 auto; color:var(--muted);">Your earlier contribution is genuinely appreciated. Results will be published here once the study is complete.</p>
   </div>
 </div>
 
@@ -370,13 +376,13 @@
 <div class="page" id="page-consent">
   <div class="card">
     <h2>Informed Consent</h2>
-    <p>Before we begin, please confirm the following:</p>
+    <p>Please confirm the following:</p>
 
     <div class="consent-box">
       <label><input type="checkbox" id="c1"> I understand that this is a voluntary research study and I may withdraw at any time without consequence. Withdrawing will discard my data.</label>
     </div>
     <div class="consent-box">
-      <label><input type="checkbox" id="c2"> I understand that my <strong>anonymous</strong> response data may be used in published research and conference presentations. My name, email, and IP address are not recorded. Raw data files will be securely deleted once statistical analysis is complete; only aggregate findings will be retained and published.</label>
+      <label><input type="checkbox" id="c2"> <span>I understand that my <strong>anonymous</strong> response data may be used in published research and conference presentations. My name, email, and IP address are not recorded. Raw data files will be securely deleted once statistical analysis is complete; only aggregate findings will be retained and published.</span></label>
     </div>
     <div class="consent-box">
       <label><input type="checkbox" id="c3"> I understand that this study collects optional vision-related data (e.g. prescription values), that this data is anonymised and cannot be linked back to me, and that it will be processed solely for the purpose of this research.</label>
@@ -399,7 +405,7 @@
 <div class="page" id="page-demographics">
   <div class="card">
     <h2>About You</h2>
-    <p>These questions help us analyse whether perception differs by age, vision characteristics, and viewing conditions. More detail here means more powerful analysis – but all fields are optional except age.</p>
+    <p>These questions help analyse whether perception differs by age, vision characteristics, and viewing conditions. More detail here means more powerful analysis – but all fields are optional except age.</p>
 
     <div class="form-row">
       <div class="form-group">
@@ -701,7 +707,7 @@
     <h3>Step 2: Brightness slider</h3>
     <p>Your screen brightness: <span id="bright-val">50</span>%</p>
     <input type="range" id="brightness_slider" min="0" max="100" value="50" style="width:100%" oninput="document.getElementById('bright-val').textContent=this.value">
-    <p style="font-size:0.85rem; color:var(--muted)">We do not control your screen brightness – this is a self-report that helps us understand your viewing conditions.</p>
+    <p style="font-size:0.85rem; color:var(--muted)">Screen brightness is not controlled by this study – this is a self-report to help understand your viewing conditions.</p>
 
     <div class="btn-group">
       <button class="btn btn-secondary" onclick="goTo('demographics')">← Back</button>
@@ -1212,7 +1218,10 @@ function recordPractice(side, t) {
 }
 
 // ─── Main Experiment ──────────────────────────────────────────────────────────
+let experimentStartTime = null;
+
 function startExperiment() {
+  experimentStartTime = performance.now();
   currentTrialIdx = 0;
   goTo('experiment');
   document.getElementById('trial-total').textContent = mainTrials.length;
@@ -1335,11 +1344,17 @@ function buildDebrief() {
   });
 
   // Summary stats
+  const elapsedMs = experimentStartTime ? (performance.now() - experimentStartTime) : 0;
+  const elapsedMin = Math.floor(elapsedMs / 60000);
+  const elapsedSec = Math.round((elapsedMs % 60000) / 1000);
+  const timeStr = elapsedMin > 0 ? `${elapsedMin}m ${elapsedSec}s` : `${elapsedSec}s`;
+
   document.getElementById('summary-stats').innerHTML = `
     <div class="stat-card"><div class="value">${total}</div><div class="label">Trials completed</div></div>
     <div class="stat-card"><div class="value">${pctAgreed}%</div><div class="label">Agreed with WCAG</div></div>
     <div class="stat-card"><div class="value">${(100-pctAgreed)}%</div><div class="label">Disagreed with WCAG</div></div>
     <div class="stat-card"><div class="value">${results.ratings.length}</div><div class="label">Ratings given</div></div>
+    <div class="stat-card"><div class="value">${timeStr}</div><div class="label">Time taken</div></div>
   `;
 
   // Results table with comparison to pilot aggregate
@@ -1372,8 +1387,8 @@ function buildDebrief() {
             ${agreedWcag?'✓ Matches WCAG':'✗ Disagrees with WCAG'}
           </div>
           <div style="font-size:0.75rem; margin-top:0.25rem; color:#6b7280;">
-            ${seedPct}% of pilot participants also preferred <strong>${seedPreferred}</strong>
-            ${youMatchPilot ? '— <span style="color:#2563eb">you agree with the majority</span>' : '— <span style="color:#9333ea">you differ from the majority</span>'}
+            ${seedPct}% of pilot participants preferred <strong>${seedPreferred}</strong>
+            ${youMatchPilot ? '– <span style="color:#2563eb">you agree with the majority</span>' : '– <span style="color:#9333ea">you differ from the majority</span>'}
           </div>
         </div>
       </div>`;
