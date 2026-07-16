@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>Jonathan Harbourne · Accessibility-led UX &amp; product design</title>
+<meta name="description" content="I design and build digital products that are on the user’s side – accessibility-led UX, from my own consumer apps to enterprise systems used by hundreds of thousands of people.">
+<style>
+  :root{
+    color-scheme:light only;
+    --ink:#1a2238;
+    --paper:#f3f1ea;
+    --panel:#ece8df;
+    --slate:#565f6e;
+    --line:#d7d3c8;
+    --accent:#2a6b63;
+    --accent-deep:#235c54;
+    --on-ink:#eef0e9;
+    --on-ink-dim:#b9c0c9;
+    --accent-on-ink:#8fd3c7;
+
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+
+    --wrap:66rem;
+    --gap:clamp(1.25rem,4vw,2.5rem);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;background:var(--paper)}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:clamp(1.05rem,0.55rem + 0.9vw,1.2rem);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- shared ---------- */
+  .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gap)}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.1;letter-spacing:-0.01em}
+  p{margin:0 0 1rem}
+  a{color:var(--accent-deep)}
+  a:focus-visible,button:focus-visible{
+    outline:3px solid var(--accent);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--accent-deep);
+    margin:0 0 1rem;
+    display:flex;align-items:center;gap:0.7rem;
+  }
+  .eyebrow::before{
+    content:"";width:1.6rem;height:2px;background:var(--accent);flex:none;
+  }
+
+  .skip{
+    position:absolute;left:0.5rem;top:-3rem;
+    background:var(--ink);color:var(--on-ink);
+    padding:0.6rem 1rem;border-radius:4px;z-index:20;
+    transition:top .15s ease;text-decoration:none;
+  }
+  .skip:focus{top:0.5rem}
+
+  /* ---------- nav ---------- */
+  .site-head{
+    position:sticky;top:0;z-index:10;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .site-head .wrap{
+    display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:0.5rem 1.5rem;padding-block:0.9rem;
+  }
+  .wordmark{
+    font-family:var(--serif);font-size:1.15rem;font-weight:600;
+    text-decoration:none;color:var(--ink);letter-spacing:-0.01em;
+    margin-right:auto;
+  }
+  .site-nav{display:flex;flex-wrap:wrap;gap:0.4rem 1.25rem}
+  .site-nav a{
+    font-family:var(--mono);font-size:0.78rem;letter-spacing:0.04em;
+    text-transform:uppercase;text-decoration:none;color:var(--slate);
+    padding:0.2rem 0;
+  }
+  .site-nav a:hover{color:var(--accent-deep)}
+
+  /* ---------- hero ---------- */
+  .hero{padding-block:clamp(3.5rem,10vw,7rem) clamp(2.5rem,7vw,4.5rem)}
+  .hero h1{
+    font-size:clamp(2.2rem,1rem + 4.6vw,4rem);
+    max-width:16ch;margin:0 0 1.4rem;
+  }
+  .hero .lede{
+    font-size:clamp(1.12rem,0.7rem + 0.9vw,1.35rem);
+    max-width:44ch;color:var(--ink);margin-bottom:1rem;
+  }
+  .hero .proof{max-width:46ch;color:var(--slate)}
+  .hero .proof b{color:var(--ink);font-weight:600}
+
+  .cta-row{display:flex;flex-wrap:wrap;gap:0.9rem;margin-top:2rem}
+  .btn{
+    display:inline-block;font-family:var(--sans);font-size:1rem;font-weight:600;
+    text-decoration:none;padding:0.85rem 1.5rem;border-radius:6px;min-height:44px;
+    border:2px solid var(--accent-deep);
+  }
+  .btn-primary{background:var(--accent-deep);color:#fff}
+  .btn-primary:hover{background:var(--ink);border-color:var(--ink)}
+  .btn-ghost{background:transparent;color:var(--accent-deep)}
+  .btn-ghost:hover{background:var(--panel)}
+
+  /* ---------- manifesto band ---------- */
+  .band{background:var(--ink);color:var(--on-ink)}
+  .band .wrap{padding-block:clamp(3rem,8vw,5rem)}
+  .band .eyebrow{color:var(--accent-on-ink)}
+  .band .eyebrow::before{background:var(--accent-on-ink)}
+  .manifesto{
+    font-family:var(--serif);font-size:clamp(1.4rem,0.8rem + 1.9vw,2.1rem);
+    line-height:1.32;max-width:28ch;margin:0;
+  }
+  .manifesto .hi{color:var(--accent-on-ink)}
+
+  /* ---------- sections ---------- */
+  main{background:var(--paper)}
+  section{padding-block:clamp(3rem,8vw,5.5rem);background:var(--paper)}
+  .section-title{font-size:clamp(1.6rem,1rem + 1.8vw,2.3rem);margin:0 0 0.4rem}
+  .section-intro{max-width:52ch;color:var(--slate);margin-bottom:2.5rem}
+
+  /* ---------- work ---------- */
+  .flagship{
+    border:1px solid var(--line);border-radius:12px;background:#fff;
+    padding:clamp(1.5rem,4vw,2.75rem);margin-bottom:1.5rem;
+    display:grid;gap:1.25rem;
+  }
+  .flagship .fig{
+    font-family:var(--serif);font-size:clamp(2.6rem,1.5rem + 3.5vw,4.2rem);
+    line-height:1;color:var(--accent-deep);letter-spacing:-0.02em;
+  }
+  .flagship .fig-label{
+    font-family:var(--mono);font-size:0.75rem;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--slate);display:block;margin-top:0.5rem;
+  }
+  .flagship h3{font-size:clamp(1.35rem,1rem + 1vw,1.7rem);margin:0}
+  .flagship p{max-width:60ch;margin:0}
+  .role{
+    font-family:var(--mono);font-size:0.75rem;letter-spacing:0.05em;
+    color:var(--slate);text-transform:uppercase;margin:0;
+  }
+  @media(min-width:44rem){
+    .flagship{grid-template-columns:auto 1fr;align-items:start;column-gap:2.5rem}
+    .flagship .figwrap{grid-row:1 / span 3}
+  }
+
+  .grid{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr))}
+  .card{
+    border:1px solid var(--line);border-radius:12px;background:#fff;
+    padding:1.6rem;display:flex;flex-direction:column;gap:0.6rem;
+  }
+  .card h3{font-size:1.3rem;margin:0}
+  .card p{color:var(--ink);margin:0 0 0.4rem}
+  .card .role{margin-top:auto}
+  .card .see{
+    font-family:var(--mono);font-size:0.78rem;letter-spacing:0.05em;
+    text-transform:uppercase;text-decoration:none;color:var(--accent-deep);
+    display:inline-flex;align-items:center;gap:0.35rem;
+  }
+  .card .see:hover{gap:0.6rem}
+
+  .enterprise{
+    margin-top:1.5rem;background:var(--panel);border-radius:12px;
+    padding:clamp(1.5rem,4vw,2.75rem);border:1px solid var(--line);
+  }
+  .enterprise h3{font-size:clamp(1.3rem,1rem + 1vw,1.6rem);margin:0 0 1rem;max-width:24ch}
+  .enterprise p{max-width:62ch}
+  .enterprise .role{margin-top:0.75rem}
+
+  /* ---------- approach ---------- */
+  .approach-lede{max-width:60ch;margin-bottom:2.25rem}
+  .convictions{list-style:none;margin:0;padding:0;display:grid;gap:1.25rem}
+  .convictions li{
+    padding-left:1.5rem;position:relative;max-width:64ch;
+  }
+  .convictions li::before{
+    content:"";position:absolute;left:0;top:0.6em;
+    width:0.6rem;height:0.6rem;background:var(--accent);border-radius:2px;
+  }
+  .convictions strong{font-weight:600}
+
+  /* ---------- simple text sections ---------- */
+  .lead{max-width:56ch}
+  .inline-link{font-weight:600}
+
+  .beyond .lead{max-width:60ch}
+  .stock{margin-top:0.5rem;font-size:0.95rem;color:var(--slate)}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--ink);color:var(--on-ink)}
+  footer .wrap{padding-block:clamp(2.75rem,7vw,4rem)}
+  footer .eyebrow{color:var(--accent-on-ink)}
+  footer .eyebrow::before{background:var(--accent-on-ink)}
+  footer a{color:var(--accent-on-ink)}
+  .contact-row{display:flex;flex-wrap:wrap;gap:0.6rem 2rem;margin-bottom:2rem;font-size:1.05rem}
+  .contact-row .email{font-family:var(--serif);font-size:clamp(1.3rem,1rem + 1.2vw,1.8rem)}
+  .promise{
+    font-family:var(--mono);font-size:0.78rem;line-height:1.7;letter-spacing:0.02em;
+    color:var(--on-ink-dim);max-width:60ch;
+    border-top:1px solid #33405c;padding-top:1.5rem;
+  }
+
+  /* ---------- motion ---------- */
+  @media(prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(14px);animation:rise .6s cubic-bezier(.2,.6,.2,1) forwards}
+    .reveal.d1{animation-delay:.08s}
+    .reveal.d2{animation-delay:.16s}
+    .reveal.d3{animation-delay:.24s}
+    .reveal.d4{animation-delay:.32s}
+    @keyframes rise{to{opacity:1;transform:none}}
+    .btn,.card .see{transition:background .18s ease,gap .18s ease,border-color .18s ease}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="wordmark" href="#top">Jonathan Harbourne</a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#approach">Approach</a>
+      <a href="speaking.html">Speaking</a>
+      <a href="#writing">Writing</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="top" aria-labelledby="hero-h">
+    <div class="wrap">
+      <p class="eyebrow reveal">Accessibility-led UX &amp; product design</p>
+      <h1 id="hero-h" class="reveal d1">I design and build digital products that are actually on the user’s side.</h1>
+      <p class="lede reveal d2">Accessibility-led UX and product design – from the consumer apps I build myself to enterprise systems used by hundreds of thousands of people. Over 35 years making software people can genuinely use, and proving it works.</p>
+      <p class="proof reveal d3">My LGBT History wiki has reached around <b>40 million visitors</b> and a <b>Prime Minister’s award</b>. I’ve also built Nearmark, Moxii and the Tollesbury Arts Trail app.</p>
+      <div class="cta-row reveal d4">
+        <a class="btn btn-primary" href="#work">See the work</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="band" aria-labelledby="mani-h">
+    <div class="wrap">
+      <h2 class="eyebrow" id="mani-h">The through-line</h2>
+      <p class="manifesto">Most software is built to serve the business first – to keep you subscribed, to hide what’s really going on, or simply because someone bought the licence and nobody designed what came next. I build the opposite: <span class="hi">honest, accessible, measurable software that’s on the side of the people using it</span> – and that matters most for the software people are given no choice but to use.</p>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <p class="eyebrow">Selected work</p>
+      <h2 class="section-title" id="work-h">Problems most products miss</h2>
+      <p class="section-intro">Everything here is my own – self-initiated projects, designed and built in my own time. Each one exists because I noticed a problem most people and products quietly miss: a dating app where you somehow never actually meet anyone; local history that vanishes because no one preserved it; a place full of stories you can’t find while you’re standing in it.</p>
+
+      <!-- flagship -->
+      <article class="flagship">
+        <div class="figwrap">
+          <div class="fig">40M<span class="fig-label" aria-hidden="true">visitors</span></div>
+        </div>
+        <h3>LGBT History Project</h3>
+        <p>A national LGBT heritage archive I founded and built – now reaching roughly 40 million visitors and recognised with a Prime Minister’s Points of Light Award. Recently migrated and rebuilt on modern infrastructure so it lasts. Proof that community memory, properly built, endures.</p>
+        <p class="role">Founder · design · build · ongoing custodian</p>
+      </article>
+
+      <!-- grid -->
+      <div class="grid">
+        <article class="card">
+          <h3>Nearmark</h3>
+          <p>A location-based heritage storytelling app – a progressive web app that surfaces the history under your feet as you move through a place. Accessibility and craft built in from the first line.</p>
+          <p class="role">Solo design &amp; build · in development</p>
+          <a class="see" href="#contact">Ask about it <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="card">
+          <h3>Moxii</h3>
+          <p>An activity-first, group-based relationship app countering the loneliness-by-design of subscription dating platforms. Its founding principle: we succeed when you leave. Real connection through shared activity, not endless swiping.</p>
+          <p class="role">Founder · in development</p>
+          <a class="see" href="#contact">Ask about it <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="card">
+          <h3>Tollesbury Arts Trail</h3>
+          <p>A community app mapping a village arts trail – built to help a local cultural event reach the people around it, and to give a small place a proper digital front door.</p>
+          <p class="role">Design &amp; build</p>
+          <a class="see" href="#contact">Ask about it <span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+
+      <!-- enterprise -->
+      <div class="enterprise">
+        <p class="eyebrow">Enterprise systems</p>
+        <h3>The day job – and the point of all this</h3>
+        <p>The apps above are where you can <em>see</em> my craft. Most of my work you can’t. For years I’ve led user-centred design for large-scale business software – the timesheets, booking, finance, legal, audit, sales and service tools that hundreds of thousands of people are required to use every day. Most of it sits under NDA, so it isn’t shown here.</p>
+        <p>That’s the arena where design matters most, precisely because nobody chooses this software – they’re handed it. The same care you can see in my own apps is the care I bring to the systems people can’t opt out of.</p>
+        <p class="role">User-centred design · accessibility · usability testing · measurable UX – at enterprise scale</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section id="approach" aria-labelledby="approach-h">
+    <div class="wrap">
+      <p class="eyebrow">What I do</p>
+      <h2 class="section-title" id="approach-h">Consumer-grade design for the software people are given</h2>
+      <p class="approach-lede">I bring consumer-grade, user-centred design to the software people are <em>given</em>, not just the software they choose – enterprise systems for timesheets, booking, finance, legal, audit, sales and service, alongside my own consumer apps. Research, UX, interface, build. Accessibility-led throughout: WCAG-standard work that’s genuinely usable, not merely compliant.</p>
+      <ul class="convictions">
+        <li><strong>Usability testing isn’t a luxury.</strong> You cannot design for hundreds of thousands of people on assumption. Testing at scale is how you find what’s actually failing them – cutting it doesn’t save money, it just hides the cost.</li>
+        <li><strong>If you can’t measure it, you can’t improve it.</strong> UX needs KPIs like anything else. Define success and track it, or “good design” stays a matter of opinion – and the first thing cut in a squeeze.</li>
+        <li><strong>SaaS still needs UX.</strong> Buying Salesforce, ServiceNow or SuccessFactors doesn’t hand you a good experience. Configuration, workflow, integration, adoption and accessibility are all design decisions. The licence is where the work starts, not where it ends.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SPEAKING -->
+  <section id="speaking" aria-labelledby="speaking-h">
+    <div class="wrap">
+      <p class="eyebrow">Speaking</p>
+      <h2 class="section-title" id="speaking-h">Talks</h2>
+      <p class="lead">I speak on accessibility, AI ethics, and building products that respect the people who use them. Past platforms include a keynote at the HMRC LGBT conference in Whitehall and Capgemini’s global UX conference. <a class="inline-link" href="speaking.html">See speaking &amp; talks →</a></p>
+    </div>
+  </section>
+
+  <!-- WRITING -->
+  <section id="writing" aria-labelledby="writing-h">
+    <div class="wrap">
+      <p class="eyebrow">Writing</p>
+      <h2 class="section-title" id="writing-h">On AI, consciousness &amp; connection</h2>
+      <p class="lead">I write on Medium about AI, consciousness, and what it means for machines – and people – to be genuinely on each other’s side. <a class="inline-link" href="#" data-todo="medium-url">Read on Medium →</a></p>
+    </div>
+  </section>
+
+  <!-- BEYOND -->
+  <section class="beyond" id="beyond" aria-labelledby="beyond-h">
+    <div class="wrap">
+      <p class="eyebrow">Beyond the screen</p>
+      <h2 class="section-title" id="beyond-h">The whole picture</h2>
+      <p class="lead">Away from the screen I’m an East Coast sailor, a choir singer, a painter and photographer, and a lifelong community-builder. I founded London Raiders (now one of the largest softball clubs in the world), Sport London, the London Gay Bikers, and the UK LGBT Archive. The through-line is the same as the work: bring people together, and make things that outlast you.</p>
+      <p class="stock">Photography stocked on
+        <a href="#" data-todo="alamy-url">Alamy</a>,
+        <a href="#" data-todo="adobe-url">Adobe Stock</a> and
+        <a href="#" data-todo="getty-url">Getty</a>.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact" aria-labelledby="contact-h">
+  <div class="wrap">
+    <p class="eyebrow" id="contact-h">Get in touch</p>
+    <div class="contact-row">
+      <a class="email" href="mailto:hello@jharbourne.com">hello@jharbourne.com</a>
+      <a href="#" data-todo="linkedin-url">LinkedIn</a>
+      <span>Essex &amp; London</span>
+    </div>
+    <p class="promise">Built to the standard it advertises: WCAG&nbsp;2.2&nbsp;AA · keyboard-navigable · screen-reader tested · fast · cookieless. No trackers, no external requests, no fonts phoning home. If any of that isn’t true, tell me – holding the accessibility line in public is the point.</p>
+  </div>
+</footer>
+
+</body>
+</html>

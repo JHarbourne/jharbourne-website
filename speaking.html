@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>Speaking · Jonathan Harbourne</title>
+<meta name="description" content="Jonathan Harbourne speaks on accessibility, AI ethics, and building software that’s genuinely on the user’s side – from a senior practitioner who ships, not theorises.">
+<style>
+  :root{
+    color-scheme:light only;
+    --ink:#1a2238;
+    --paper:#f3f1ea;
+    --panel:#ece8df;
+    --slate:#565f6e;
+    --line:#d7d3c8;
+    --accent:#2a6b63;
+    --accent-deep:#235c54;
+    --on-ink:#eef0e9;
+    --on-ink-dim:#b9c0c9;
+    --accent-on-ink:#8fd3c7;
+
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+
+    --wrap:66rem;
+    --gap:clamp(1.25rem,4vw,2.5rem);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;background:var(--paper)}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:clamp(1.05rem,0.55rem + 0.9vw,1.2rem);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gap)}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.1;letter-spacing:-0.01em}
+  p{margin:0 0 1rem}
+  a{color:var(--accent-deep)}
+  a:focus-visible,button:focus-visible{
+    outline:3px solid var(--accent);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--accent-deep);
+    margin:0 0 1rem;
+    display:flex;align-items:center;gap:0.7rem;
+  }
+  .eyebrow::before{
+    content:"";width:1.6rem;height:2px;background:var(--accent);flex:none;
+  }
+
+  .skip{
+    position:absolute;left:0.5rem;top:-3rem;
+    background:var(--ink);color:var(--on-ink);
+    padding:0.6rem 1rem;border-radius:4px;z-index:20;
+    transition:top .15s ease;text-decoration:none;
+  }
+  .skip:focus{top:0.5rem}
+
+  .site-head{
+    position:sticky;top:0;z-index:10;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .site-head .wrap{
+    display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:0.5rem 1.5rem;padding-block:0.9rem;
+  }
+  .wordmark{
+    font-family:var(--serif);font-size:1.15rem;font-weight:600;
+    text-decoration:none;color:var(--ink);letter-spacing:-0.01em;
+    margin-right:auto;
+  }
+  .site-nav{display:flex;flex-wrap:wrap;gap:0.4rem 1.25rem}
+  .site-nav a{
+    font-family:var(--mono);font-size:0.78rem;letter-spacing:0.04em;
+    text-transform:uppercase;text-decoration:none;color:var(--slate);
+    padding:0.2rem 0;
+  }
+  .site-nav a:hover{color:var(--accent-deep)}
+  .site-nav a[aria-current="page"]{color:var(--accent-deep);border-bottom:2px solid var(--accent)}
+
+  .hero{padding-block:clamp(3.5rem,10vw,7rem) clamp(2.5rem,7vw,4.5rem)}
+  .hero h1{
+    font-size:clamp(2.2rem,1rem + 4.6vw,4rem);
+    max-width:18ch;margin:0 0 1.4rem;
+  }
+  .hero .lede{
+    font-size:clamp(1.12rem,0.7rem + 0.9vw,1.35rem);
+    max-width:46ch;color:var(--ink);margin-bottom:1rem;
+  }
+  .hero .proof{max-width:48ch;color:var(--slate)}
+  .hero .proof b{color:var(--ink);font-weight:600}
+
+  .cta-row{display:flex;flex-wrap:wrap;gap:0.9rem;margin-top:2rem}
+  .btn{
+    display:inline-block;font-family:var(--sans);font-size:1rem;font-weight:600;
+    text-decoration:none;padding:0.85rem 1.5rem;border-radius:6px;min-height:44px;
+    border:2px solid var(--accent-deep);
+  }
+  .btn-primary{background:var(--accent-deep);color:#fff}
+  .btn-primary:hover{background:var(--ink);border-color:var(--ink)}
+  .btn-ghost{background:transparent;color:var(--accent-deep)}
+  .btn-ghost:hover{background:var(--panel)}
+
+  .band{background:var(--ink);color:var(--on-ink)}
+  .band .wrap{padding-block:clamp(3rem,8vw,5rem)}
+  .band .eyebrow{color:var(--accent-on-ink)}
+  .band .eyebrow::before{background:var(--accent-on-ink)}
+  .manifesto{
+    font-family:var(--serif);font-size:clamp(1.4rem,0.8rem + 1.9vw,2.1rem);
+    line-height:1.32;max-width:30ch;margin:0;
+  }
+  .manifesto .hi{color:var(--accent-on-ink)}
+
+  main{background:var(--paper)}
+  section{padding-block:clamp(3rem,8vw,5.5rem);background:var(--paper)}
+  .section-title{font-size:clamp(1.6rem,1rem + 1.8vw,2.3rem);margin:0 0 0.4rem}
+  .section-intro{max-width:54ch;color:var(--slate);margin-bottom:2.5rem}
+
+  .grid{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr))}
+  .card{
+    border:1px solid var(--line);border-radius:12px;background:#fff;
+    padding:1.7rem;display:flex;flex-direction:column;gap:0.6rem;
+  }
+  .card h3{font-size:1.3rem;margin:0}
+  .card p{color:var(--ink);margin:0 0 0.4rem}
+  .role{
+    font-family:var(--mono);font-size:0.75rem;letter-spacing:0.05em;
+    color:var(--slate);text-transform:uppercase;margin:0;
+  }
+  .card .role{margin-top:auto}
+
+  .formats{
+    margin-top:2rem;font-family:var(--mono);font-size:0.8rem;letter-spacing:0.04em;
+    text-transform:uppercase;color:var(--slate);
+  }
+  .formats b{color:var(--accent-deep);font-weight:600}
+
+  .creds{list-style:none;margin:0;padding:0;display:grid;gap:1rem;
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr))}
+  .creds li{padding-left:1.5rem;position:relative;max-width:40ch}
+  .creds li::before{
+    content:"";position:absolute;left:0;top:0.55em;
+    width:0.6rem;height:0.6rem;background:var(--accent);border-radius:2px;
+  }
+
+  .bio{
+    background:var(--panel);border-radius:12px;
+    padding:clamp(1.5rem,4vw,2.75rem);border:1px solid var(--line);
+  }
+  .bio h3{font-size:clamp(1.3rem,1rem + 1vw,1.6rem);margin:0 0 1rem}
+  .bio p{max-width:64ch}
+  .bio .note{
+    font-family:var(--mono);font-size:0.75rem;letter-spacing:0.05em;
+    text-transform:uppercase;color:var(--slate);margin:0.75rem 0 0;
+  }
+
+  footer{background:var(--ink);color:var(--on-ink)}
+  footer .wrap{padding-block:clamp(2.75rem,7vw,4rem)}
+  footer .eyebrow{color:var(--accent-on-ink)}
+  footer .eyebrow::before{background:var(--accent-on-ink)}
+  footer a{color:var(--accent-on-ink)}
+  .contact-row{display:flex;flex-wrap:wrap;gap:0.6rem 2rem;margin-bottom:0.5rem;font-size:1.05rem;align-items:baseline}
+  .contact-row .email{font-family:var(--serif);font-size:clamp(1.3rem,1rem + 1.2vw,1.8rem)}
+  .avail{color:var(--on-ink-dim);margin-bottom:2rem}
+  .promise{
+    font-family:var(--mono);font-size:0.78rem;line-height:1.7;letter-spacing:0.02em;
+    color:var(--on-ink-dim);max-width:60ch;
+    border-top:1px solid #33405c;padding-top:1.5rem;
+  }
+
+  @media(prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(14px);animation:rise .6s cubic-bezier(.2,.6,.2,1) forwards}
+    .reveal.d1{animation-delay:.08s}
+    .reveal.d2{animation-delay:.16s}
+    .reveal.d3{animation-delay:.24s}
+    .reveal.d4{animation-delay:.32s}
+    @keyframes rise{to{opacity:1;transform:none}}
+    .btn{transition:background .18s ease,border-color .18s ease}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">Jonathan Harbourne</a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#approach">Approach</a>
+      <a href="speaking.html" aria-current="page">Speaking</a>
+      <a href="index.html#writing">Writing</a>
+      <a href="#book">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="top" aria-labelledby="hero-h">
+    <div class="wrap">
+      <p class="eyebrow reveal">Speaking</p>
+      <h1 id="hero-h" class="reveal d1">Talks on accessibility, AI, and software that’s on the user’s side.</h1>
+      <p class="lede reveal d2">I don’t give abstract keynotes. Everything I speak about, I’ve shipped – or got wrong and learned from – across 35 years of designing real products, from national heritage to enterprise systems used by hundreds of thousands of people.</p>
+      <p class="proof reveal d3">Past platforms include a keynote at the <b>HMRC LGBT conference in Whitehall</b>. My heritage wiki has reached around <b>40 million visitors</b> and a <b>Prime Minister’s award</b>, and I founded a <b>1,500-member UX professional community</b>.</p>
+      <div class="cta-row reveal d4">
+        <a class="btn btn-primary" href="#book">Enquire about a talk</a>
+        <a class="btn btn-ghost" href="index.html#work">See the work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- POV BAND -->
+  <section class="band" aria-labelledby="pov-h">
+    <div class="wrap">
+      <h2 class="eyebrow" id="pov-h">What to expect</h2>
+      <p class="manifesto">A clear point of view, specifics over platitudes, and <span class="hi">slides that could pass their own accessibility audit</span>. I speak as a practitioner who still ships – not a consultant describing it from the outside.</p>
+    </div>
+  </section>
+
+  <!-- TALKS -->
+  <section id="talks" aria-labelledby="talks-h">
+    <div class="wrap">
+      <p class="eyebrow">Talks</p>
+      <h2 class="section-title" id="talks-h">Themes I speak on</h2>
+      <p class="section-intro">Each of these can be a keynote, a conference session or a workshop, and I’ll happily shape one to your audience and theme rather than deliver it off the shelf.</p>
+
+      <div class="grid">
+        <article class="card">
+          <h3>On the user’s side</h3>
+          <p>The most neglected software is the software nobody chooses – the timesheets, the booking tools, the service desks. This talk argues that user-centred design matters most exactly where it’s most often skipped, and names the three things large organisations get wrong: cutting usability testing, never setting UX KPIs, and assuming SaaS means you don’t need design.</p>
+          <p class="role">Keynote · conference talk</p>
+        </article>
+
+        <article class="card">
+          <h3>Accessibility at scale</h3>
+          <p>At 1,000 applications and hundreds of thousands of users, accessibility can’t run on heroics – individual champions fixing things by hand never keeps pace. This talk is about the unglamorous thing that actually works: putting governance in place – standards, sign-off gates, audit and remediation frameworks – so accessibility becomes sustainable and built-in, not a perpetual rescue mission.</p>
+          <p class="role">Keynote · talk · workshop</p>
+        </article>
+
+        <article class="card">
+          <h3>Can AI be conscious – and what if it can?</h3>
+          <p>Built from my three-part Medium series, this talk is a proper journey in three acts: what consciousness actually is, whether an AI could ever develop it, and what would follow if it did. Not a scare story and not hype – a clear, grounded walk through the hardest question in AI, from someone who’s written the thinking down.</p>
+          <p class="role">Keynote · fireside</p>
+        </article>
+
+        <article class="card">
+          <h3>The founder is the network</h3>
+          <p>Over three decades I’ve founded clubs, networks and archives – from one of the world’s largest softball clubs to a heritage wiki with 40 million visitors. This talk is about why community-building, not code, is the real moat, and how the same instincts translate directly into building product.</p>
+          <p class="role">Keynote · conference talk</p>
+        </article>
+      </div>
+
+      <p class="formats">Formats: <b>Keynote · Conference talk · Workshop · Panel · Fireside</b> &nbsp;·&nbsp; In person across the UK and Europe, or remote.</p>
+    </div>
+  </section>
+
+  <!-- TRACK RECORD -->
+  <section id="track" aria-labelledby="track-h">
+    <div class="wrap">
+      <p class="eyebrow">Track record</p>
+      <h2 class="section-title" id="track-h">Platforms &amp; recognition</h2>
+      <ul class="creds">
+        <li>Keynote · HMRC LGBT conference, Whitehall</li>
+        <li>Organiser &amp; speaker · a global enterprise UX conference</li>
+        <li>Founder · a 1,500-member global UX professional community</li>
+        <li>Prime Minister’s Points of Light Award</li>
+        <li>Founder of a heritage wiki with around 40 million visitors</li>
+        <li>MSc Human–Computer Interaction · BSc Psychology</li>
+        <li>Published on AI, consciousness and ethics</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- BIO -->
+  <section id="bio" aria-labelledby="bio-h">
+    <div class="wrap">
+      <p class="eyebrow">Speaker bio</p>
+      <div class="bio">
+        <h3 id="bio-h">Short bio</h3>
+        <p>Jonathan Harbourne is a UX and accessibility leader with over 35 years designing and building digital products – from enterprise systems used by hundreds of thousands of people to his own consumer apps. He founded a national LGBT heritage wiki that has reached around 40 million visitors, recognised with a Prime Minister’s Points of Light Award, and writes on AI, consciousness and ethics. He speaks on accessibility, AI, and software that’s genuinely on the user’s side.</p>
+        <p class="note">Ready to lift straight into your programme.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="book" aria-labelledby="book-h">
+  <div class="wrap">
+    <p class="eyebrow" id="book-h">Book a talk</p>
+    <div class="contact-row">
+      <a class="email" href="mailto:hello@jharbourne.com?subject=Speaking%20enquiry">hello@jharbourne.com</a>
+      <a href="#" data-todo="linkedin-url">LinkedIn</a>
+    </div>
+    <p class="avail">Based in Essex &amp; London · Available across the UK and Europe, and remotely.</p>
+    <p class="promise">Built to the standard it advertises: WCAG&nbsp;2.2&nbsp;AA · keyboard-navigable · screen-reader tested · fast · cookieless. No trackers, no external requests, no fonts phoning home.</p>
+  </div>
+</footer>
+
+</body>
+</html>
