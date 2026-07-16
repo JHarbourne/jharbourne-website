@@ -823,14 +823,30 @@
       <strong id="mode-debrief-label"></strong> <span id="mode-debrief-text"></span>
     </div>
 
-    <h3 style="margin-top:1.5rem;">Download your data</h3>
-    <p>Your anonymised data is stored only in this browser. Click below to download it as a JSON file and contribute it to the study.</p>
+    <h3 style="margin-top:1.5rem;">Contribute your data</h3>
+    <p>Your anonymised responses are stored in this browser. Press the button below to send them to the research team — it takes one second.</p>
 
-    <div class="btn-group">
-      <button class="btn btn-primary" onclick="downloadData()">⬇ Download My Data (JSON)</button>
-      <button class="btn btn-secondary" onclick="downloadData('csv')">⬇ Download as CSV</button>
+    <div id="submit-area">
+      <button class="btn btn-primary" id="submit-btn" onclick="submitData()" style="font-size:1rem; padding:0.85rem 2rem;">
+        ✉ Submit My Data
+      </button>
+
+      <div id="submit-success" style="display:none; background:#dcfce7; border:1.5px solid #16a34a; border-radius:var(--radius); padding:1rem 1.25rem; margin-top:1rem; text-align:center;">
+        <div style="font-size:2rem; margin-bottom:0.4rem;">✅</div>
+        <strong style="color:#15803d;">Thank you — your data has been received!</strong>
+        <p style="margin:0.4rem 0 0; font-size:0.9rem; color:#166534;">Your contribution will help improve accessibility standards for everyone.</p>
+      </div>
+
+      <div id="submit-fallback" style="display:none; background:#fef9c3; border:1.5px solid #ca8a04; border-radius:var(--radius); padding:1rem 1.25rem; margin-top:1rem;">
+        <strong style="color:#854d0e;">⚠ Could not connect to the server.</strong>
+        <p style="margin:0.5rem 0; font-size:0.9rem; color:#713f12;">Your data file has been saved to your device automatically. Please email it to contribute to the study — the address is on the study information sheet. Thank you.</p>
+      </div>
+
+      <div style="margin-top:1rem;">
+        <button class="btn btn-secondary" onclick="downloadData()" style="font-size:0.85rem;">⬇ Save a backup copy (JSON)</button>
+        <button class="btn btn-secondary" onclick="downloadData('csv')" style="font-size:0.85rem; margin-left:0.5rem;">⬇ CSV</button>
+      </div>
     </div>
-    <p style="font-size:0.8rem; color:var(--muted); margin-top:1rem;">To contribute your data to the research pool, email the downloaded file to the study address provided on the study information sheet. Thank you for participating.</p>
   </div>
 </div>
 
@@ -850,6 +866,11 @@ const STUDY_MODE = (() => {
   const p = new URLSearchParams(window.location.search).get('mode');
   return ['test', 'pilot', 'live'].includes(p) ? p : 'live';
 })();
+
+// ─── SUBMISSION ENDPOINT ──────────────────────────────────────────────────────
+// Set this to your /api/submit URL once the Vercel function is deployed.
+// Leave as null to fall back to auto-download when Submit is clicked.
+const SUBMISSION_ENDPOINT = '/api/submit';
 
 const MODE_CFG = {
   test:  { reps: 1, ratingCount: 4,  practiceCount: 1, label: '🧪 TEST MODE',  bg: '#fef3c7', fg: '#92400e', skipSetup: true  },
@@ -905,18 +926,36 @@ function contrastPolarity(bgHex) {
 // wcagPolarity = which colour WCAG nominates as the "winner"
 
 const BACKGROUNDS = [
-  { hex: '#FF0000', name: 'Pure Red' },
-  { hex: '#FF6600', name: 'Orange' },
-  { hex: '#FFD700', name: 'Gold / Yellow' },
-  { hex: '#9ACD32', name: 'Yellow-Green' },
-  { hex: '#00CC66', name: 'Emerald Green' },
-  { hex: '#1DB8F2', name: 'Vibrant Cyan-Blue' },  // The Capgemini case
-  { hex: '#0055CC', name: 'Royal Blue' },
-  { hex: '#7B2FBE', name: 'Purple' },
-  { hex: '#CC0055', name: 'Crimson' },
-  { hex: '#FF69B4', name: 'Hot Pink' },
-  { hex: '#00CCCC', name: 'Teal / Cyan' },
-  { hex: '#808080', name: 'Mid Grey' }
+  // ── Attention checks ─────────────────────────────────────────────────────────
+  // These have extreme contrast gaps so participants with normal vision should
+  // always agree with WCAG. Trials where they don't flag low data quality.
+  { hex: '#FFD700', name: 'Gold',           role: 'attention', note: 'easy-black', hue: 50  },
+  { hex: '#001A57', name: 'Dark Navy',      role: 'attention', note: 'easy-white', hue: 222 },
+
+  // ── No-hue control ───────────────────────────────────────────────────────────
+  // Achromatic grey at L_wcag ≈ 0.22 (black 5.32:1, white 3.95:1).
+  // If discrepancies appear here they cannot be attributed to hue.
+  { hex: '#808080', name: 'Mid Grey',       role: 'control',   hue: null },
+
+  // ── Special motivating case ───────────────────────────────────────────────────
+  // Capgemini Vibrant Blue: L_wcag ≈ 0.41 → black 9.19:1, white 2.28:1.
+  // WCAG strongly recommends black, yet white is perceived as more readable
+  // on highly chromatic cyan — the founding observation for this study.
+  { hex: '#1DB8F2', name: 'Capgemini Cyan-Blue', role: 'special', hue: 195 },
+
+  // ── Contested zone: 8 hues, luminance-matched ────────────────────────────────
+  // All computed at L_wcag ≈ 0.22 (black ≈ 5.4:1 / AA pass, white ≈ 3.9:1 / fail).
+  // Gap is meaningful but not overwhelming — H-K and chromatic contrast effects
+  // are most detectable when the luminance margin is modest.
+  // Hues span the full colour wheel at ~30–60° intervals.
+  { hex: '#FF1919', name: 'Red',            role: 'contested', hue: 0   },  // L=0.22, black 5.41, white 3.89
+  { hex: '#BD6E00', name: 'Orange',         role: 'contested', hue: 35  },  // L=0.22, black 5.39, white 3.89
+  { hex: '#499200', name: 'Lime',           role: 'contested', hue: 90  },  // L=0.22, black 5.39, white 3.89
+  { hex: '#009700', name: 'Green',          role: 'contested', hue: 120 },  // L=0.22, black 5.43, white 3.87
+  { hex: '#009191', name: 'Teal',           role: 'contested', hue: 180 },  // L=0.22, black 5.46, white 3.85
+  { hex: '#007EFC', name: 'Sky Blue',       role: 'contested', hue: 210 },  // L=0.22, black 5.39, white 3.90
+  { hex: '#AA54FF', name: 'Violet',         role: 'contested', hue: 270 },  // L=0.22, black 5.42, white 3.87
+  { hex: '#E300E3', name: 'Magenta',        role: 'contested', hue: 300 },  // L=0.22, black 5.38, white 3.91
 ].map(s => {
   const cW = contrastRatio(s.hex, '#FFFFFF');
   const cB = contrastRatio(s.hex, '#000000');
@@ -977,6 +1016,39 @@ function shuffle(arr) {
   return a;
 }
 
+// Shuffle with no two consecutive trials sharing the same background colour.
+// After a plain shuffle, scan for violations and swap each offending trial
+// with the first later trial that resolves both neighbours.
+function shuffleNoConsecutive(arr) {
+  const a = shuffle(arr);
+  for (let i = 1; i < a.length; i++) {
+    if (a[i].bgHex === a[i-1].bgHex) {
+      // Find a swap partner further along that fixes both neighbours
+      let swapped = false;
+      for (let j = i + 1; j < a.length; j++) {
+        const prevOk = a[j].bgHex !== a[i-1].bgHex;
+        const nextOk = (j + 1 >= a.length) || a[j+1].bgHex !== a[i].bgHex;
+        const selfOk = a[j].bgHex !== a[i].bgHex;
+        if (prevOk && selfOk && nextOk) {
+          [a[i], a[j]] = [a[j], a[i]];
+          swapped = true;
+          break;
+        }
+      }
+      // If no perfect swap found, just move the duplicate as far forward as possible
+      if (!swapped) {
+        for (let j = i + 1; j < a.length; j++) {
+          if (a[j].bgHex !== a[i-1].bgHex) {
+            [a[i], a[j]] = [a[j], a[i]];
+            break;
+          }
+        }
+      }
+    }
+  }
+  return a;
+}
+
 // ─── Trial Generation ─────────────────────────────────────────────────────────
 function generateTrials() {
   const raw = [];
@@ -987,6 +1059,8 @@ function generateTrials() {
         trialType: 'main',
         bgHex: bg.hex,
         bgName: bg.name,
+        bgRole: bg.role,           // 'attention' | 'control' | 'special' | 'contested'
+        bgHue: bg.hue,             // hue angle in degrees (null for grey)
         bgLuminance: bg.lum,
         contrastWhite: bg.contrastWhite,
         contrastBlack: bg.contrastBlack,
@@ -1001,13 +1075,14 @@ function generateTrials() {
       });
     }
   });
-  mainTrials = shuffle(raw);
+  mainTrials = shuffleNoConsecutive(raw);
 
-  // Practice: 3 clear-cut cases
+  // Practice: 3 cases — two obvious (one per polarity), one close-call
+  // Uses colours also in the main set so the format feels familiar.
   const practiceColors = [
-    { bg:'#FFD700', comment:'Gold – black is clearly correct (white nearly invisible)' },
-    { bg:'#0055CC', comment:'Royal Blue – white is clearly correct (dark background)' },
-    { bg:'#FF6600', comment:'Orange – the interesting edge case' }
+    { bg:'#FFD700', comment:'Gold – black is clearly correct (WCAG 15:1 vs 1.4:1)' },
+    { bg:'#001A57', comment:'Dark Navy – white is clearly correct (WCAG 16:1 vs 1.3:1)' },
+    { bg:'#009191', comment:'Teal – a close call where hue may shift perception' }
   ];
   practiceTrials = practiceColors.map(p => {
     const bg = BACKGROUNDS.find(b=>b.hex===p.bg);
@@ -1268,6 +1343,8 @@ function recordTrial(side) {
     trialIndex: currentTrialIdx+1,
     bgHex: t.bgHex,
     bgName: t.bgName,
+    bgRole: t.bgRole,             // 'attention' | 'control' | 'special' | 'contested'
+    bgHue: t.bgHue,               // hue angle (degrees), null for achromatic
     bgLuminance: +t.bgLuminance.toFixed(4),
     contrastWhite: +t.contrastWhite.toFixed(2),
     contrastBlack: +t.contrastBlack.toFixed(2),
@@ -1522,18 +1599,42 @@ function downloadData(format) {
   URL.revokeObjectURL(url);
 }
 
-// ─── Optional: Submit to server ───────────────────────────────────────────────
-// Uncomment and set your endpoint URL when deploying:
-//
-// async function submitToServer() {
-//   const data = buildExportObject();
-//   const res = await fetch('https://your-api.example.com/submit', {
-//     method: 'POST',
-//     headers: {'Content-Type': 'application/json'},
-//     body: JSON.stringify(data)
-//   });
-//   if(res.ok) alert('Data submitted – thank you!');
-// }
+// ─── Submit to server ─────────────────────────────────────────────────────────
+async function submitData() {
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  const data = buildExportObject();
+
+  // If no endpoint configured, or test mode, fall straight to download fallback
+  if (!SUBMISSION_ENDPOINT || data.studyMode === 'test') {
+    downloadData();
+    document.getElementById('submit-fallback').style.display = 'block';
+    btn.style.display = 'none';
+    return;
+  }
+
+  try {
+    const res = await fetch(SUBMISSION_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (res.ok) {
+      document.getElementById('submit-success').style.display = 'block';
+      btn.style.display = 'none';
+    } else {
+      throw new Error(`Server returned ${res.status}`);
+    }
+  } catch (err) {
+    console.warn('Submit failed, falling back to download:', err);
+    downloadData();
+    document.getElementById('submit-fallback').style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = '↩ Try again';
+  }
+}
 
 // ─── Test Mode Quick-Start ────────────────────────────────────────────────────
 function testModeQuickStart() {
