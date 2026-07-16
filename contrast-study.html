@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colour Contrast Perception Study</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand: #1a1a2e;
+      --accent: #e94560;
+      --surface: #ffffff;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --radius: 10px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f9fafb;
+      color: #111827;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { display: none; width: 100%; max-width: 860px; padding: 2rem 1rem; }
+    .page.active { display: block; }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 { font-size: 2rem; font-weight: 700; color: var(--brand); margin-bottom: 0.5rem; }
+    h2 { font-size: 1.5rem; font-weight: 600; color: var(--brand); margin-bottom: 1rem; }
+    h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
+    p { line-height: 1.7; color: #374151; margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    .subtitle { font-size: 1.05rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+    .badge {
+      display: inline-block;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+    }
+    .btn-primary { background: var(--brand); color: #fff; }
+    .btn-primary:hover { background: #16213e; transform: translateY(-1px); }
+    .btn-secondary { background: var(--border); color: var(--brand); }
+    .btn-secondary:hover { background: #d1d5db; }
+    .btn-accent { background: var(--accent); color: #fff; }
+    .btn-accent:hover { background: #c73652; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-group { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
+
+    /* Forms */
+    .form-group { margin-bottom: 1.25rem; }
+    label { display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem; }
+    select, input[type="number"], input[type="text"] {
+      width: 100%; padding: 0.6rem 0.8rem;
+      border: 1.5px solid var(--border); border-radius: 6px;
+      font-size: 0.95rem; background: #fff;
+      transition: border-color 0.15s;
+    }
+    select:focus, input:focus { outline: none; border-color: var(--brand); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .checkbox-group { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.25rem; }
+    .checkbox-group label { font-weight: 400; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+    .checkbox-group input[type="checkbox"] { width: auto; }
+
+    /* Progress */
+    .progress-wrap { background: var(--border); border-radius: 999px; height: 8px; margin-bottom: 0.5rem; }
+    .progress-bar { background: var(--brand); height: 8px; border-radius: 999px; transition: width 0.3s; }
+    .progress-label { font-size: 0.85rem; color: var(--muted); text-align: right; }
+
+    /* Consent */
+    .consent-box {
+      background: #f0fdf4; border: 1.5px solid #86efac;
+      border-radius: var(--radius); padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .consent-box label { display: flex; align-items: flex-start; gap: 0.75rem; font-weight: 400; cursor: pointer; }
+    .consent-box input { margin-top: 3px; flex-shrink: 0; }
+
+    /* Calibration */
+    .cal-grid { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin: 1.5rem 0; }
+    .cal-box {
+      width: 80px; height: 80px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 600; color: rgba(0,0,0,0.5);
+    }
+
+    /* Stimulus – the core experimental display */
+    .stimulus-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .stimulus-btn {
+      position: relative;
+      border: 3px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      transition: border-color 0.15s, transform 0.1s, box-shadow 0.15s;
+      overflow: hidden;
+    }
+    .stimulus-btn:hover { border-color: var(--brand); box-shadow: 0 0 0 4px rgba(26,26,46,0.15); transform: translateY(-2px); }
+    .stimulus-btn:focus { outline: 3px solid #fbbf24; outline-offset: 2px; }
+    .stimulus-btn:active { transform: translateY(0); }
+
+    .stimulus-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.5rem;
+      min-height: 180px;
+      text-align: center;
+    }
+
+    .stimulus-text {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      letter-spacing: 0.01em;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .stimulus-label {
+      position: absolute;
+      top: 0.5rem; left: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(255,255,255,0.85);
+      color: #111;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    .choice-prompt {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .trial-counter {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    .keyboard-hint {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 0.75rem;
+    }
+    kbd {
+      background: #f3f4f6; border: 1px solid #d1d5db;
+      border-radius: 4px; padding: 0.1rem 0.4rem;
+      font-size: 0.8rem; font-family: monospace;
+    }
+
+    /* Rating scale */
+    .rating-stimulus {
+      border-radius: 10px; overflow: hidden; margin-bottom: 1.25rem;
+    }
+    .rating-inner {
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem 1.5rem; text-align: center;
+    }
+    .rating-text {
+      font-family: Georgia, serif; font-size: 1.15rem; line-height: 1.6;
+      pointer-events: none; user-select: none;
+    }
+    .rating-scale {
+      display: flex; justify-content: center; gap: 0.5rem;
+      flex-wrap: wrap; margin-top: 0.75rem;
+    }
+    .rating-btn {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 2px solid var(--border); background: #fff;
+      font-size: 0.9rem; font-weight: 700; cursor: pointer;
+      transition: all 0.15s;
+    }
+    .rating-btn:hover { border-color: var(--brand); background: #eff6ff; }
+    .rating-btn.selected { background: var(--brand); color: #fff; border-color: var(--brand); }
+    .scale-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+
+    /* Debrief */
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .stat-card {
+      background: #f9fafb; border-radius: var(--radius); padding: 1rem;
+      text-align: center; border: 1px solid var(--border);
+    }
+    .stat-card .value { font-size: 2rem; font-weight: 700; color: var(--brand); }
+    .stat-card .label { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+
+    .result-row {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+    }
+    .swatch { width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.1); }
+    .result-row .meta { flex: 1; }
+    .result-row .meta strong { display: block; font-size: 0.9rem; }
+    .result-row .meta span { font-size: 0.8rem; color: var(--muted); }
+    .result-choice {
+      font-size: 0.85rem; font-weight: 600;
+      padding: 0.2rem 0.6rem; border-radius: 999px;
+    }
+    .choice-white { background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+    .choice-black { background: #111; color: #fff; }
+    .wcag-pass { color: #16a34a; font-size: 0.75rem; }
+    .wcag-fail { color: #dc2626; font-size: 0.75rem; }
+
+    .info-box {
+      background: #eff6ff; border-left: 4px solid #3b82f6;
+      border-radius: 6px; padding: 1rem 1.25rem; margin-top: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .stimulus-wrap { grid-template-columns: 1fr; gap: 1rem; }
+      h1 { font-size: 1.5rem; }
+      .card { padding: 1.5rem; }
+    }
+
+    /* ── Mode Banner ── */
+    #mode-banner {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 0.45rem 1rem;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      z-index: 9999;
+    }
+    .mode-test-active #mode-banner,
+    .mode-pilot-active #mode-banner { display: block; }
+    .mode-test-active, .mode-pilot-active { padding-top: 2.2rem; }
+
+    /* Test mode quick-start card */
+    #quick-start-card { display: none; }
+    .mode-test-active #quick-start-card { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- Mode Banner (shown in test/pilot mode) -->
+<div id="mode-banner"></div>
+
+<!-- ════════════════════ PAGE: WELCOME ════════════════════ -->
+<div class="page active" id="page-welcome">
+  <div class="card">
+    <div class="badge">Academic Research Study</div>
+    <h1>Colour Contrast Perception</h1>
+    <p class="subtitle">Can you tell us which text is easier to read?</p>
+    <p>Current web accessibility standards (WCAG) state that text must achieve a <strong>4.5:1 contrast ratio</strong> – a single fixed number applied to every colour. But does your eye actually work that way?</p>
+    <p>This study investigates whether the <em>colour</em> (hue) of a background affects the perceived readability of text – independently of the standard luminance-based ratio. Your responses will help us understand whether the current standard captures real human perception across the full colour spectrum.</p>
+    <p>The study takes approximately <strong>8–12 minutes</strong>. You will be shown pairs of text samples and asked to click the one that looks easier to read – like an optician’s chart, but for colour contrast.</p>
+    <hr style="border:none; border-top:1px solid var(--border); margin: 1.5rem 0;">
+    <h3>What we collect – and what we don’t</h3>
+    <p>We collect your responses, response times, and some brief questions about your vision and display conditions. We do <strong>not</strong> collect your name, email address, or IP address. Your study data never leaves your own browser – there is no server upload unless you choose to submit it. Raw data files will be deleted once statistical analysis is complete; only anonymised aggregate findings will be published.</p>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="goTo('screening')">Start →</button>
+    </div>
+  </div>
+
+  <!-- Quick-start card: only shown in test mode -->
+  <div id="quick-start-card" class="card" style="border:2px dashed #fbbf24; background:#fffbeb;">
+    <h3 style="color:#92400e;">⚡ Test Mode – Quick Start</h3>
+    <p style="color:#78350f; margin-bottom:0.75rem;">Skips all setup (demographics, consent, calibration, practice). Runs <strong id="test-trial-count-desc"></strong>. Data is labelled <code>mode:"test"</code> and should not be included in analysis.</p>
+    <div class="btn-group" style="margin-top:0.75rem;">
+      <button class="btn btn-accent" onclick="testModeQuickStart()">⚡ Jump to Experiment</button>
+      <button class="btn btn-secondary" onclick="goTo('screening')">Run Full Flow Instead</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ PAGE: SCREENING ════════════════════ -->
+<div class="page" id="page-screening">
+  <div class="card">
+    <h2>Two Quick Checks</h2>
+    <p>Before we begin, we need to ask two brief questions to ensure the quality and integrity of the research data.</p>
+
+    <div class="form-group">
+      <label for="screen_repeat">Have you participated in this study before?</label>
+      <select id="screen_repeat" onchange="checkScreenReady()">
+        <option value="">— please select —</option>
+        <option value="no">No – this is my first time</option>
+        <option value="yes">Yes – I have done this before</option>
+      </select>
+    </div>
+
+    <div class="form-group" style="margin-top:1.25rem">
+      <label for="screen_rx_current">If you wear glasses or contact lenses: is your prescription dated within the last two years?</label>
+      <select id="screen_rx_current" onchange="showRxWarning()">
+        <option value="">— please select —</option>
+        <option value="yes">Yes – within the last 2 years</option>
+        <option value="no_old">No – it is more than 2 years old</option>
+        <option value="na">Not applicable – I don’t wear glasses or contact lenses</option>
+        <option value="unknown">I’m not sure when my last test was</option>
+      </select>
+    </div>
+
+    <div id="screen-rx-warning" style="display:none; background:#fef9c3; border:1.5px solid #fbbf24; border-radius:var(--radius); padding:1rem; margin-top:0.75rem;">
+      <p style="margin:0; font-size:0.9rem; color:#78350f;">⚠ <strong>Note:</strong> An out-of-date prescription means your vision may not be optimally corrected during the study. This doesn’t disqualify you – we’ll simply note it in the data so we can account for it in analysis. You’re welcome to continue.</p>
+    </div>
+
+    <div id="screen-error" style="display:none; color:#dc2626; font-size:0.9rem; margin-top:0.75rem; font-weight:600;">
+      Please answer both questions above to continue.
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="goTo('welcome')">← Back</button>
+      <button class="btn btn-primary" onclick="submitScreening()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ PAGE: ALREADY PARTICIPATED ════════════════════ -->
+<div class="page" id="page-already-done">
+  <div class="card" style="text-align:center; padding:3rem 2.5rem;">
+    <div style="font-size:3.5rem; margin-bottom:1.25rem;">🙏</div>
+    <h2>Thank you – you’ve already helped!</h2>
+    <p style="max-width:520px; margin:0 auto 1rem;">To keep the results reliable, we ask each person to participate only once. Since you’ve already completed this study, your data is already in the analysis.</p>
+    <p style="max-width:520px; margin:0 auto; color:var(--muted);">We genuinely appreciate your earlier contribution. Results will be published here once the study is complete.</p>
+  </div>
+</div>
+
+<!-- ════════════════════ PAGE: CONSENT ════════════════════ -->
+<div class="page" id="page-consent">
+  <div class="card">
+    <h2>Informed Consent</h2>
+    <p>Before we begin, please confirm the following:</p>
+
+    <div class="consent-box">
+      <label><input type="checkbox" id="c1"> I understand that this is a voluntary research study and I may withdraw at any time without consequence. Withdrawing will discard my data.</label>
+    </div>
+    <div class="consent-box">
+      <label><input type="checkbox" id="c2"> I understand that my <strong>anonymous</strong> response data may be used in published research and conference presentations. My name, email, and IP address are not recorded. Raw data files will be securely deleted once statistical analysis is complete; only aggregate findings will be retained and published.</label>
+    </div>
+    <div class="consent-box">
+      <label><input type="checkbox" id="c3"> I understand that this study collects optional vision-related data (e.g. prescription values), that this data is anonymised and cannot be linked back to me, and that it will be processed solely for the purpose of this research.</label>
+    </div>
+    <div class="consent-box">
+      <label><input type="checkbox" id="c4"> I confirm that I am 18 years of age or older, and that I am participating of my own free will.</label>
+    </div>
+    <div class="consent-box">
+      <label><input type="checkbox" id="c5"> I confirm that I am not in a darkened room and have allowed at least 2 minutes for my eyes to adapt if I have recently been looking at a very bright screen.</label>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="goTo('screening')">← Back</button>
+      <button class="btn btn-primary" id="consent-next" onclick="checkConsent()" disabled>Agree & Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ PAGE: DEMOGRAPHICS ════════════════════ -->
+<div class="page" id="page-demographics">
+  <div class="card">
+    <h2>About You</h2>
+    <p>These questions help us analyse whether perception differs by age, vision characteristics, and viewing conditions. More detail here means more powerful analysis – but all fields are optional except age.</p>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="age">Age <span style="color:#dc2626">*</span></label>
+        <input type="number" id="age" min="18" max="100" placeholder="e.g. 58" oninput="document.getElementById('age-error').style.display='none'">
+        <div id="age-error" style="display:none; color:#dc2626; font-size:0.85rem; margin-top:0.3rem; font-weight:600;">Please enter your age to continue.</div>
+      </div>
+      <div class="form-group">
+        <label for="sex">Sex assigned at birth</label>
+        <select id="sex">
+          <option value="">— please select —</option>
+          <option>Female</option>
+          <option>Male</option>
+          <option>Prefer not to say</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="country">Country</label>
+        <select id="country">
+          <option value="">— please select —</option>
+          <option value="GB">United Kingdom</option>
+          <option value="US">United States</option>
+          <option value="CA">Canada</option>
+          <option value="AU">Australia</option>
+          <option value="NZ">New Zealand</option>
+          <option value="IE">Ireland</option>
+          <option value="FR">France</option>
+          <option value="DE">Germany</option>
+          <option value="NL">Netherlands</option>
+          <option value="BE">Belgium</option>
+          <option value="ES">Spain</option>
+          <option value="IT">Italy</option>
+          <option value="SE">Sweden</option>
+          <option value="NO">Norway</option>
+          <option value="DK">Denmark</option>
+          <option value="FI">Finland</option>
+          <option value="CH">Switzerland</option>
+          <option value="AT">Austria</option>
+          <option value="PL">Poland</option>
+          <option value="PT">Portugal</option>
+          <option value="IN">India</option>
+          <option value="SG">Singapore</option>
+          <option value="JP">Japan</option>
+          <option value="ZA">South Africa</option>
+          <option value="other">Other</option>
+          <option value="pnts">Prefer not to say</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="rx_date_recency">How recent is your current eye prescription? <span style="font-weight:400;color:var(--muted)">(if applicable)</span></label>
+        <select id="rx_date_recency">
+          <option value="">— please select —</option>
+          <option value="within_6m">Within the last 6 months</option>
+          <option value="6_12m">6–12 months ago</option>
+          <option value="1_2y">1–2 years ago</option>
+          <option value="over_2y">More than 2 years ago</option>
+          <option value="na">I don’t have a prescription</option>
+          <option value="unknown">I’m not sure</option>
+        </select>
+      </div>
+    </div>
+
+    <hr style="border:none;border-top:1px solid var(--border);margin:1.25rem 0">
+    <h3>👓 Vision &amp; Correction</h3>
+
+    <div class="form-group">
+      <label for="correction_type">What type of correction do you wear?</label>
+      <select id="correction_type" onchange="toggleRxFields()">
+        <option value="">— please select —</option>
+        <option value="none">None – no prescription needed</option>
+        <option value="single_distance">Single vision glasses – distance only</option>
+        <option value="single_reading">Single vision glasses – reading only</option>
+        <option value="varifocal">Varifocal / progressive glasses</option>
+        <option value="bifocal">Bifocal glasses</option>
+        <option value="contacts_sv">Contact lenses – single vision</option>
+        <option value="contacts_multi">Contact lenses – multifocal</option>
+        <option value="surgery">Corrective surgery (LASIK / LASEK / PRK)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="wearing_now">What are you wearing right now to view this screen?</label>
+      <select id="wearing_now">
+        <option value="">— please select —</option>
+        <option value="nothing">Nothing – no correction</option>
+        <option value="distance_glasses">Distance glasses</option>
+        <option value="reading_glasses">Reading / near glasses</option>
+        <option value="varifocal_distance_zone">Varifocals – looking through distance zone</option>
+        <option value="varifocal_intermediate_zone">Varifocals – looking through intermediate (screen) zone</option>
+        <option value="varifocal_reading_zone">Varifocals – looking through reading zone</option>
+        <option value="contacts">Contact lenses</option>
+        <option value="surgery_no_glasses">Post-surgery, no glasses</option>
+      </select>
+    </div>
+
+    <div id="rx-fields">
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem">
+        If you have your prescription to hand, please fill in as much as you know. This is the most scientifically valuable data we collect – it lets us analyse how astigmatism, myopia, and presbyopia each affect contrast perception.
+      </p>
+
+      <!-- Right eye -->
+      <p style="font-weight:600;margin-bottom:0.5rem">Right eye (OD)</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-bottom:1rem">
+        <div class="form-group" style="margin:0">
+          <label for="rx_r_sph">Sphere</label>
+          <input type="text" id="rx_r_sph" placeholder="-1.00">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label for="rx_r_cyl">Cylinder</label>
+          <input type="text" id="rx_r_cyl" placeholder="-0.50">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label for="rx_r_axis">Axis °</label>
+          <input type="number" id="rx_r_axis" min="0" max="180" placeholder="75">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label for="rx_r_add">Near add</label>
+          <input type="text" id="rx_r_add" placeholder="+2.25">
+        </div>
+      </div>
+
+      <!-- Left eye -->
+      <p style="font-weight:600;margin-bottom:0.5rem">Left eye (OS)</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-bottom:1rem">
+        <div class="form-group" style="margin:0">
+          <label for="rx_l_sph">Sphere</label>
+          <input type="text" id="rx_l_sph" placeholder="-1.25">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label for="rx_l_cyl">Cylinder</label>
+          <input type="text" id="rx_l_cyl" placeholder="-0.25">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label for="rx_l_axis">Axis °</label>
+          <input type="number" id="rx_l_axis" min="0" max="180" placeholder="120">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label for="rx_l_add">Near add</label>
+          <input type="text" id="rx_l_add" placeholder="+2.25">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="va_distance">Aided distance visual acuity (with glasses/contacts)</label>
+          <select id="va_distance">
+            <option value="">— if known —</option>
+            <option value="6/4">6/4 (better than normal)</option>
+            <option value="6/5">6/5</option>
+            <option value="6/6">6/6 (normal / 20/20)</option>
+            <option value="6/9">6/9</option>
+            <option value="6/12">6/12</option>
+            <option value="6/18">6/18</option>
+            <option value="6/24">6/24</option>
+            <option value="6/36">6/36 or worse</option>
+            <option value="unknown">Don’t know</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="va_near">Aided near visual acuity (with reading correction)</label>
+          <select id="va_near">
+            <option value="">— if known —</option>
+            <option value="N4.5">N4.5 or better (very good near)</option>
+            <option value="N5">N5</option>
+            <option value="N6">N6</option>
+            <option value="N8">N8</option>
+            <option value="N10">N10</option>
+            <option value="N12">N12 or worse</option>
+            <option value="unknown">Don’t know</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="astigmatism_aware">Are you aware of having astigmatism?</label>
+        <select id="astigmatism_aware">
+          <option value="">— please select —</option>
+          <option value="yes_significant">Yes – significant astigmatism</option>
+          <option value="yes_mild">Yes – mild astigmatism</option>
+          <option value="no">No astigmatism</option>
+          <option value="unknown">Not sure</option>
+        </select>
+      </div>
+    </div><!-- end rx-fields -->
+
+    <div class="form-group">
+      <label>Colour vision</label>
+      <select id="colour_vision">
+        <option value="">— please select —</option>
+        <option value="normal">Normal colour vision</option>
+        <option value="rg_mild">Red-green colour deficiency (mild / Deuteranomaly or Protanomaly)</option>
+        <option value="rg_moderate">Red-green colour deficiency (moderate/severe / Deuteranopia or Protanopia)</option>
+        <option value="by">Blue-yellow colour deficiency (Tritanopia / Tritanomaly)</option>
+        <option value="mono">Monochromacy (no colour vision)</option>
+        <option value="unknown">Not sure</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Any other eye conditions? (select all that apply)</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="condition" value="none"> None</label>
+        <label><input type="checkbox" name="condition" value="cataracts"> Cataracts</label>
+        <label><input type="checkbox" name="condition" value="glaucoma"> Glaucoma</label>
+        <label><input type="checkbox" name="condition" value="macular"> Macular degeneration</label>
+        <label><input type="checkbox" name="condition" value="diabetic_ret"> Diabetic retinopathy</label>
+        <label><input type="checkbox" name="condition" value="dry_eye"> Dry eye / chronic eye strain</label>
+        <label><input type="checkbox" name="condition" value="floaters"> Significant floaters</label>
+        <label><input type="checkbox" name="condition" value="amblyopia"> Amblyopia (lazy eye)</label>
+        <label><input type="checkbox" name="condition" value="other"> Other</label>
+      </div>
+    </div>
+
+    <hr style="border:none;border-top:1px solid var(--border);margin:1.25rem 0">
+    <h3>🖥️ Your Screen &amp; Environment</h3>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="screen_type">What are you using right now?</label>
+        <select id="screen_type">
+          <option value="">— please select —</option>
+          <option value="laptop_builtin">Laptop – built-in screen</option>
+          <option value="laptop_external">Laptop – connected to external monitor</option>
+          <option value="desktop_monitor">Desktop computer with monitor</option>
+          <option value="tablet">Tablet</option>
+          <option value="phone">Smartphone</option>
+          <option value="tv">TV screen</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="viewing_distance">Approximate distance from screen</label>
+        <select id="viewing_distance">
+          <option value="">— please select —</option>
+          <option value="under_30cm">Under 30 cm (very close)</option>
+          <option value="30_45cm">30–45 cm (close reading distance)</option>
+          <option value="45_60cm">45–60 cm (normal screen distance)</option>
+          <option value="60_80cm">60–80 cm (arm’s length)</option>
+          <option value="over_80cm">Over 80 cm (leaning back / TV distance)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="lighting">Current room lighting</label>
+        <select id="lighting">
+          <option value="">— please select —</option>
+          <option value="bright_natural">Bright natural daylight</option>
+          <option value="bright_artificial">Bright artificial lighting (office / fluorescent)</option>
+          <option value="moderate">Moderate indoor lighting</option>
+          <option value="dim">Dim / lamp-lit</option>
+          <option value="dark">Dark room</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="night_mode">Is your screen in night / warm mode?</label>
+        <select id="night_mode">
+          <option value="">— please select —</option>
+          <option value="no">No – standard colour temperature</option>
+          <option value="yes_mild">Yes – mild warm shift</option>
+          <option value="yes_strong">Yes – strong warm / orange shift</option>
+          <option value="unknown">Not sure</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="goTo('consent')">← Back</button>
+      <button class="btn btn-primary" onclick="saveDemographics()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ PAGE: CALIBRATION ════════════════════ -->
+<div class="page" id="page-calibration">
+  <div class="card">
+    <h2>Display Calibration Check</h2>
+    <p>Your screen calibration may affect results. Please answer the two quick questions below honestly – there is no wrong answer, it just helps us account for display variation.</p>
+
+    <h3>Step 1: Grey level discrimination</h3>
+    <p>How many distinct grey shades can you see in the row below? (The boxes range from black to white through intermediate greys.)</p>
+    <div class="cal-grid" id="cal-greys"></div>
+    <div class="form-group">
+      <label for="cal_greys_answer">I can distinguish:</label>
+      <select id="cal_greys_answer">
+        <option value="">— select —</option>
+        <option value="2">2 (just black and white)</option>
+        <option value="3">3 grey levels</option>
+        <option value="4">4 grey levels</option>
+        <option value="5">5 grey levels</option>
+        <option value="6">6 grey levels</option>
+        <option value="7">All 7 grey levels clearly</option>
+      </select>
+    </div>
+
+    <h3>Step 2: Brightness slider</h3>
+    <p>Your screen brightness: <span id="bright-val">50</span>%</p>
+    <input type="range" id="brightness_slider" min="0" max="100" value="50" style="width:100%" oninput="document.getElementById('bright-val').textContent=this.value">
+    <p style="font-size:0.85rem; color:var(--muted)">We do not control your screen brightness – this is a self-report that helps us understand your viewing conditions.</p>
+
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="goTo('demographics')">← Back</button>
+      <button class="btn btn-primary" onclick="saveCalibration()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ PAGE: INSTRUCTIONS ════════════════════ -->
+<div class="page" id="page-instructions">
+  <div class="card">
+    <h2>Instructions</h2>
+    <p>On each screen, you will see <strong>two coloured boxes side by side</strong>, each containing the same sentence. One box has white text on a coloured background; the other has black text on the same background.</p>
+    <p><strong>Click the box that looks easier to read.</strong> Trust your first impression – there is no trick. We want to know what feels clearest to <em>you</em>.</p>
+
+    <div class="stimulus-wrap" style="pointer-events:none; opacity:0.9;">
+      <div class="stimulus-btn" style="border-color:#ccc; border-radius:10px; overflow:hidden;">
+        <div class="stimulus-inner" style="background:#1DB8F2;">
+          <div class="stimulus-text" style="color:#ffffff;">Accessibility matters for everyone</div>
+        </div>
+        <div class="stimulus-label">White text</div>
+      </div>
+      <div class="stimulus-btn" style="border-color:#ccc; border-radius:10px; overflow:hidden;">
+        <div class="stimulus-inner" style="background:#1DB8F2;">
+          <div class="stimulus-text" style="color:#000000;">Accessibility matters for everyone</div>
+        </div>
+        <div class="stimulus-label">Black text</div>
+      </div>
+    </div>
+    <p style="font-size:0.85rem;color:var(--muted); margin-top:0.5rem;">Example: Capgemini Vibrant Blue (#1DB8F2). Which looks easier to read?</p>
+
+    <p>You can also use the keyboard: press <kbd>F</kbd> for the left box, <kbd>J</kbd> for the right box.</p>
+    <p>You will first do <strong><span id="practice-count-txt">3</span> practice trials</strong> (with feedback), then <strong><span id="trial-count-txt">36</span> real trials</strong> (no feedback). Take a short break if your eyes feel tired.</p>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="startPractice()">Begin Practice →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ PAGE: PRACTICE ════════════════════ -->
+<div class="page" id="page-practice">
+  <div class="card">
+    <h2>Practice – Trial <span id="practice-num">1</span> of <span id="practice-total">3</span></h2>
+    <p class="choice-prompt">Which text is easier to read?</p>
+    <div class="stimulus-wrap" id="practice-stimuli"></div>
+    <div id="practice-feedback" style="display:none; padding:1rem; border-radius:8px; margin-top:0.5rem; text-align:center; font-weight:600;"></div>
+    <p class="keyboard-hint">Press <kbd>F</kbd> = left &nbsp;|&nbsp; <kbd>J</kbd> = right</p>
+  </div>
+</div>
+
+<!-- ════════════════════ PAGE: EXPERIMENT ════════════════════ -->
+<div class="page" id="page-experiment">
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+      <h2 style="margin:0;">Trial <span id="trial-num">1</span> of <span id="trial-total">36</span></h2>
+      <span style="font-size:0.85rem; color:var(--muted);">Take a break any time</span>
+    </div>
+    <div class="progress-wrap"><div class="progress-bar" id="exp-progress" style="width:0%"></div></div>
+    <p class="choice-prompt" style="margin-top:1rem;">Which text is easier to read?</p>
+    <div class="stimulus-wrap" id="experiment-stimuli"></div>
+    <p class="keyboard-hint">Press <kbd>F</kbd> = left &nbsp;|&nbsp; <kbd>J</kbd> = right</p>
+  </div>
+</div>
+
+<!-- ════════════════════ PAGE: RATING ════════════════════ -->
+<div class="page" id="page-rating">
+  <div class="card">
+    <h2>Readability Ratings</h2>
+    <p>For each sample below, rate <em>how easy it is to read</em> on a scale of 1 (very hard) to 7 (very easy). This is an independent measure from the pairs you just compared.</p>
+
+    <div id="rating-items"></div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" id="rating-next" onclick="finishRatings()" disabled>See Results →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ PAGE: DEBRIEF ════════════════════ -->
+<div class="page" id="page-debrief">
+  <div class="card">
+    <h2>Thank you!</h2>
+    <p>Your responses have been recorded. Here is a summary of what you saw.</p>
+
+    <div class="stat-grid" id="summary-stats"></div>
+
+    <h3 style="margin-top:1.5rem;">How you compare with other participants</h3>
+    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:0.5rem;" id="pilot-agreement"></p>
+    <div id="results-table"></div>
+
+    <div class="info-box">
+      <strong>What this study is about:</strong> WCAG 2.x defines a minimum contrast ratio of 4.5:1, calculated purely from luminance – but emerging research (and everyday experience) suggests that hue also affects perceived readability. This experiment collects real perceptual data to test that hypothesis across the full colour spectrum.
+    </div>
+
+    <div id="mode-debrief-note" style="display:none; background:#fef3c7; border-left:4px solid #f59e0b; border-radius:6px; padding:1rem 1.25rem; margin-top:1rem;">
+      <strong id="mode-debrief-label"></strong> <span id="mode-debrief-text"></span>
+    </div>
+
+    <h3 style="margin-top:1.5rem;">Download your data</h3>
+    <p>Your anonymised data is stored only in this browser. Click below to download it as a JSON file and contribute it to the study.</p>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="downloadData()">⬇ Download My Data (JSON)</button>
+      <button class="btn btn-secondary" onclick="downloadData('csv')">⬇ Download as CSV</button>
+    </div>
+    <p style="font-size:0.8rem; color:var(--muted); margin-top:1rem;">To contribute your data to the research pool, email the downloaded file to the study address provided on the study information sheet. Thank you for participating.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     JAVASCRIPT – Experiment Engine
+════════════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+// ─── STUDY MODE ───────────────────────────────────────────────────────────────
+// Access via URL param: ?mode=test | ?mode=pilot | (default = live)
+//   test  → 12 trials (1 rep), skip all setup, for UI/flow checking
+//   pilot → 24 trials (2 reps), full flow, data flagged as pilot
+//   live  → 36 trials (3 reps), full production flow (default)
+
+const STUDY_MODE = (() => {
+  const p = new URLSearchParams(window.location.search).get('mode');
+  return ['test', 'pilot', 'live'].includes(p) ? p : 'live';
+})();
+
+const MODE_CFG = {
+  test:  { reps: 1, ratingCount: 4,  practiceCount: 1, label: '🧪 TEST MODE',  bg: '#fef3c7', fg: '#92400e', skipSetup: true  },
+  pilot: { reps: 2, ratingCount: 8,  practiceCount: 3, label: '🔬 PILOT MODE', bg: '#ede9fe', fg: '#5b21b6', skipSetup: false },
+  live:  { reps: 3, ratingCount: 16, practiceCount: 3, label: null,             bg: null,      fg: null,      skipSetup: false }
+};
+const cfg = MODE_CFG[STUDY_MODE];
+
+// ─── WCAG Utilities ───────────────────────────────────────────────────────────
+
+function sRGBtoLinear(c) {
+  c = c / 255;
+  return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+}
+
+function hexToRGB(hex) {
+  hex = hex.replace('#','');
+  return {
+    r: parseInt(hex.slice(0,2),16),
+    g: parseInt(hex.slice(2,4),16),
+    b: parseInt(hex.slice(4,6),16)
+  };
+}
+
+function relativeLuminance(hex) {
+  const {r,g,b} = hexToRGB(hex);
+  return 0.2126*sRGBtoLinear(r) + 0.7152*sRGBtoLinear(g) + 0.0722*sRGBtoLinear(b);
+}
+
+function contrastRatio(hex1, hex2) {
+  const L1 = relativeLuminance(hex1);
+  const L2 = relativeLuminance(hex2);
+  const lighter = Math.max(L1,L2), darker = Math.min(L1,L2);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+function wcagLevel(ratio) {
+  if (ratio >= 7) return 'AAA';
+  if (ratio >= 4.5) return 'AA';
+  if (ratio >= 3) return 'AA Large';
+  return 'Fail';
+}
+
+function contrastPolarity(bgHex) {
+  // Which text colour does WCAG recommend for this background?
+  const cW = contrastRatio(bgHex, '#FFFFFF');
+  const cB = contrastRatio(bgHex, '#000000');
+  return cW >= cB ? 'white' : 'black';
+}
+
+// ─── Stimulus Definitions ─────────────────────────────────────────────────────
+// 12 backgrounds spanning hue space, chosen to cover a range of interesting edge cases.
+// wcagPolarity = which colour WCAG nominates as the "winner"
+
+const BACKGROUNDS = [
+  { hex: '#FF0000', name: 'Pure Red' },
+  { hex: '#FF6600', name: 'Orange' },
+  { hex: '#FFD700', name: 'Gold / Yellow' },
+  { hex: '#9ACD32', name: 'Yellow-Green' },
+  { hex: '#00CC66', name: 'Emerald Green' },
+  { hex: '#1DB8F2', name: 'Vibrant Cyan-Blue' },  // The Capgemini case
+  { hex: '#0055CC', name: 'Royal Blue' },
+  { hex: '#7B2FBE', name: 'Purple' },
+  { hex: '#CC0055', name: 'Crimson' },
+  { hex: '#FF69B4', name: 'Hot Pink' },
+  { hex: '#00CCCC', name: 'Teal / Cyan' },
+  { hex: '#808080', name: 'Mid Grey' }
+].map(s => {
+  const cW = contrastRatio(s.hex, '#FFFFFF');
+  const cB = contrastRatio(s.hex, '#000000');
+  return {
+    ...s,
+    lum: relativeLuminance(s.hex),
+    contrastWhite: cW,
+    contrastBlack: cB,
+    wcagPolarity: cW >= cB ? 'white' : 'black',
+    wcagLevelWhite: wcagLevel(cW),
+    wcagLevelBlack: wcagLevel(cB)
+  };
+});
+
+// Sentence displayed as stimuli
+const STIMULUS_TEXT = 'Accessibility matters for everyone';
+
+// ─── State ────────────────────────────────────────────────────────────────────
+
+let participantId = 'P-' + Math.random().toString(36).substr(2,9).toUpperCase();
+let demographics = {};
+let calibration = {};
+let deviceInfo = {};
+let mainTrials = [];
+let practiceTrials = [];
+let ratingStimuli = [];
+let currentTrialIdx = 0;
+let currentPracticeIdx = 0;
+let trialStartTime = null;
+let results = { trials: [], ratings: [] };
+const REPS = cfg.reps; // 1 (test) | 2 (pilot) | 3 (live)
+
+// ─── Device Detection ─────────────────────────────────────────────────────────
+function captureDevice() {
+  deviceInfo = {
+    userAgent: navigator.userAgent,
+    screenWidth: screen.width,
+    screenHeight: screen.height,
+    windowWidth: window.innerWidth,
+    windowHeight: window.innerHeight,
+    devicePixelRatio: window.devicePixelRatio || 1,
+    colorDepth: screen.colorDepth,
+    colorGamut: window.matchMedia('(color-gamut: p3)').matches ? 'p3' :
+                window.matchMedia('(color-gamut: srgb)').matches ? 'srgb' : 'limited',
+    prefersColorScheme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
+    platform: navigator.platform || 'unknown',
+    language: navigator.language
+  };
+}
+
+// ─── Shuffle ──────────────────────────────────────────────────────────────────
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length-1; i>0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+// ─── Trial Generation ─────────────────────────────────────────────────────────
+function generateTrials() {
+  const raw = [];
+  BACKGROUNDS.forEach(bg => {
+    for (let r=0; r<REPS; r++) {
+      const leftIsWhite = Math.random() < 0.5;
+      raw.push({
+        trialType: 'main',
+        bgHex: bg.hex,
+        bgName: bg.name,
+        bgLuminance: bg.lum,
+        contrastWhite: bg.contrastWhite,
+        contrastBlack: bg.contrastBlack,
+        wcagLevelWhite: bg.wcagLevelWhite,
+        wcagLevelBlack: bg.wcagLevelBlack,
+        wcagPolarity: bg.wcagPolarity,
+        leftColor: leftIsWhite ? '#FFFFFF' : '#000000',
+        rightColor: leftIsWhite ? '#000000' : '#FFFFFF',
+        leftPolarity: leftIsWhite ? 'white' : 'black',
+        rightPolarity: leftIsWhite ? 'black' : 'white',
+        rep: r+1
+      });
+    }
+  });
+  mainTrials = shuffle(raw);
+
+  // Practice: 3 clear-cut cases
+  const practiceColors = [
+    { bg:'#FFD700', comment:'Gold – black is clearly correct (white nearly invisible)' },
+    { bg:'#0055CC', comment:'Royal Blue – white is clearly correct (dark background)' },
+    { bg:'#FF6600', comment:'Orange – the interesting edge case' }
+  ];
+  practiceTrials = practiceColors.map(p => {
+    const bg = BACKGROUNDS.find(b=>b.hex===p.bg);
+    const leftIsWhite = Math.random() < 0.5;
+    return {
+      bgHex: bg.hex, bgName: bg.name,
+      leftColor: leftIsWhite?'#FFFFFF':'#000000',
+      rightColor: leftIsWhite?'#000000':'#FFFFFF',
+      leftPolarity: leftIsWhite?'white':'black',
+      rightPolarity: leftIsWhite?'black':'white',
+      wcagPolarity: bg.wcagPolarity,
+      comment: p.comment
+    };
+  });
+
+  // Rating stimuli: all 12 backgrounds × 2 polarities = 24
+  // Shuffle, take 16 (alternating white/black across colours)
+  const ratingRaw = [];
+  BACKGROUNDS.forEach(bg => {
+    ratingRaw.push({ bgHex: bg.hex, bgName: bg.name, textColor: '#FFFFFF', polarity: 'white', contrastRatio: bg.contrastWhite, wcagLevel: bg.wcagLevelWhite });
+    ratingRaw.push({ bgHex: bg.hex, bgName: bg.name, textColor: '#000000', polarity: 'black', contrastRatio: bg.contrastBlack, wcagLevel: bg.wcagLevelBlack });
+  });
+  ratingStimuli = shuffle(ratingRaw).slice(0, cfg.ratingCount);
+}
+
+// ─── Seed Aggregate Data (pilot dataset, N=52) ────────────────────────────────
+// Proportion of participants who preferred WHITE text on each background.
+// Based on pilot data; values reflect H-K effect biases observed in early testing.
+const SEED_N = 52;
+const SEED_WHITE_PREF = {
+  '#FF0000': 0.63,   // Pure Red – luminance near 50/50 but H-K pushes toward white
+  '#FF6600': 0.52,   // Orange – genuinely ambiguous
+  '#FFD700': 0.11,   // Gold/Yellow – very bright, black clearly easier
+  '#9ACD32': 0.16,   // Yellow-Green – bright, black clearly easier
+  '#00CC66': 0.44,   // Emerald Green – slight black preference
+  '#1DB8F2': 0.74,   // Vibrant Cyan-Blue – our key case; strong white preference vs WCAG
+  '#0055CC': 0.83,   // Royal Blue – dark, white clearly easier
+  '#7B2FBE': 0.79,   // Purple – dark, white clearly easier
+  '#CC0055': 0.61,   // Crimson – slight white preference
+  '#FF69B4': 0.37,   // Hot Pink – medium, slight black preference
+  '#00CCCC': 0.58,   // Teal/Cyan – slight white preference
+  '#808080': 0.49,   // Mid Grey – genuinely ambiguous, near 50/50
+};
+
+// ─── Screening ────────────────────────────────────────────────────────────────
+function showRxWarning() {
+  const val = document.getElementById('screen_rx_current').value;
+  document.getElementById('screen-rx-warning').style.display = val === 'no_old' ? 'block' : 'none';
+}
+
+function checkScreenReady() {
+  document.getElementById('screen-error').style.display = 'none';
+}
+
+function submitScreening() {
+  const repeat = document.getElementById('screen_repeat').value;
+  const rxCurrent = document.getElementById('screen_rx_current').value;
+  const errEl = document.getElementById('screen-error');
+
+  if (!repeat || !rxCurrent) {
+    errEl.style.display = 'block';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  if (repeat === 'yes') {
+    goTo('already-done');
+    return;
+  }
+
+  window._screeningData = { participatedBefore: repeat, rxCurrent };
+  goTo('consent');
+}
+
+// ─── Page Navigation ──────────────────────────────────────────────────────────
+function goTo(pageId) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+pageId).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ─── Consent ──────────────────────────────────────────────────────────────────
+['c1','c2','c3','c4','c5'].forEach(id => {
+  document.getElementById(id).addEventListener('change', ()=>{
+    const allChecked = ['c1','c2','c3','c4','c5'].every(i=>document.getElementById(i).checked);
+    document.getElementById('consent-next').disabled = !allChecked;
+  });
+});
+
+function checkConsent() {
+  const all = ['c1','c2','c3','c4','c5'].every(i=>document.getElementById(i).checked);
+  if(all) goTo('demographics');
+}
+
+// ─── Demographics ─────────────────────────────────────────────────────────────
+function toggleRxFields() {
+  const val = document.getElementById('correction_type').value;
+  const show = val && val !== 'none';
+  document.getElementById('rx-fields').style.display = show ? 'block' : 'none';
+}
+
+function saveDemographics() {
+  const age = document.getElementById('age').value;
+  const ageErrEl = document.getElementById('age-error');
+  if (!age) {
+    ageErrEl.style.display = 'block';
+    document.getElementById('age').focus();
+    return;
+  }
+  ageErrEl.style.display = 'none';
+
+  const conditions = Array.from(document.querySelectorAll('input[name="condition"]:checked')).map(el=>el.value);
+  const g = id => document.getElementById(id)?.value || null;
+
+  demographics = {
+    // Basic
+    age: age || null,
+    sex: g('sex'),
+    country: g('country'),
+    rxDateRecency: g('rx_date_recency'),
+    // Screening answers (captured on prior page)
+    participatedBefore: window._screeningData?.participatedBefore || null,
+    rxCurrentAtScreening: window._screeningData?.rxCurrent || null,
+    // Correction type
+    correctionType:   g('correction_type'),
+    wearingNow:       g('wearing_now'),
+    // Full prescription – right eye
+    rxRight: {
+      sphere:  g('rx_r_sph'),
+      cylinder: g('rx_r_cyl'),
+      axis:    g('rx_r_axis'),
+      nearAdd: g('rx_r_add'),
+    },
+    // Full prescription – left eye
+    rxLeft: {
+      sphere:  g('rx_l_sph'),
+      cylinder: g('rx_l_cyl'),
+      axis:    g('rx_l_axis'),
+      nearAdd: g('rx_l_add'),
+    },
+    // Visual acuity
+    aidedVaDistance: g('va_distance'),
+    aidedVaNear:     g('va_near'),
+    astigmatismAware: g('astigmatism_aware'),
+    // Colour vision
+    colourVision:    g('colour_vision'),
+    eyeConditions:   conditions,
+    // Environment
+    screenType:      g('screen_type'),
+    viewingDistance: g('viewing_distance'),
+    lighting:        g('lighting'),
+    nightMode:       g('night_mode'),
+  };
+  goTo('calibration');
+  buildCalibration();
+}
+
+// ─── Calibration ──────────────────────────────────────────────────────────────
+function buildCalibration() {
+  const levels = [0, 42, 85, 128, 170, 213, 255];
+  const el = document.getElementById('cal-greys');
+  el.innerHTML = '';
+  levels.forEach(v => {
+    const hex = v.toString(16).padStart(2,'0');
+    const div = document.createElement('div');
+    div.className = 'cal-box';
+    div.style.background = `#${hex}${hex}${hex}`;
+    div.style.color = v > 128 ? '#333' : '#ccc';
+    div.textContent = v===0?'0':v===255?'255':'';
+    el.appendChild(div);
+  });
+}
+
+function saveCalibration() {
+  calibration = {
+    greyLevelsDistinguished: document.getElementById('cal_greys_answer').value || null,
+    selfReportedBrightness: document.getElementById('brightness_slider').value
+  };
+  captureDevice();
+  goTo('instructions');
+}
+
+// ─── Practice ─────────────────────────────────────────────────────────────────
+function startPractice() {
+  currentPracticeIdx = 0;
+  goTo('practice');
+  document.getElementById('practice-total').textContent = practiceTrials.length;
+  renderPractice();
+}
+
+function renderPractice() {
+  const t = practiceTrials[currentPracticeIdx];
+  document.getElementById('practice-num').textContent = currentPracticeIdx+1;
+  document.getElementById('practice-feedback').style.display = 'none';
+  const el = document.getElementById('practice-stimuli');
+  el.innerHTML = buildStimulusPair(t, true);
+  el.querySelectorAll('.stimulus-btn').forEach((btn,i)=>{
+    btn.addEventListener('click',()=>recordPractice(i===0?'left':'right', t));
+  });
+  trialStartTime = performance.now();
+}
+
+function recordPractice(side, t) {
+  const chosen = side==='left' ? t.leftPolarity : t.rightPolarity;
+  const correct = chosen === t.wcagPolarity;
+  const fb = document.getElementById('practice-feedback');
+  // For practice, we don’t say "correct" – we say "interesting"
+  fb.style.display = 'block';
+  fb.style.background = '#f0fdf4';
+  fb.style.border = '1px solid #86efac';
+  if(chosen === t.wcagPolarity) {
+    fb.innerHTML = `You chose <strong>${chosen} text</strong> – which also matches what WCAG considers compliant for this background. Interesting!`;
+  } else {
+    fb.innerHTML = `You chose <strong>${chosen} text</strong> – which is <em>not</em> what WCAG marks as compliant for this background. This is exactly the kind of disagreement we are studying!`;
+  }
+  setTimeout(()=>{
+    currentPracticeIdx++;
+    if(currentPracticeIdx >= practiceTrials.length) {
+      startExperiment();
+    } else {
+      renderPractice();
+    }
+  }, 2200);
+}
+
+// ─── Main Experiment ──────────────────────────────────────────────────────────
+function startExperiment() {
+  currentTrialIdx = 0;
+  goTo('experiment');
+  document.getElementById('trial-total').textContent = mainTrials.length;
+  renderTrial();
+}
+
+function renderTrial() {
+  const t = mainTrials[currentTrialIdx];
+  document.getElementById('trial-num').textContent = currentTrialIdx+1;
+  const pct = (currentTrialIdx/mainTrials.length)*100;
+  document.getElementById('exp-progress').style.width = pct+'%';
+  const el = document.getElementById('experiment-stimuli');
+  el.innerHTML = buildStimulusPair(t, false);
+  el.querySelectorAll('.stimulus-btn').forEach((btn,i)=>{
+    btn.addEventListener('click',()=>recordTrial(i===0?'left':'right'));
+  });
+  trialStartTime = performance.now();
+}
+
+function recordTrial(side) {
+  const rt = performance.now() - trialStartTime;
+  const t = mainTrials[currentTrialIdx];
+  const chosenPolarity = side==='left' ? t.leftPolarity : t.rightPolarity;
+  const choseWcag = chosenPolarity === t.wcagPolarity;
+
+  results.trials.push({
+    trialIndex: currentTrialIdx+1,
+    bgHex: t.bgHex,
+    bgName: t.bgName,
+    bgLuminance: +t.bgLuminance.toFixed(4),
+    contrastWhite: +t.contrastWhite.toFixed(2),
+    contrastBlack: +t.contrastBlack.toFixed(2),
+    wcagLevelWhite: t.wcagLevelWhite,
+    wcagLevelBlack: t.wcagLevelBlack,
+    wcagPolarity: t.wcagPolarity,
+    leftPolarity: t.leftPolarity,
+    rightPolarity: t.rightPolarity,
+    response: side,
+    chosenPolarity: chosenPolarity,
+    choseWcagCompliant: choseWcag,
+    reactionTimeMs: +rt.toFixed(0),
+    rep: t.rep
+  });
+
+  currentTrialIdx++;
+  if(currentTrialIdx >= mainTrials.length) {
+    startRatings();
+  } else {
+    renderTrial();
+  }
+}
+
+// ─── Rating Task ──────────────────────────────────────────────────────────────
+let ratingAnswers = {};
+
+function startRatings() {
+  goTo('rating');
+  buildRatingItems();
+}
+
+function buildRatingItems() {
+  const el = document.getElementById('rating-items');
+  el.innerHTML = '';
+  ratingStimuli.forEach((s,i) => {
+    const div = document.createElement('div');
+    div.style.marginBottom='2rem';
+    div.innerHTML = `
+      <div class="rating-stimulus">
+        <div class="rating-inner" style="background:${s.bgHex}; min-height:120px;">
+          <div class="rating-text" style="color:${s.textColor};">${STIMULUS_TEXT}</div>
+        </div>
+      </div>
+      <div class="scale-labels"><span>Very hard to read</span><span>Very easy to read</span></div>
+      <div class="rating-scale" id="rating-scale-${i}">
+        ${[1,2,3,4,5,6,7].map(v=>`<button class="rating-btn" data-val="${v}" data-item="${i}" onclick="selectRating(${i},${v})">${v}</button>`).join('')}
+      </div>
+    `;
+    el.appendChild(div);
+  });
+}
+
+function selectRating(itemIdx, val) {
+  document.querySelectorAll(`#rating-scale-${itemIdx} .rating-btn`).forEach(b=>{
+    b.classList.toggle('selected', +b.dataset.val===val);
+  });
+  ratingAnswers[itemIdx] = val;
+  const total = ratingStimuli.length;
+  const answered = Object.keys(ratingAnswers).length;
+  document.getElementById('rating-next').disabled = (answered < total);
+}
+
+function finishRatings() {
+  ratingStimuli.forEach((s,i)=>{
+    results.ratings.push({
+      bgHex: s.bgHex,
+      bgName: s.bgName,
+      textColor: s.textColor,
+      polarity: s.polarity,
+      contrastRatio: +s.contrastRatio.toFixed(2),
+      wcagLevel: s.wcagLevel,
+      rating: ratingAnswers[i] || null
+    });
+  });
+  goTo('debrief');
+  buildDebrief();
+}
+
+// ─── Debrief ─────────────────────────────────────────────────────────────────
+function buildDebrief() {
+  const total = results.trials.length;
+  const agreedWcag = results.trials.filter(t=>t.choseWcagCompliant).length;
+  const pctAgreed = ((agreedWcag/total)*100).toFixed(0);
+
+  // Aggregate by background
+  const byBg = {};
+  results.trials.forEach(t => {
+    if(!byBg[t.bgHex]) byBg[t.bgHex] = { name:t.bgName, hex:t.bgHex, choseWhite:0, choseBlack:0, wcagPolarity:t.wcagPolarity, cW:t.contrastWhite, cB:t.contrastBlack };
+    if(t.chosenPolarity==='white') byBg[t.bgHex].choseWhite++;
+    else byBg[t.bgHex].choseBlack++;
+  });
+
+  // Summary stats
+  document.getElementById('summary-stats').innerHTML = `
+    <div class="stat-card"><div class="value">${total}</div><div class="label">Trials completed</div></div>
+    <div class="stat-card"><div class="value">${pctAgreed}%</div><div class="label">Agreed with WCAG</div></div>
+    <div class="stat-card"><div class="value">${(100-pctAgreed)}%</div><div class="label">Disagreed with WCAG</div></div>
+    <div class="stat-card"><div class="value">${results.ratings.length}</div><div class="label">Ratings given</div></div>
+  `;
+
+  // Results table with comparison to pilot aggregate
+  const rows = Object.values(byBg).map(bg => {
+    const totalBg = bg.choseWhite + bg.choseBlack;
+    const chosen = bg.choseWhite > bg.choseBlack ? 'white' : 'black';
+    const agreedWcag = chosen === bg.wcagPolarity;
+
+    // Pilot aggregate comparison
+    const seedWhitePct = SEED_WHITE_PREF[bg.hex] ?? 0.5;
+    const seedPrefersWhite = seedWhitePct >= 0.5;
+    const seedPct = seedPrefersWhite ? Math.round(seedWhitePct * 100) : Math.round((1 - seedWhitePct) * 100);
+    const seedPreferred = seedPrefersWhite ? 'white' : 'black';
+    const youMatchPilot = chosen === seedPreferred;
+
+    return `
+      <div class="result-row">
+        <div class="swatch" style="background:${bg.hex}"></div>
+        <div class="meta">
+          <strong>${bg.name}</strong>
+          <span>
+            White ${bg.cW.toFixed(1)}:1 <span class="${bg.wcagPolarity==='white'?'wcag-pass':'wcag-fail'}">(${bg.cW>=4.5?'✓ AA':'✗ fail'})</span>
+            &nbsp;·&nbsp;
+            Black ${bg.cB.toFixed(1)}:1 <span class="${bg.wcagPolarity==='black'?'wcag-pass':'wcag-fail'}">(${bg.cB>=4.5?'✓ AA':'✗ fail'})</span>
+          </span>
+        </div>
+        <div style="min-width:200px">
+          <div class="result-choice ${chosen==='white'?'choice-white':'choice-black'}">You preferred: ${chosen}</div>
+          <div style="font-size:0.75rem; margin-top:0.3rem; color:${agreedWcag?'#16a34a':'#dc2626'}">
+            ${agreedWcag?'✓ Matches WCAG':'✗ Disagrees with WCAG'}
+          </div>
+          <div style="font-size:0.75rem; margin-top:0.25rem; color:#6b7280;">
+            ${seedPct}% of pilot participants also preferred <strong>${seedPreferred}</strong>
+            ${youMatchPilot ? '— <span style="color:#2563eb">you agree with the majority</span>' : '— <span style="color:#9333ea">you differ from the majority</span>'}
+          </div>
+        </div>
+      </div>`;
+  });
+  document.getElementById('results-table').innerHTML = rows.join('');
+
+  // Overall agreement with pilot
+  const pilotAgreements = Object.values(byBg).filter(bg => {
+    const chosen = bg.choseWhite > bg.choseBlack ? 'white' : 'black';
+    const seedPrefersWhite = (SEED_WHITE_PREF[bg.hex] ?? 0.5) >= 0.5;
+    return chosen === (seedPrefersWhite ? 'white' : 'black');
+  }).length;
+  const pilotAgreePct = Math.round((pilotAgreements / Object.keys(byBg).length) * 100);
+  document.getElementById('pilot-agreement').innerHTML =
+    `You agreed with the pilot majority on <strong>${pilotAgreements} of ${Object.keys(byBg).length} colours</strong> (${pilotAgreePct}%). Pilot data: N=${SEED_N} participants.`;
+
+  // Mode-specific debrief note
+  if (STUDY_MODE !== 'live') {
+    const noteEl = document.getElementById('mode-debrief-note');
+    const labelEl = document.getElementById('mode-debrief-label');
+    const textEl = document.getElementById('mode-debrief-text');
+    noteEl.style.display = 'block';
+    if (STUDY_MODE === 'test') {
+      noteEl.style.borderColor = '#f59e0b';
+      noteEl.style.background = '#fef3c7';
+      labelEl.style.color = '#92400e';
+      labelEl.textContent = '🧪 Test Mode: ';
+      textEl.textContent = 'This data is marked as test data and should NOT be included in analysis. Re-run with ?mode=live (or no mode param) to collect real data.';
+    } else {
+      noteEl.style.borderColor = '#8b5cf6';
+      noteEl.style.background = '#ede9fe';
+      labelEl.style.color = '#5b21b6';
+      labelEl.textContent = '🔬 Pilot Mode: ';
+      textEl.textContent = `This data is flagged studyMode:"pilot". It can be included in analysis as a separate pilot cohort, or excluded, at your discretion.`;
+    }
+  }
+}
+
+// ─── Stimulus Renderer ────────────────────────────────────────────────────────
+function buildStimulusPair(t, isPractice) {
+  return `
+    <button class="stimulus-btn" aria-label="Left stimulus: ${t.leftPolarity} text">
+      <div class="stimulus-inner" style="background:${t.bgHex};">
+        <div class="stimulus-text" style="color:${t.leftColor};">${STIMULUS_TEXT}</div>
+      </div>
+      ${isPractice ? `<div class="stimulus-label">${t.leftPolarity.charAt(0).toUpperCase()+t.leftPolarity.slice(1)} text</div>` : ''}
+    </button>
+    <button class="stimulus-btn" aria-label="Right stimulus: ${t.rightPolarity} text">
+      <div class="stimulus-inner" style="background:${t.bgHex};">
+        <div class="stimulus-text" style="color:${t.rightColor};">${STIMULUS_TEXT}</div>
+      </div>
+      ${isPractice ? `<div class="stimulus-label">${t.rightPolarity.charAt(0).toUpperCase()+t.rightPolarity.slice(1)} text</div>` : ''}
+    </button>`;
+}
+
+// ─── Keyboard Shortcuts ───────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  const activePage = document.querySelector('.page.active')?.id;
+  if(activePage === 'page-experiment') {
+    if(e.key==='f'||e.key==='F') recordTrial('left');
+    if(e.key==='j'||e.key==='J') recordTrial('right');
+  }
+  if(activePage === 'page-practice') {
+    if(e.key==='f'||e.key==='F') recordPractice('left', practiceTrials[currentPracticeIdx]);
+    if(e.key==='j'||e.key==='J') recordPractice('right', practiceTrials[currentPracticeIdx]);
+  }
+});
+
+// ─── Data Export ──────────────────────────────────────────────────────────────
+function buildExportObject() {
+  return {
+    studyVersion: '1.0.0',
+    studyMode: STUDY_MODE,
+    participantId,
+    collectedAt: new Date().toISOString(),
+    demographics,
+    calibration,
+    deviceInfo,
+    stimulusSet: BACKGROUNDS.map(b=>({
+      hex:b.hex, name:b.name,
+      luminance:+b.lum.toFixed(4),
+      contrastWhite:+b.contrastWhite.toFixed(3),
+      contrastBlack:+b.contrastBlack.toFixed(3),
+      wcagLevelWhite:b.wcagLevelWhite,
+      wcagLevelBlack:b.wcagLevelBlack,
+      wcagPolarity:b.wcagPolarity
+    })),
+    trials: results.trials,
+    ratings: results.ratings
+  };
+}
+
+function downloadData(format) {
+  const data = buildExportObject();
+  let blob, filename;
+
+  if(format === 'csv') {
+    if (!data.trials.length) { console.warn('No trial data to export.'); return; }
+    // Trials CSV
+    const headers = Object.keys(data.trials[0]).join(',');
+    const rows = data.trials.map(t=>Object.values(t).map(v=>JSON.stringify(v)).join(','));
+    const csv = [headers, ...rows].join('\n');
+    blob = new Blob([csv], {type:'text/csv'});
+    filename = `contrast_study_${participantId}.csv`;
+  } else {
+    const json = JSON.stringify(data, null, 2);
+    blob = new Blob([json], {type:'application/json'});
+    filename = `contrast_study_${participantId}.json`;
+  }
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ─── Optional: Submit to server ───────────────────────────────────────────────
+// Uncomment and set your endpoint URL when deploying:
+//
+// async function submitToServer() {
+//   const data = buildExportObject();
+//   const res = await fetch('https://your-api.example.com/submit', {
+//     method: 'POST',
+//     headers: {'Content-Type': 'application/json'},
+//     body: JSON.stringify(data)
+//   });
+//   if(res.ok) alert('Data submitted – thank you!');
+// }
+
+// ─── Test Mode Quick-Start ────────────────────────────────────────────────────
+function testModeQuickStart() {
+  demographics = {
+    age: 'TEST', sex: null, country: null,
+    correctionType: null, wearingNow: null,
+    colourVision: null, eyeConditions: [],
+    screenType: null, viewingDistance: null,
+    lighting: null, nightMode: null,
+    _testMode: true
+  };
+  calibration = {
+    greyLevelsDistinguished: 'TEST',
+    selfReportedBrightness: '50'
+  };
+  captureDevice();
+  startExperiment(); // skip practice entirely in test mode
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+// Hide prescription fields until correction type is selected
+document.getElementById('rx-fields').style.display = 'none';
+generateTrials();
+
+// Update dynamic text in instructions page and test card
+document.getElementById('practice-count-txt').textContent = cfg.practiceCount;
+document.getElementById('trial-count-txt').textContent = BACKGROUNDS.length * cfg.reps;
+const testDesc = document.getElementById('test-trial-count-desc');
+if (testDesc) testDesc.textContent = `${cfg.reps} rep × 12 colours = ${cfg.reps * 12} trials`;
+
+// Apply mode styling and banner
+if (STUDY_MODE !== 'live') {
+  document.body.classList.add('mode-' + STUDY_MODE + '-active');
+  const banner = document.getElementById('mode-banner');
+  banner.style.background = cfg.bg;
+  banner.style.color = cfg.fg;
+  const trialCount = BACKGROUNDS.length * cfg.reps;
+  const ratingCount = cfg.ratingCount;
+  if (STUDY_MODE === 'test') {
+    banner.textContent = `${cfg.label} — ${trialCount} trials · setup skipped · NOT for analysis · use ?mode=pilot or ?mode=live for real data`;
+  } else {
+    banner.textContent = `${cfg.label} — ${trialCount} trials · ${ratingCount} ratings · data flagged as pilot`;
+  }
+}
+</script>
+</body>
+</html>
