@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colour Contrast Perception Study</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand: #1a1a2e;
+      --accent: #e94560;
+      --surface: #ffffff;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --radius: 10px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    html, body { overflow-x: hidden; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f9fafb;
+      color: #111827;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { display: none; width: 100%; max-width: 860px; padding: 2rem 1rem; }
+    .page.active { display: block; }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 { font-size: 2rem; font-weight: 700; color: var(--brand); margin-bottom: 0.5rem; }
+    h2 { font-size: 1.5rem; font-weight: 600; color: var(--brand); margin-bottom: 1rem; }
+    h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
+    p { line-height: 1.7; color: #374151; margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    .subtitle { font-size: 1.05rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+    .badge {
+      display: inline-block;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+    }
+    .btn-primary { background: var(--brand); color: #fff; }
+    .btn-primary:hover { background: #16213e; transform: translateY(-1px); }
+    .btn-secondary { background: var(--border); color: var(--brand); }
+    .btn-secondary:hover { background: #d1d5db; }
+    .btn-accent { background: var(--accent); color: #fff; }
+    .btn-accent:hover { background: #c73652; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-group { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
+
+    .form-group { margin-bottom: 1.25rem; }
+    label { display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem; }
+    select, input[type="number"], input[type="text"] {
+      width: 100%; padding: 0.65rem 1rem;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: 0.95rem; background: #fff;
+      transition: border-color 0.15s;
+      font-family: inherit;
+    }
+    select {
+      -webkit-appearance: none;
+      appearance: none;
+      padding-right: 2.5rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.85rem center;
+      cursor: pointer;
+    }
+    select:focus, input:focus { outline: none; border-color: var(--brand); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 2rem; }
+    .form-row .form-group { display: block; margin-bottom: 0; }
+    .form-row .form-group label { display: block; margin-bottom: 0.4rem; }
+    .form-row .form-group select,
+    .form-row .form-group input[type="number"],
+    .form-row .form-group input[type="text"] { width: 100%; }
+    .checkbox-group { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.25rem; }
+    .checkbox-group label { font-weight: 400; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+    .checkbox-group input[type="checkbox"] { width: 1.1rem; height: 1.1rem; flex-shrink: 0; cursor: pointer; accent-color: var(--brand); }
+
+    .progress-wrap { background: var(--border); border-radius: 999px; height: 8px; margin-bottom: 0.5rem; }
+    .progress-bar { background: var(--brand); height: 8px; border-radius: 999px; transition: width 0.3s; }
+    .progress-label { font-size: 0.85rem; color: var(--muted); text-align: right; }
+
+    .consent-box {
+      background: #f0fdf4; border: 1.5px solid #86efac;
+      border-radius: var(--radius); padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .consent-box label { display: flex; align-items: flex-start; gap: 0.75rem; font-weight: 400; cursor: pointer; }
+    .consent-box input[type="checkbox"] { width: 1.3rem; height: 1.3rem; margin-top: 2px; flex-shrink: 0; cursor: pointer; accent-color: var(--brand); }
+
+    .cal-grid { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin: 1.5rem 0; }
+    .cal-box {
+      width: 80px; height: 80px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 600; color: rgba(0,0,0,0.5);
+    }
+
+    .stimulus-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .stimulus-btn {
+      position: relative;
+      border: 3px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      transition: border-color 0.15s, transform 0.1s, box-shadow 0.15s;
+      overflow: hidden;
+    }
+    .stimulus-btn:hover { border-color: var(--brand); box-shadow: 0 0 0 4px rgba(26,26,46,0.15); transform: translateY(-2px); }
+    .stimulus-btn:focus { outline: none; }
+    .stimulus-btn:focus-visible { outline: 3px solid #fbbf24; outline-offset: 2px; }
+    .stimulus-btn:active { transform: translateY(0); }
+
+    .stimulus-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.5rem;
+      min-height: 180px;
+      text-align: center;
+    }
+
+    .stimulus-text {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      letter-spacing: 0.01em;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .stimulus-label {
+      position: absolute;
+      top: 0.5rem; left: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(255,255,255,0.85);
+      color: #111;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    .choice-prompt {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .keyboard-hint {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 0.75rem;
+    }
+    kbd {
+      background: #f3f4f6; border: 1px solid #d1d5db;
+      border-radius: 4px; padding: 0.1rem 0.4rem;
+      font-size: 0.8rem; font-family: monospace;
+    }
+
+    .rating-stimulus {
+      border-radius: 10px; overflow: hidden; margin-bottom: 1.25rem;
+    }
+    .rating-inner {
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem 1.5rem; text-align: center;
+    }
+    .rating-text {
+      font-family: Georgia, serif; font-size: 1.15rem; line-height: 1.6;
+      pointer-events: none; user-select: none;
+    }
+    .rating-scale {
+      display: flex; justify-content: center; gap: 0.5rem;
+      flex-wrap: wrap; margin-top: 0.75rem;
+    }
+    .rating-btn {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 2px solid var(--border); background: #fff;
+      font-size: 0.9rem; font-weight: 700; cursor: pointer;
+      transition: all 0.15s;
+    }
+    .rating-btn:hover { border-color: var(--brand); background: #eff6ff; }
+    .rating-btn.selected { background: var(--brand); color: #fff; border-color: var(--brand); }
+    .scale-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .stat-card {
+      background: #f9fafb; border-radius: var(--radius); padding: 1rem;
+      text-align: center; border: 1px solid var(--border);
+    }
+    .stat-card .value { font-size: 1.8rem; font-weight: 700; color: var(--brand); }
+    .stat-card .label { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+
+    .result-row {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.1rem 0; border-bottom: 1px solid var(--border);
+    }
+    .swatch { width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.1); }
+    .result-row .meta { flex: 1; }
+    .result-row .meta strong { display: block; font-size: 0.9rem; }
+    .result-row .meta span { font-size: 0.8rem; color: var(--muted); }
+    .result-choice { font-size: 0.85rem; font-weight: 600; color: #111; }
+    .wcag-pass { color: #16a34a; font-size: 0.75rem; }
+    .wcag-fail { color: #dc2626; font-size: 0.75rem; }
+
+    .info-box {
+      background: #eff6ff; border-left: 4px solid #3b82f6;
+      border-radius: 6px; padding: 1rem 1.25rem; margin-top: 1rem;
+    }
+
+    /* Block pill shown in experiment header */
+    .block-pill {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 0.15rem 0.55rem; border-radius: 999px;
+      margin-bottom: 0.25rem;
+    }
+    .block-pill-1 { background: #dbeafe; color: #1d4ed8; }
+    .block-pill-2 { background: #fce7f3; color: #9d174d; }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .form-group { display: block !important; margin-bottom: 1.6rem !important; }
+      .form-group label { display: block; max-width: 100% !important; margin-bottom: 0.6rem !important; }
+      .form-group select,
+      .form-group input[type="number"],
+      .form-group input[type="text"] { width: 100% !important; flex: none; }
+      .stimulus-wrap { grid-template-columns: 1fr; gap: 1rem; }
+      h1 { font-size: 1.5rem; }
+      .card { padding: 1.5rem; }
+      .rating-scale { flex-wrap: nowrap; gap: 0.3rem; }
+      .rating-btn { flex: 1; min-width: 0; width: auto; height: auto; aspect-ratio: 1 / 1; font-size: 0.8rem; }
+    }
+
+    #mode-banner {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 0.45rem 1rem;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      z-index: 9999;
+    }
+    .mode-test-active #mode-banner,
+    .mode-pilot-active #mode-banner { display: block; }
+    .mode-test-active, .mode-pilot-active { padding-top: 2.2rem; }
+
+    #quick-start-card { display: none; }
+    .mode-test-active #quick-start-card { display: block; }
+  </style>
+</head>
+<body>
+
+<div id="mode-banner"></div>
+
+<!-- ════════════════════ WELCOME ════════════════════ -->
+<div class="page active" id="page-welcome">
+  <div class="card">
+    <div class="badge">Academic Research Study</div>
+    <h1>Colour Contrast Perception</h1>
+    <p class="subtitle">Can you tell us which text is easier to read?</p>
+    <p>Current web accessibility standards (WCAG) state that text must achieve a <strong>4.5:1 contrast ratio</strong> – a single fixed number applied to every colour. But does your eye actually work that way?</p>
+    <p>This study investigates whether the <em>colour</em> (hue) of a background affects the perceived readability of text – independently of the standard luminance-based ratio. Your responses will help us understand whether the current standard captures real human perception across the full colour spectrum.</p>
+    <p>The study takes approximately <strong>10–15 minutes</strong> and has two short blocks. You will be shown pairs of text samples and asked to click the one that looks easier to read – like an optician's chart, but for colour contrast.</p>
+    <hr style="border:none; border-top:1px solid var(--border); margin: 1.5rem 0;">
+    <h3>What is collected – and what isn't</h3>
+    <p>This study collects your responses, response times, and some brief questions about your vision and display conditions. It does <strong>not</strong> collect your name, email address, or IP address. Raw data files will be deleted once statistical analysis is complete; only anonymised aggregate findings will be published.</p>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="goTo('screening')">Start →</button>
+    </div>
+  </div>
+
+  <div id="quick-start-card" class="card" style="border:2px dashed #fbbf24; background:#fffbeb;">
+    <h3 style="color:#92400e;">⚡ Test Mode – Quick Start</h3>
+    <p style="color:#78350f; margin-bottom:0.75rem;">Skips all setup. Runs <strong id="test-trial-count-desc"></strong>. Data is labelled <code>mode:"test"</code> and should not be included in analysis.</p>
+    <div class="btn-group" style="margin-top:0.75rem;">
+      <button class="btn btn-accent" onclick="testModeQuickStart()">⚡ Jump to Experiment</button>
+      <button class="btn btn-secondary" onclick="goTo('screening')">Run Full Flow Instead</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ SCREENING ════════════════════ -->
+<div class="page" id="page-screening">
+  <div class="card">
+    <h2>Two Quick Checks</h2>
+    <p>Before you begin, two brief questions to ensure the quality and integrity of the research data.</p>
+
+    <div class="form-group">
+      <label for="screen_repeat">Have you participated in this study before?</label>
+      <select id="screen_repeat" onchange="checkScreenReady()">
+        <option value="">— please select —</option>
+        <option value="no">No – this is my first time</option>
+        <option value="yes">Yes – I have done this before</option>
+      </select>
+    </div>
+
+    <div class="form-group" style="margin-top:1.25rem">
+      <label for="screen_rx_current">If you wear glasses or contact lenses: is your prescription dated within the last two years?</label>
+      <select id="screen_rx_current" onchange="showRxWarning()">
+        <option value="">— please select —</option>
+        <option value="yes">Yes – within the last 2 years</option>
+        <option value="no_old">No – it is more than 2 years old</option>
+        <option value="na">Not applicable – I don't wear glasses or contact lenses</option>
+        <option value="unknown">I'm not sure when my last test was</option>
+      </select>
+    </div>
+
+    <div id="screen-rx-warning" style="display:none; background:#fef9c3; border:1.5px solid #fbbf24; border-radius:var(--radius); padding:1rem; margin-top:0.75rem;">
+      <p style="margin:0; font-size:0.9rem; color:#78350f;">⚠ <strong>Note:</strong> An out-of-date prescription means your vision may not be optimally corrected during the study. This doesn't disqualify you – it will simply be noted in the data. You're welcome to continue.</p>
+    </div>
+
+    <div id="screen-error" style="display:none; color:#dc2626; font-size:0.9rem; margin-top:0.75rem; font-weight:600;">
+      Please answer both questions above to continue.
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="goTo('welcome')">← Back</button>
+      <button class="btn btn-primary" onclick="submitScreening()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ ALREADY PARTICIPATED ════════════════════ -->
+<div class="page" id="page-already-done">
+  <div class="card" style="text-align:center; padding:3rem 2.5rem;">
+    <div style="font-size:3.5rem; margin-bottom:1.25rem;">🙏</div>
+    <h2>Thank you – you've already helped!</h2>
+    <p style="max-width:520px; margin:0 auto 1rem;">To keep the results reliable, each person is asked to participate only once. Since you've already completed this study, your data is already in the analysis.</p>
+    <p style="max-width:520px; margin:0 auto; color:var(--muted);">Your earlier contribution is genuinely appreciated. Results will be published here once the study is complete.</p>
+  </div>
+</div>
+
+<!-- ════════════════════ CONSENT ════════════════════ -->
+<div class="page" id="page-consent">
+  <div class="card">
+    <h2>Informed Consent</h2>
+    <p>Please confirm the following:</p>
+
+    <div class="consent-box">
+      <label><input type="checkbox" id="c1"> I understand that this is a voluntary research study and I may withdraw at any time without consequence. Withdrawing will discard my data.</label>
+    </div>
+    <div class="consent-box">
+      <label><input type="checkbox" id="c2"> <span>I understand that my <strong>anonymous</strong> response data may be used in published research and conference presentations. My name, email, and IP address are not recorded. Raw data files will be securely deleted once statistical analysis is complete; only aggregate findings will be retained and published.</span></label>
+    </div>
+    <div class="consent-box">
+      <label><input type="checkbox" id="c3"> I understand that this study collects optional vision-related data (e.g. prescription values), that this data is anonymised and cannot be linked back to me, and that it will be processed solely for the purpose of this research.</label>
+    </div>
+    <div class="consent-box">
+      <label><input type="checkbox" id="c4"> I confirm that I am 18 years of age or older, and that I am participating of my own free will.</label>
+    </div>
+    <div class="consent-box">
+      <label><input type="checkbox" id="c5"> I confirm that I am not in a darkened room and have allowed at least 2 minutes for my eyes to adapt if I have recently been looking at a very bright screen.</label>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="goTo('screening')">← Back</button>
+      <button class="btn btn-primary" id="consent-next" onclick="checkConsent()" disabled>Agree & Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ DEMOGRAPHICS ════════════════════ -->
+<div class="page" id="page-demographics">
+  <div class="card">
+    <h2>About You</h2>
+    <p>These questions help analyse whether perception differs by age, vision characteristics, and viewing conditions. More detail means more powerful analysis – but all fields are optional except age.</p>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="age">Age <span style="color:#dc2626">*</span></label>
+        <input type="number" id="age" min="18" max="100" placeholder="e.g. 58" oninput="document.getElementById('age-error').style.display='none'">
+        <div id="age-error" style="display:none; color:#dc2626; font-size:0.85rem; margin-top:0.3rem; font-weight:600;">Please enter your age to continue.</div>
+      </div>
+      <div class="form-group">
+        <label for="sex">Sex assigned at birth</label>
+        <select id="sex">
+          <option value="">— please select —</option>
+          <option>Female</option>
+          <option>Male</option>
+          <option>Prefer not to say</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="country">Country</label>
+        <select id="country">
+          <option value="">— please select —</option>
+          <option value="GB">United Kingdom</option>
+          <option value="US">United States</option>
+          <option value="CA">Canada</option>
+          <option value="AU">Australia</option>
+          <option value="NZ">New Zealand</option>
+          <option value="IE">Ireland</option>
+          <option value="FR">France</option>
+          <option value="DE">Germany</option>
+          <option value="NL">Netherlands</option>
+          <option value="BE">Belgium</option>
+          <option value="ES">Spain</option>
+          <option value="IT">Italy</option>
+          <option value="SE">Sweden</option>
+          <option value="NO">Norway</option>
+          <option value="DK">Denmark</option>
+          <option value="FI">Finland</option>
+          <option value="CH">Switzerland</option>
+          <option value="AT">Austria</option>
+          <option value="PL">Poland</option>
+          <option value="PT">Portugal</option>
+          <option value="IN">India</option>
+          <option value="SG">Singapore</option>
+          <option value="JP">Japan</option>
+          <option value="ZA">South Africa</option>
+          <option value="other">Other</option>
+          <option value="pnts">Prefer not to say</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="rx_date_recency">How recent is your current eye prescription? <span style="font-weight:400;color:var(--muted)">(if applicable)</span></label>
+        <select id="rx_date_recency">
+          <option value="">— please select —</option>
+          <option value="within_6m">Within the last 6 months</option>
+          <option value="6_12m">6–12 months ago</option>
+          <option value="1_2y">1–2 years ago</option>
+          <option value="over_2y">More than 2 years ago</option>
+          <option value="na">I don't have a prescription</option>
+          <option value="unknown">I'm not sure</option>
+        </select>
+      </div>
+    </div>
+
+    <hr style="border:none;border-top:1px solid var(--border);margin:1.25rem 0">
+    <h3>👓 Vision &amp; Correction</h3>
+
+    <div class="form-group">
+      <label for="correction_type">What type of correction do you wear?</label>
+      <select id="correction_type" onchange="toggleRxFields()">
+        <option value="">— please select —</option>
+        <option value="none">None – no prescription needed</option>
+        <option value="single_distance">Single vision glasses – distance only</option>
+        <option value="single_reading">Single vision glasses – reading only</option>
+        <option value="varifocal">Varifocal / progressive glasses</option>
+        <option value="bifocal">Bifocal glasses</option>
+        <option value="contacts_sv">Contact lenses – single vision</option>
+        <option value="contacts_multi">Contact lenses – multifocal</option>
+        <option value="surgery">Corrective surgery (LASIK / LASEK / PRK)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="wearing_now">What are you wearing right now to view this screen?</label>
+      <select id="wearing_now">
+        <option value="">— please select —</option>
+        <option value="nothing">Nothing – no correction</option>
+        <option value="distance_glasses">Distance glasses</option>
+        <option value="reading_glasses">Reading / near glasses</option>
+        <option value="varifocal_distance_zone">Varifocals – looking through distance zone</option>
+        <option value="varifocal_intermediate_zone">Varifocals – looking through intermediate (screen) zone</option>
+        <option value="varifocal_reading_zone">Varifocals – looking through reading zone</option>
+        <option value="contacts">Contact lenses</option>
+        <option value="surgery_no_glasses">Post-surgery, no glasses</option>
+      </select>
+    </div>
+
+    <div id="rx-fields">
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem">
+        If you have your prescription to hand, please fill in as much as you know. This is the most scientifically valuable data we collect – it lets us analyse how astigmatism, myopia, and presbyopia each affect contrast perception.
+      </p>
+
+      <p style="font-weight:600;margin-bottom:0.5rem">Right eye (OD)</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-bottom:1rem">
+        <div class="form-group" style="margin:0"><label for="rx_r_sph">Sphere</label><input type="text" id="rx_r_sph" placeholder="-1.00"></div>
+        <div class="form-group" style="margin:0"><label for="rx_r_cyl">Cylinder</label><input type="text" id="rx_r_cyl" placeholder="-0.50"></div>
+        <div class="form-group" style="margin:0"><label for="rx_r_axis">Axis °</label><input type="number" id="rx_r_axis" min="0" max="180" placeholder="75"></div>
+        <div class="form-group" style="margin:0"><label for="rx_r_add">Near add</label><input type="text" id="rx_r_add" placeholder="+2.25"></div>
+      </div>
+
+      <p style="font-weight:600;margin-bottom:0.5rem">Left eye (OS)</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-bottom:1rem">
+        <div class="form-group" style="margin:0"><label for="rx_l_sph">Sphere</label><input type="text" id="rx_l_sph" placeholder="-1.25"></div>
+        <div class="form-group" style="margin:0"><label for="rx_l_cyl">Cylinder</label><input type="text" id="rx_l_cyl" placeholder="-0.25"></div>
+        <div class="form-group" style="margin:0"><label for="rx_l_axis">Axis °</label><input type="number" id="rx_l_axis" min="0" max="180" placeholder="120"></div>
+        <div class="form-group" style="margin:0"><label for="rx_l_add">Near add</label><input type="text" id="rx_l_add" placeholder="+2.25"></div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="va_distance">Aided distance visual acuity</label>
+          <select id="va_distance">
+            <option value="">— if known —</option>
+            <option value="6/4">6/4 (better than normal)</option>
+            <option value="6/5">6/5</option>
+            <option value="6/6">6/6 (normal / 20/20)</option>
+            <option value="6/9">6/9</option>
+            <option value="6/12">6/12</option>
+            <option value="6/18">6/18</option>
+            <option value="6/24">6/24</option>
+            <option value="6/36">6/36 or worse</option>
+            <option value="unknown">Don't know</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="va_near">Aided near visual acuity</label>
+          <select id="va_near">
+            <option value="">— if known —</option>
+            <option value="N4.5">N4.5 or better</option>
+            <option value="N5">N5</option>
+            <option value="N6">N6</option>
+            <option value="N8">N8</option>
+            <option value="N10">N10</option>
+            <option value="N12">N12 or worse</option>
+            <option value="unknown">Don't know</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="astigmatism_aware">Are you aware of having astigmatism?</label>
+        <select id="astigmatism_aware">
+          <option value="">— please select —</option>
+          <option value="yes_significant">Yes – significant astigmatism</option>
+          <option value="yes_mild">Yes – mild astigmatism</option>
+          <option value="no">No astigmatism</option>
+          <option value="unknown">Not sure</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Colour vision</label>
+      <select id="colour_vision">
+        <option value="">— please select —</option>
+        <option value="normal">Normal colour vision</option>
+        <option value="rg_mild">Red-green colour deficiency (mild / Deuteranomaly or Protanomaly)</option>
+        <option value="rg_moderate">Red-green colour deficiency (moderate/severe / Deuteranopia or Protanopia)</option>
+        <option value="by">Blue-yellow colour deficiency (Tritanopia / Tritanomaly)</option>
+        <option value="mono">Monochromacy (no colour vision)</option>
+        <option value="unknown">Not sure</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Any other eye conditions? (select all that apply)</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="condition" value="none"> None</label>
+        <label><input type="checkbox" name="condition" value="cataracts"> Cataracts</label>
+        <label><input type="checkbox" name="condition" value="glaucoma"> Glaucoma</label>
+        <label><input type="checkbox" name="condition" value="macular"> Macular degeneration</label>
+        <label><input type="checkbox" name="condition" value="diabetic_ret"> Diabetic retinopathy</label>
+        <label><input type="checkbox" name="condition" value="dry_eye"> Dry eye / chronic eye strain</label>
+        <label><input type="checkbox" name="condition" value="floaters"> Significant floaters</label>
+        <label><input type="checkbox" name="condition" value="amblyopia"> Amblyopia (lazy eye)</label>
+        <label><input type="checkbox" name="condition" value="other"> Other</label>
+      </div>
+    </div>
+
+    <hr style="border:none;border-top:1px solid var(--border);margin:1.25rem 0">
+    <h3>🖥️ Your Screen &amp; Environment</h3>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="screen_type">What are you using right now?</label>
+        <select id="screen_type">
+          <option value="">— please select —</option>
+          <option value="laptop_builtin">Laptop – built-in screen</option>
+          <option value="laptop_external">Laptop – connected to external monitor</option>
+          <option value="desktop_monitor">Desktop computer with monitor</option>
+          <option value="tablet">Tablet</option>
+          <option value="phone">Smartphone</option>
+          <option value="tv">TV screen</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="viewing_distance">Approximate distance from screen</label>
+        <select id="viewing_distance">
+          <option value="">— please select —</option>
+          <option value="under_30cm">Under 30 cm (very close)</option>
+          <option value="30_45cm">30–45 cm (close reading distance)</option>
+          <option value="45_60cm">45–60 cm (normal screen distance)</option>
+          <option value="60_80cm">60–80 cm (arm's length)</option>
+          <option value="over_80cm">Over 80 cm (leaning back / TV distance)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="lighting">Current room lighting</label>
+        <select id="lighting">
+          <option value="">— please select —</option>
+          <option value="bright_natural">Bright natural daylight</option>
+          <option value="bright_artificial">Bright artificial lighting (office / fluorescent)</option>
+          <option value="moderate">Moderate indoor lighting</option>
+          <option value="dim">Dim / lamp-lit</option>
+          <option value="dark">Dark room</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="night_mode">Is your screen in night / warm mode?</label>
+        <select id="night_mode">
+          <option value="">— please select —</option>
+          <option value="no">No – standard colour temperature</option>
+          <option value="yes_mild">Yes – mild warm shift</option>
+          <option value="yes_strong">Yes – strong warm / orange shift</option>
+          <option value="unknown">Not sure</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="goTo('consent')">← Back</button>
+      <button class="btn btn-primary" onclick="saveDemographics()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ CALIBRATION ════════════════════ -->
+<div class="page" id="page-calibration">
+  <div class="card">
+    <h2>Display Calibration Check</h2>
+    <p>Your screen calibration may affect results. Please answer honestly – there is no wrong answer, it just helps us account for display variation.</p>
+
+    <h3>Step 1: Grey level discrimination</h3>
+    <p>How many distinct grey shades can you see in the row below?</p>
+    <div class="cal-grid" id="cal-greys"></div>
+    <div class="form-group">
+      <label for="cal_greys_answer">I can distinguish:</label>
+      <select id="cal_greys_answer">
+        <option value="">— select —</option>
+        <option value="2">2 (just black and white)</option>
+        <option value="3">3 grey levels</option>
+        <option value="4">4 grey levels</option>
+        <option value="5">5 grey levels</option>
+        <option value="6">6 grey levels</option>
+        <option value="7">All 7 grey levels clearly</option>
+      </select>
+    </div>
+
+    <h3>Step 2: Brightness slider</h3>
+    <p>Your screen brightness: <span id="bright-val">50</span>%</p>
+    <input type="range" id="brightness_slider" min="0" max="100" value="50" style="width:100%" oninput="document.getElementById('bright-val').textContent=this.value">
+    <p style="font-size:0.85rem; color:var(--muted)">This is a self-report to help understand your viewing conditions.</p>
+
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="goTo('demographics')">← Back</button>
+      <button class="btn btn-primary" onclick="saveCalibration()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ INSTRUCTIONS ════════════════════ -->
+<div class="page" id="page-instructions">
+  <div class="card">
+    <h2>Instructions</h2>
+    <p>This study has <strong>two blocks</strong>. In both, you will see <strong>two coloured boxes side by side</strong>, each containing the same sentence. Your job is always the same: <strong>click the box that looks easier to read.</strong></p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.25rem 0;">
+      <div style="background:#f0f9ff; border:1.5px solid #bae6fd; border-radius:8px; padding:1rem;">
+        <div class="block-pill block-pill-1" style="margin-bottom:0.5rem;">Block 1 · Direction</div>
+        <p style="font-size:0.9rem; margin:0; color:#374151;"><strong><span id="b1-trial-count-txt">36</span> trials.</strong> One box has <strong>white text</strong>, the other <strong>black text</strong>, on the same coloured background. Which is easier?</p>
+      </div>
+      <div style="background:#fdf2f8; border:1.5px solid #f9a8d4; border-radius:8px; padding:1rem;">
+        <div class="block-pill block-pill-2" style="margin-bottom:0.5rem;">Block 2 · Colour Contrast</div>
+        <p style="font-size:0.9rem; margin:0; color:#374151;"><strong><span id="b2-trial-count-txt">30</span> trials.</strong> Both boxes have text that <strong>passes the WCAG contrast test</strong> equally — but one uses a colour, the other a grey. Which looks clearer?</p>
+      </div>
+    </div>
+
+    <p>Trust your first impression – there is no trick. We want to know what feels clearest to <em>you</em>.</p>
+
+    <div class="stimulus-wrap" style="pointer-events:none; opacity:0.9;">
+      <div class="stimulus-btn" style="border-color:#ccc; border-radius:10px; overflow:hidden;">
+        <div class="stimulus-inner" style="background:#1DB8F2;">
+          <div class="stimulus-text" style="color:#ffffff;">Accessibility matters for everyone</div>
+        </div>
+        <div class="stimulus-label">White text</div>
+      </div>
+      <div class="stimulus-btn" style="border-color:#ccc; border-radius:10px; overflow:hidden;">
+        <div class="stimulus-inner" style="background:#1DB8F2;">
+          <div class="stimulus-text" style="color:#000000;">Accessibility matters for everyone</div>
+        </div>
+        <div class="stimulus-label">Black text</div>
+      </div>
+    </div>
+    <p style="font-size:0.85rem;color:var(--muted); margin-top:0.5rem;">Block 1 example: Capgemini Vibrant Blue (#1DB8F2). Which looks easier to read?</p>
+
+    <p>You can also use the keyboard: press <kbd>F</kbd> for the left box, <kbd>J</kbd> for the right box.</p>
+    <p>You will first do <strong><span id="practice-count-txt">3</span> practice trials</strong> with feedback, then the real trials begin.</p>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="startPractice()">Begin Practice →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ PRACTICE ════════════════════ -->
+<div class="page" id="page-practice">
+  <div class="card">
+    <h2>Practice – Trial <span id="practice-num">1</span> of <span id="practice-total">3</span></h2>
+    <p class="choice-prompt">Which text is easier to read?</p>
+    <div class="stimulus-wrap" id="practice-stimuli"></div>
+    <div id="practice-feedback" style="display:none; padding:1rem; border-radius:8px; margin-top:0.5rem; text-align:center; font-weight:600;"></div>
+    <p class="keyboard-hint">Press <kbd>F</kbd> = left &nbsp;|&nbsp; <kbd>J</kbd> = right</p>
+  </div>
+</div>
+
+<!-- ════════════════════ EXPERIMENT ════════════════════ -->
+<div class="page" id="page-experiment">
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+      <div>
+        <span class="block-pill block-pill-1" id="trial-block-pill">Block 1 · Direction</span>
+        <h2 style="margin:0.25rem 0 0;">Trial <span id="trial-num">1</span> of <span id="trial-total">36</span></h2>
+      </div>
+      <span style="font-size:0.85rem; color:var(--muted);">Take a break any time</span>
+    </div>
+    <div class="progress-wrap"><div class="progress-bar" id="exp-progress" style="width:0%"></div></div>
+    <p class="choice-prompt" style="margin-top:1rem;" id="choice-prompt-text">Which text is easier to read?</p>
+    <div class="stimulus-wrap" id="experiment-stimuli"></div>
+    <p class="keyboard-hint">Press <kbd>F</kbd> = left &nbsp;|&nbsp; <kbd>J</kbd> = right</p>
+  </div>
+</div>
+
+<!-- ════════════════════ BLOCK BREAK ════════════════════ -->
+<div class="page" id="page-block-break">
+  <div class="card" style="text-align:center; padding:3rem 2.5rem;">
+    <div style="font-size:3.5rem; margin-bottom:1.25rem;">🌟</div>
+    <h2>Block 1 complete!</h2>
+    <p>You've just finished the <strong>direction task</strong> — choosing between black and white text on coloured backgrounds.</p>
+
+    <div style="background:#fdf2f8; border:1.5px solid #f9a8d4; border-radius:10px; padding:1.5rem; margin:1.5rem auto; max-width:520px; text-align:left;">
+      <div class="block-pill block-pill-2" style="margin-bottom:0.75rem;">Block 2 · Colour Contrast</div>
+      <p style="margin-bottom:0.75rem;">Now we test something different: <strong>whether two texts that look very similar on paper feel equally readable in practice.</strong></p>
+      <p style="margin-bottom:0.75rem; font-size:0.9rem; color:#374151;">Both boxes show text on a dark background. One text is a <strong>colour</strong>; the other is a <strong>neutral grey</strong>. The contrast levels are different — but we want to know which feels clearer to <em>your</em> eyes.</p>
+      <p style="margin:0; font-size:0.9rem; color:#374151;"><strong>Click whichever text looks easier to read.</strong> Trust your first impression — there's no trick. Your honest gut reaction is exactly what this study is measuring.</p>
+    </div>
+
+    <p style="font-size:0.9rem; color:var(--muted);">This block has <strong id="b2-break-count">30</strong> trials. Take a moment to rest your eyes if needed.</p>
+
+    <div class="btn-group" style="justify-content:center; margin-top:1.5rem;">
+      <button class="btn btn-primary" onclick="startBlock2()">Continue to Block 2 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ RATING ════════════════════ -->
+<div class="page" id="page-rating">
+  <div class="card">
+    <h2>Readability Ratings</h2>
+    <p>For each sample below, rate <em>how easy it is to read</em> on a scale of 1 (very hard) to 7 (very easy). This is an independent measure from the pairs you just compared.</p>
+
+    <div id="rating-items"></div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" id="rating-next" onclick="finishRatings()" disabled>See Results →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ DEBRIEF ════════════════════ -->
+<div class="page" id="page-debrief">
+  <div class="card">
+    <h2>Thank you!</h2>
+    <p>Your responses have been recorded. Here is a summary of what you saw.</p>
+
+    <div class="stat-grid" id="summary-stats"></div>
+
+    <!-- Block 1 results -->
+    <h3 style="margin-top:1.5rem;">Block 1: Direction task — did you agree with WCAG?</h3>
+    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:0.5rem;" id="pilot-agreement"></p>
+    <div id="results-table"></div>
+
+    <!-- Block 2 results (shown if B2 was completed) -->
+    <div id="b2-results-section" style="display:none;">
+      <h3 style="margin-top:2rem;">Block 2: Does a WCAG-failing grey feel as readable as a WCAG-passing coloured text?</h3>
+      <p style="font-size:0.9rem; color:var(--muted); margin-bottom:0.5rem;">
+        Text A = same-hue chromatic at ~4.5:1 <strong>(WCAG AA pass)</strong> &nbsp;·&nbsp;
+        Text B = neutral grey at ~3.0:1 <strong>(WCAG fail)</strong>.
+        WCAG predicts A should always look clearer. If you sometimes preferred B, same-hue colour combinations may be harder to read than their WCAG score suggests.
+      </p>
+      <div id="b2-results-table"></div>
+      <div class="info-box" style="margin-top:1rem;">
+        <strong>What to look for:</strong> If you chose the grey (B) more than expected by chance,
+        the same-hue chromatic text — despite passing WCAG at 4.5:1 — felt no clearer than a neutral
+        grey at 3.0:1. This suggests that WCAG's formula overestimates the readability of same-hue
+        colour-on-colour combinations, because it only measures luminance, not the chromatic relationship.
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-top:1.5rem;">
+      <strong>What this study is about:</strong> WCAG 2.x defines a minimum contrast ratio of 4.5:1, calculated purely from luminance – but emerging research suggests that hue also affects perceived readability. This experiment collects real perceptual data to test that hypothesis across the full colour spectrum.
+    </div>
+
+    <div id="mode-debrief-note" style="display:none; background:#fef3c7; border-left:4px solid #f59e0b; border-radius:6px; padding:1rem 1.25rem; margin-top:1rem;">
+      <strong id="mode-debrief-label"></strong> <span id="mode-debrief-text"></span>
+    </div>
+
+    <h3 style="margin-top:1.5rem;">Contribute your data</h3>
+    <p>Your anonymised responses are stored in this browser. Press the button below to send them to the research team — it takes one second.</p>
+
+    <div id="submit-area">
+      <button class="btn btn-primary" id="submit-btn" onclick="submitData()" style="font-size:1rem; padding:0.85rem 2rem;">
+        ✉ Submit My Data
+      </button>
+
+      <div id="submit-success" style="display:none; background:#dcfce7; border:1.5px solid #16a34a; border-radius:var(--radius); padding:1rem 1.25rem; margin-top:1rem; text-align:center;">
+        <div style="font-size:2rem; margin-bottom:0.4rem;">✅</div>
+        <strong style="color:#15803d;">Thank you — your data has been received!</strong>
+        <p style="margin:0.4rem 0 0; font-size:0.9rem; color:#166534;">Your contribution will help improve accessibility standards for everyone.</p>
+      </div>
+
+      <div id="submit-fallback" style="display:none; background:#fef9c3; border:1.5px solid #ca8a04; border-radius:var(--radius); padding:1rem 1.25rem; margin-top:1rem;">
+        <strong style="color:#854d0e;">⚠ Could not connect to the server.</strong>
+        <p style="margin:0.5rem 0; font-size:0.9rem; color:#713f12;">Your data file has been saved to your device automatically. Please email it to contribute to the study — the address is on the study information sheet. Thank you.</p>
+      </div>
+
+      <div style="margin-top:1rem;">
+        <button class="btn btn-secondary" onclick="downloadData()" style="font-size:0.85rem;">⬇ Save a backup copy (JSON)</button>
+        <button class="btn btn-secondary" onclick="downloadData('csv')" style="font-size:0.85rem; margin-left:0.5rem;">⬇ CSV (Block 1)</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+// ─── STUDY MODE ───────────────────────────────────────────────────────────────
+const STUDY_MODE = (() => {
+  const p = new URLSearchParams(window.location.search).get('mode');
+  return ['test', 'pilot', 'live'].includes(p) ? p : 'live';
+})();
+
+const SUBMISSION_ENDPOINT = '/submit.php';
+
+const MODE_CFG = {
+  test:  { reps: 1, ratingCount: 4,  practiceCount: 3, label: '🧪 TEST MODE',  bg: '#fef3c7', fg: '#92400e', skipSetup: true  },
+  pilot: { reps: 2, ratingCount: 8,  practiceCount: 3, label: '🔬 PILOT MODE', bg: '#ede9fe', fg: '#5b21b6', skipSetup: false },
+  live:  { reps: 3, ratingCount: 16, practiceCount: 3, label: null,             bg: null,      fg: null,      skipSetup: false }
+};
+const cfg = MODE_CFG[STUDY_MODE];
+const REPS = cfg.reps;
+
+// ─── WCAG Utilities ───────────────────────────────────────────────────────────
+function sRGBtoLinear(c) {
+  c = c / 255;
+  return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+}
+function hexToRGB(hex) {
+  hex = hex.replace('#','');
+  return { r: parseInt(hex.slice(0,2),16), g: parseInt(hex.slice(2,4),16), b: parseInt(hex.slice(4,6),16) };
+}
+function relativeLuminance(hex) {
+  const {r,g,b} = hexToRGB(hex);
+  return 0.2126*sRGBtoLinear(r) + 0.7152*sRGBtoLinear(g) + 0.0722*sRGBtoLinear(b);
+}
+function contrastRatio(hex1, hex2) {
+  const L1 = relativeLuminance(hex1), L2 = relativeLuminance(hex2);
+  const lighter = Math.max(L1,L2), darker = Math.min(L1,L2);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+function wcagLevel(ratio) {
+  if (ratio >= 7) return 'AAA';
+  if (ratio >= 4.5) return 'AA';
+  if (ratio >= 3) return 'AA Large';
+  return 'Fail';
+}
+
+// ─── Block 1: Direction backgrounds (L ≈ 0.22) ───────────────────────────────
+// Black ≈ 5.4:1 (AA pass), white ≈ 3.9:1 (fail)
+// WCAG nominates black, but H-K / chromatic effects may push perception toward white
+const BACKGROUNDS = [
+  // Practice-only anchors — excluded from main trials, kept here so practice lookups work
+  { hex: '#FFD700', name: 'Gold',                role: 'attention', note: 'easy-black', hue: 50,  practiceOnly: true },
+
+  // Control / special
+  { hex: '#808080', name: 'Mid Grey',            role: 'control',   hue: null },
+  { hex: '#1DB8F2', name: 'Capgemini Cyan-Blue', role: 'special',   hue: 195 },
+
+  // Contested — all at luminance where black just passes WCAG (≈5.4:1) and white just fails (≈3.9:1)
+  // so the luminance-only formula gives a clear answer but hue may override it
+  { hex: '#FF1919', name: 'Red',                 role: 'contested', hue: 0   },
+  { hex: '#BD6E00', name: 'Orange-Brown',        role: 'contested', hue: 35  },
+  { hex: '#499200', name: 'Lime',                role: 'contested', hue: 90  },
+  { hex: '#009700', name: 'Green',               role: 'contested', hue: 120 },
+  { hex: '#009191', name: 'Teal',                role: 'contested', hue: 180 },
+  { hex: '#007EFC', name: 'Sky Blue',            role: 'contested', hue: 210 },
+  { hex: '#AA54FF', name: 'Violet',              role: 'contested', hue: 270 },
+  { hex: '#E300E3', name: 'Magenta',             role: 'contested', hue: 300 },
+
+  // Added — slightly higher luminance (black 6–7:1 vs white 3:1), still perceptually interesting
+  { hex: '#EA7439', name: 'Bright Orange',       role: 'contested', hue: 22  },
+  { hex: '#A088F1', name: 'Lavender',            role: 'contested', hue: 264 },
+  { hex: '#4693CB', name: 'Steel Blue',          role: 'contested', hue: 207 },
+].map(s => {
+  const cW = contrastRatio(s.hex, '#FFFFFF');
+  const cB = contrastRatio(s.hex, '#000000');
+  return { ...s, lum: relativeLuminance(s.hex), contrastWhite: cW, contrastBlack: cB,
+    wcagPolarity: cW >= cB ? 'white' : 'black',
+    wcagLevelWhite: wcagLevel(cW), wcagLevelBlack: wcagLevel(cB) };
+});
+
+// ─── Block 2: Chromatic WCAG-pass vs Achromatic WCAG-fail ────────────────────
+// Text A: same-hue chromatic text at ~4.5:1 → WCAG PASSES
+// Text B: neutral grey text at ~3.0:1 → WCAG FAILS
+// Key question: does the same-hue chromatic (despite higher WCAG score) feel
+// clearer than the achromatic grey (despite lower WCAG score)?
+// If participants can't distinguish them / prefer grey → WCAG overestimates
+// readability of same-hue chromatic combinations.
+// 8 experimental + 2 attention checks (obvious: grey 7:1 vs grey 1.5:1).
+const BACKGROUNDS_B2 = [
+  // ── Experimental: chromatic A (WCAG pass ~4.5:1) vs grey B (WCAG fail ~3.0:1) ─
+  { hex:'#3D3680', name:'Dark Purple',       role:'experimental', hue:270,
+    textAHex:'#ACA2F8', textAType:'chromatic',  textAContrast:4.55,  // lavender on purple — WCAG PASS
+    textBHex:'#8A8A8A', textBType:'achromatic', textBContrast:2.99 },// neutral grey — WCAG FAIL
+  { hex:'#0F2356', name:'Dark Navy',          role:'experimental', hue:220,
+    textAHex:'#6A8CD8', textAType:'chromatic',  textAContrast:4.56,  // steel blue on navy — WCAG PASS
+    textBHex:'#6F6F6F', textBType:'achromatic', textBContrast:3.00 },// neutral grey — WCAG FAIL
+  { hex:'#084040', name:'Dark Teal',          role:'experimental', hue:180,
+    textAHex:'#44B8B8', textAType:'chromatic',  textAContrast:4.84,  // bright teal on dark teal — WCAG PASS
+    textBHex:'#828282', textBType:'achromatic', textBContrast:3.01 },// neutral grey — WCAG FAIL
+  { hex:'#1A4A14', name:'Dark Forest Green',  role:'experimental', hue:120,
+    textAHex:'#68C058', textAType:'chromatic',  textAContrast:4.56,  // lime green on forest — WCAG PASS
+    textBHex:'#8A8A8A', textBType:'achromatic', textBContrast:2.99 },// neutral grey — WCAG FAIL
+  { hex:'#6B0A0A', name:'Dark Red',           role:'experimental', hue:0,
+    textAHex:'#E28080', textAType:'chromatic',  textAContrast:4.56,  // salmon rose on dark red — WCAG PASS
+    textBHex:'#7C7C7C', textBType:'achromatic', textBContrast:3.01 },// neutral grey — WCAG FAIL
+  { hex:'#4A1E00', name:'Dark Orange-Brown',  role:'experimental', hue:30,
+    textAHex:'#D47C42', textAType:'chromatic',  textAContrast:4.58,  // amber orange on dark brown — WCAG PASS
+    textBHex:'#737373', textBType:'achromatic', textBContrast:3.00 },// neutral grey — WCAG FAIL
+  { hex:'#000000', name:'Black',              role:'experimental', hue:195,
+    textAHex:'#027BB7', textAType:'chromatic',  textAContrast:4.52,  // muted cyan on black — WCAG PASS (Datawrapper example)
+    textBHex:'#595959', textBType:'achromatic', textBContrast:3.00 },// neutral grey — WCAG FAIL
+  { hex:'#380060', name:'Dark Indigo',        role:'experimental', hue:280,
+    textAHex:'#A870FF', textAType:'chromatic',  textAContrast:4.81,  // violet on dark indigo — WCAG PASS
+    textBHex:'#6C6C6C', textBType:'achromatic', textBContrast:2.99 },// neutral grey — WCAG FAIL
+  // ── Attention checks: both achromatic, obvious winner (grey 7:1 vs grey 1.5:1) ─
+  // Expected: participant chooses A (7:1). Failure = not paying attention.
+  { hex:'#3D3680', name:'Dark Purple — attention check',  role:'attention', hue:270,
+    textAHex:'#D5D5D5', textAType:'achromatic_high', textAContrast:7.02, // obvious winner
+    textBHex:'#5A5A5A', textBType:'achromatic_low',  textBContrast:1.49 },// obvious loser
+  { hex:'#000000', name:'Black — attention check',        role:'attention', hue:null,
+    textAHex:'#959595', textAType:'achromatic_high', textAContrast:7.01, // obvious winner
+    textBHex:'#2C2C2C', textBType:'achromatic_low',  textBContrast:1.50 },// obvious loser
+].map(s => ({ ...s, lum: relativeLuminance(s.hex) }));
+
+const STIMULUS_TEXT = 'Accessibility matters for everyone';
+
+// ─── State ────────────────────────────────────────────────────────────────────
+let participantId = 'P-' + Math.random().toString(36).substr(2,9).toUpperCase();
+let demographics = {};
+let calibration = {};
+let deviceInfo = {};
+let mainTrials = [];
+let mainTrialsB2 = [];
+let practiceTrials = [];
+let ratingStimuli = [];
+let currentTrialIdx = 0;
+let currentPracticeIdx = 0;
+let currentBlock = 1;
+let trialStartTime = null;
+let experimentStartTime = null;
+let results = { trials: [], trialsB2: [], ratings: [] };
+
+// ─── Device Detection ─────────────────────────────────────────────────────────
+function captureDevice() {
+  deviceInfo = {
+    userAgent: navigator.userAgent,
+    screenWidth: screen.width, screenHeight: screen.height,
+    windowWidth: window.innerWidth, windowHeight: window.innerHeight,
+    devicePixelRatio: window.devicePixelRatio || 1,
+    colorDepth: screen.colorDepth,
+    colorGamut: window.matchMedia('(color-gamut: p3)').matches ? 'p3' :
+                window.matchMedia('(color-gamut: srgb)').matches ? 'srgb' : 'limited',
+    prefersColorScheme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
+    platform: navigator.platform || 'unknown',
+    language: navigator.language
+  };
+}
+
+// ─── Shuffle ──────────────────────────────────────────────────────────────────
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length-1; i>0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+// No two consecutive trials may share the same background hex
+function shuffleNoConsecutive(arr) {
+  const a = shuffle(arr);
+  for (let i = 1; i < a.length; i++) {
+    if (a[i].bgHex === a[i-1].bgHex) {
+      let swapped = false;
+      for (let j = i + 1; j < a.length; j++) {
+        const prevOk = a[j].bgHex !== a[i-1].bgHex;
+        const nextOk = (j + 1 >= a.length) || a[j+1].bgHex !== a[i].bgHex;
+        if (prevOk && a[j].bgHex !== a[i].bgHex && nextOk) {
+          [a[i], a[j]] = [a[j], a[i]]; swapped = true; break;
+        }
+      }
+      if (!swapped) {
+        for (let j = i + 1; j < a.length; j++) {
+          if (a[j].bgHex !== a[i-1].bgHex) { [a[i], a[j]] = [a[j], a[i]]; break; }
+        }
+      }
+    }
+  }
+  return a;
+}
+
+// ─── Trial Generation ─────────────────────────────────────────────────────────
+function generateTrials() {
+  // Block 1: direction (black vs white)
+  const raw = [];
+  BACKGROUNDS.filter(bg => !bg.practiceOnly).forEach(bg => {
+    for (let r = 0; r < REPS; r++) {
+      const leftIsWhite = Math.random() < 0.5;
+      raw.push({
+        block: 1, trialType: 'direction',
+        bgHex: bg.hex, bgName: bg.name, bgRole: bg.role, bgHue: bg.hue,
+        bgLuminance: bg.lum, contrastWhite: bg.contrastWhite, contrastBlack: bg.contrastBlack,
+        wcagLevelWhite: bg.wcagLevelWhite, wcagLevelBlack: bg.wcagLevelBlack,
+        wcagPolarity: bg.wcagPolarity,
+        leftColor: leftIsWhite ? '#FFFFFF' : '#000000',
+        rightColor: leftIsWhite ? '#000000' : '#FFFFFF',
+        leftPolarity: leftIsWhite ? 'white' : 'black',
+        rightPolarity: leftIsWhite ? 'black' : 'white',
+        rep: r + 1
+      });
+    }
+  });
+  mainTrials = shuffleNoConsecutive(raw);
+
+  // Block 2: chromatic vs achromatic at equal WCAG contrast
+  const raw2 = [];
+  BACKGROUNDS_B2.forEach(bg => {
+    const repsThisBg = bg.role === 'attention' ? 1 : REPS; // attention checks shown once only
+    for (let r = 0; r < repsThisBg; r++) {
+      const leftIsA = Math.random() < 0.5;
+      raw2.push({
+        block: 2, trialType: 'chromatic-vs-achromatic',
+        bgHex: bg.hex, bgName: bg.name, bgRole: bg.role, bgHue: bg.hue,
+        bgLuminance: bg.lum,
+        textAHex: bg.textAHex, textAType: bg.textAType, textAContrast: bg.textAContrast,
+        textBHex: bg.textBHex, textBType: bg.textBType, textBContrast: bg.textBContrast,
+        isAttentionCheck: bg.role === 'attention',
+        leftText: leftIsA ? 'A' : 'B',
+        rightText: leftIsA ? 'B' : 'A',
+        rep: r + 1
+      });
+    }
+  });
+  mainTrialsB2 = shuffleNoConsecutive(raw2);
+
+  // Practice: 3 Block 1 trials
+  // 1. Gold — black obviously correct (anchors the task)
+  // 2. Red  — black is WCAG winner but white can look striking (introduces the research question)
+  // 3. Teal — a genuine close call (sets expectation that some are hard)
+  const practiceColors = [
+    { bg: '#FFD700', comment: 'Gold – black is clearly correct (WCAG 15:1 vs 1.4:1)' },
+    { bg: '#FF1919', comment: 'Red – WCAG says black (5.4:1 vs 3.9:1), but some find white striking' },
+    { bg: '#009191', comment: 'Teal – a close call where hue may shift perception' }
+  ];
+  practiceTrials = practiceColors.map(p => {
+    const bg = BACKGROUNDS.find(b => b.hex === p.bg);
+    const leftIsWhite = Math.random() < 0.5;
+    return {
+      block: 1, trialType: 'direction',
+      bgHex: bg.hex, bgName: bg.name,
+      leftColor: leftIsWhite ? '#FFFFFF' : '#000000',
+      rightColor: leftIsWhite ? '#000000' : '#FFFFFF',
+      leftPolarity: leftIsWhite ? 'white' : 'black',
+      rightPolarity: leftIsWhite ? 'black' : 'white',
+      wcagPolarity: bg.wcagPolarity,
+      comment: p.comment
+    };
+  });
+
+  // Rating stimuli: sample from Block 1 backgrounds × 2 polarities
+  const ratingRaw = [];
+  BACKGROUNDS.forEach(bg => {
+    ratingRaw.push({ bgHex: bg.hex, bgName: bg.name, textColor: '#FFFFFF', polarity: 'white',
+      contrastRatio: bg.contrastWhite, wcagLevel: bg.wcagLevelWhite });
+    ratingRaw.push({ bgHex: bg.hex, bgName: bg.name, textColor: '#000000', polarity: 'black',
+      contrastRatio: bg.contrastBlack, wcagLevel: bg.wcagLevelBlack });
+  });
+  ratingStimuli = shuffle(ratingRaw).slice(0, cfg.ratingCount);
+}
+
+// ─── Pilot aggregate (N=52) ───────────────────────────────────────────────────
+const SEED_N = 52;
+const SEED_WHITE_PREF = {
+  '#FFD700': 0.11, '#808080': 0.49, '#1DB8F2': 0.74,
+  '#FF1919': 0.63, '#BD6E00': 0.52, '#499200': 0.41, '#009700': 0.44,
+  '#009191': 0.58, '#007EFC': 0.67, '#AA54FF': 0.79, '#E300E3': 0.61,
+  '#EA7439': null, '#A088F1': null, '#4693CB': null
+};
+
+// ─── Screening ────────────────────────────────────────────────────────────────
+function showRxWarning() {
+  const val = document.getElementById('screen_rx_current').value;
+  document.getElementById('screen-rx-warning').style.display = val === 'no_old' ? 'block' : 'none';
+}
+function checkScreenReady() {
+  document.getElementById('screen-error').style.display = 'none';
+}
+function submitScreening() {
+  const repeat = document.getElementById('screen_repeat').value;
+  const rxCurrent = document.getElementById('screen_rx_current').value;
+  if (!repeat || !rxCurrent) { document.getElementById('screen-error').style.display = 'block'; return; }
+  if (repeat === 'yes') { goTo('already-done'); return; }
+  window._screeningData = { participatedBefore: repeat, rxCurrent };
+  goTo('consent');
+}
+
+// ─── Navigation ───────────────────────────────────────────────────────────────
+function goTo(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + pageId).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ─── Consent ──────────────────────────────────────────────────────────────────
+['c1','c2','c3','c4','c5'].forEach(id => {
+  document.getElementById(id).addEventListener('change', () => {
+    document.getElementById('consent-next').disabled =
+      !['c1','c2','c3','c4','c5'].every(i => document.getElementById(i).checked);
+  });
+});
+function checkConsent() {
+  if (['c1','c2','c3','c4','c5'].every(i => document.getElementById(i).checked)) goTo('demographics');
+}
+
+// ─── Demographics ─────────────────────────────────────────────────────────────
+function toggleRxFields() {
+  const val = document.getElementById('correction_type').value;
+  document.getElementById('rx-fields').style.display = (val && val !== 'none') ? 'block' : 'none';
+}
+function saveDemographics() {
+  const age = document.getElementById('age').value;
+  if (!age) { document.getElementById('age-error').style.display = 'block'; document.getElementById('age').focus(); return; }
+  const conditions = Array.from(document.querySelectorAll('input[name="condition"]:checked')).map(el => el.value);
+  const g = id => document.getElementById(id)?.value || null;
+  demographics = {
+    age, sex: g('sex'), country: g('country'), rxDateRecency: g('rx_date_recency'),
+    participatedBefore: window._screeningData?.participatedBefore || null,
+    rxCurrentAtScreening: window._screeningData?.rxCurrent || null,
+    correctionType: g('correction_type'), wearingNow: g('wearing_now'),
+    rxRight: { sphere: g('rx_r_sph'), cylinder: g('rx_r_cyl'), axis: g('rx_r_axis'), nearAdd: g('rx_r_add') },
+    rxLeft: { sphere: g('rx_l_sph'), cylinder: g('rx_l_cyl'), axis: g('rx_l_axis'), nearAdd: g('rx_l_add') },
+    aidedVaDistance: g('va_distance'), aidedVaNear: g('va_near'),
+    astigmatismAware: g('astigmatism_aware'), colourVision: g('colour_vision'),
+    eyeConditions: conditions,
+    screenType: g('screen_type'), viewingDistance: g('viewing_distance'),
+    lighting: g('lighting'), nightMode: g('night_mode'),
+  };
+  goTo('calibration');
+  buildCalibration();
+}
+
+// ─── Calibration ──────────────────────────────────────────────────────────────
+function buildCalibration() {
+  const levels = [0, 42, 85, 128, 170, 213, 255];
+  const el = document.getElementById('cal-greys');
+  el.innerHTML = '';
+  levels.forEach(v => {
+    const hex = v.toString(16).padStart(2,'0');
+    const div = document.createElement('div');
+    div.className = 'cal-box';
+    div.style.background = `#${hex}${hex}${hex}`;
+    div.style.color = v > 128 ? '#333' : '#ccc';
+    div.textContent = v === 0 ? '0' : v === 255 ? '255' : '';
+    el.appendChild(div);
+  });
+}
+function saveCalibration() {
+  calibration = {
+    greyLevelsDistinguished: document.getElementById('cal_greys_answer').value || null,
+    selfReportedBrightness: document.getElementById('brightness_slider').value
+  };
+  captureDevice();
+  goTo('instructions');
+}
+
+// ─── Practice ─────────────────────────────────────────────────────────────────
+function startPractice() {
+  currentPracticeIdx = 0;
+  goTo('practice');
+  document.getElementById('practice-total').textContent = practiceTrials.length;
+  renderPractice();
+}
+function renderPractice() {
+  const t = practiceTrials[currentPracticeIdx];
+  document.getElementById('practice-num').textContent = currentPracticeIdx + 1;
+  document.getElementById('practice-feedback').style.display = 'none';
+  const el = document.getElementById('practice-stimuli');
+  el.innerHTML = buildStimulusPair(t, true);
+  el.querySelectorAll('.stimulus-btn').forEach((btn, i) => {
+    btn.addEventListener('click', () => recordPractice(i === 0 ? 'left' : 'right', t));
+  });
+  trialStartTime = performance.now();
+}
+function recordPractice(side, t) {
+  const chosen = side === 'left' ? t.leftPolarity : t.rightPolarity;
+  const fb = document.getElementById('practice-feedback');
+  fb.style.display = 'block';
+  fb.style.background = '#f0fdf4';
+  fb.style.border = '1px solid #86efac';
+  if (chosen === t.wcagPolarity) {
+    fb.innerHTML = `You chose <strong>${chosen} text</strong> – which also matches what WCAG considers compliant for this background.`;
+  } else {
+    fb.innerHTML = `You chose <strong>${chosen} text</strong> – which is <em>not</em> what WCAG marks as compliant. This is exactly the kind of disagreement we are studying!`;
+  }
+  setTimeout(() => {
+    currentPracticeIdx++;
+    if (currentPracticeIdx >= practiceTrials.length) startExperiment();
+    else renderPractice();
+  }, 2200);
+}
+
+// ─── Experiment: Block 1 ──────────────────────────────────────────────────────
+function startExperiment() {
+  experimentStartTime = performance.now();
+  currentBlock = 1;
+  currentTrialIdx = 0;
+  document.getElementById('trial-block-pill').textContent = 'Block 1 · Direction';
+  document.getElementById('trial-block-pill').className = 'block-pill block-pill-1';
+  document.getElementById('choice-prompt-text').textContent = 'Which text is easier to read?';
+  document.getElementById('trial-total').textContent = mainTrials.length;
+  goTo('experiment');
+  renderTrial();
+}
+
+// ─── Experiment: Block 2 ──────────────────────────────────────────────────────
+function startBlockBreak() {
+  document.getElementById('b2-break-count').textContent = mainTrialsB2.length;
+  goTo('block-break');
+}
+function startBlock2() {
+  currentBlock = 2;
+  currentTrialIdx = 0;
+  document.getElementById('trial-block-pill').textContent = 'Block 2 · Colour Contrast';
+  document.getElementById('trial-block-pill').className = 'block-pill block-pill-2';
+  document.getElementById('choice-prompt-text').textContent = 'Which text is easier to read?';
+  document.getElementById('trial-total').textContent = mainTrialsB2.length;
+  goTo('experiment');
+  renderTrial();
+}
+
+// ─── Render trial (both blocks) ───────────────────────────────────────────────
+function renderTrial() {
+  if (document.activeElement) document.activeElement.blur();
+  const t = currentBlock === 1 ? mainTrials[currentTrialIdx] : mainTrialsB2[currentTrialIdx];
+  const total = currentBlock === 1 ? mainTrials.length : mainTrialsB2.length;
+  document.getElementById('trial-num').textContent = currentTrialIdx + 1;
+  document.getElementById('trial-total').textContent = total;
+  document.getElementById('exp-progress').style.width = ((currentTrialIdx / total) * 100) + '%';
+  const el = document.getElementById('experiment-stimuli');
+  el.innerHTML = buildStimulusPair(t, false);
+  el.querySelectorAll('.stimulus-btn').forEach((btn, i) => {
+    btn.addEventListener('click', () => recordTrial(i === 0 ? 'left' : 'right'));
+  });
+  trialStartTime = performance.now();
+}
+
+// ─── Record trial (branches on block) ────────────────────────────────────────
+function recordTrial(side) {
+  const rt = performance.now() - trialStartTime;
+
+  if (currentBlock === 1) {
+    const t = mainTrials[currentTrialIdx];
+    const chosenPolarity = side === 'left' ? t.leftPolarity : t.rightPolarity;
+    results.trials.push({
+      trialIndex: currentTrialIdx + 1, block: 1, trialType: 'direction',
+      bgHex: t.bgHex, bgName: t.bgName, bgRole: t.bgRole, bgHue: t.bgHue,
+      bgLuminance: +t.bgLuminance.toFixed(4),
+      contrastWhite: +t.contrastWhite.toFixed(2), contrastBlack: +t.contrastBlack.toFixed(2),
+      wcagLevelWhite: t.wcagLevelWhite, wcagLevelBlack: t.wcagLevelBlack,
+      wcagPolarity: t.wcagPolarity, leftPolarity: t.leftPolarity, rightPolarity: t.rightPolarity,
+      response: side, chosenPolarity, choseWcagCompliant: chosenPolarity === t.wcagPolarity,
+      reactionTimeMs: +rt.toFixed(0), rep: t.rep
+    });
+    currentTrialIdx++;
+    if (currentTrialIdx >= mainTrials.length) startBlockBreak();
+    else renderTrial();
+
+  } else {
+    const t = mainTrialsB2[currentTrialIdx];
+    const chosenText = side === 'left' ? t.leftText : t.rightText;
+    const chosenType = chosenText === 'A' ? t.textAType : t.textBType;
+    // choseAchromatic = chose the neutral grey (Text B, WCAG fail) over chromatic (Text A, WCAG pass)
+    // For attention checks: choseCorrect = chose A (the obviously higher-contrast grey)
+    const choseAchromatic = chosenType === 'achromatic'; // experimental only
+    const passedAttentionCheck = t.isAttentionCheck ? (chosenText === 'A') : null; // A = 7:1 winner
+    results.trialsB2.push({
+      trialIndex: currentTrialIdx + 1, block: 2, trialType: 'chromatic-vs-achromatic',
+      bgHex: t.bgHex, bgName: t.bgName, bgRole: t.bgRole, bgHue: t.bgHue,
+      bgLuminance: +t.bgLuminance.toFixed(4),
+      textAHex: t.textAHex, textAType: t.textAType, textAContrast: t.textAContrast,
+      textBHex: t.textBHex, textBType: t.textBType, textBContrast: t.textBContrast,
+      leftText: t.leftText, rightText: t.rightText,
+      response: side, chosenText, chosenType,
+      choseAchromatic,
+      passedAttentionCheck,
+      isAttentionCheck: t.isAttentionCheck,
+      reactionTimeMs: +rt.toFixed(0), rep: t.rep
+    });
+    currentTrialIdx++;
+    if (currentTrialIdx >= mainTrialsB2.length) startRatings();
+    else renderTrial();
+  }
+}
+
+// ─── Stimulus Renderer ────────────────────────────────────────────────────────
+function buildStimulusPair(t, isPractice) {
+  let leftColor, rightColor, leftLabel, rightLabel;
+  if (t.block === 2) {
+    leftColor  = t.leftText  === 'A' ? t.textAHex : t.textBHex;
+    rightColor = t.rightText === 'A' ? t.textAHex : t.textBHex;
+    leftLabel  = 'Text ' + t.leftText;
+    rightLabel = 'Text ' + t.rightText;
+  } else {
+    leftColor  = t.leftColor;
+    rightColor = t.rightColor;
+    leftLabel  = t.leftPolarity.charAt(0).toUpperCase() + t.leftPolarity.slice(1) + ' text';
+    rightLabel = t.rightPolarity.charAt(0).toUpperCase() + t.rightPolarity.slice(1) + ' text';
+  }
+  return `
+    <button class="stimulus-btn" aria-label="Left stimulus">
+      <div class="stimulus-inner" style="background:${t.bgHex};">
+        <div class="stimulus-text" style="color:${leftColor};">${STIMULUS_TEXT}</div>
+      </div>
+      ${isPractice ? `<div class="stimulus-label">${leftLabel}</div>` : ''}
+    </button>
+    <button class="stimulus-btn" aria-label="Right stimulus">
+      <div class="stimulus-inner" style="background:${t.bgHex};">
+        <div class="stimulus-text" style="color:${rightColor};">${STIMULUS_TEXT}</div>
+      </div>
+      ${isPractice ? `<div class="stimulus-label">${rightLabel}</div>` : ''}
+    </button>`;
+}
+
+// ─── Keyboard Shortcuts ───────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  const activePage = document.querySelector('.page.active')?.id;
+  if (activePage === 'page-experiment') {
+    if (e.key === 'f' || e.key === 'F') recordTrial('left');
+    if (e.key === 'j' || e.key === 'J') recordTrial('right');
+  }
+  if (activePage === 'page-practice') {
+    if (e.key === 'f' || e.key === 'F') recordPractice('left', practiceTrials[currentPracticeIdx]);
+    if (e.key === 'j' || e.key === 'J') recordPractice('right', practiceTrials[currentPracticeIdx]);
+  }
+});
+
+// ─── Rating Task ──────────────────────────────────────────────────────────────
+let ratingAnswers = {};
+function startRatings() {
+  goTo('rating');
+  buildRatingItems();
+}
+function buildRatingItems() {
+  const el = document.getElementById('rating-items');
+  el.innerHTML = '';
+  ratingStimuli.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.style.marginBottom = '2rem';
+    div.innerHTML = `
+      <div class="rating-stimulus">
+        <div class="rating-inner" style="background:${s.bgHex}; min-height:120px;">
+          <div class="rating-text" style="color:${s.textColor};">${STIMULUS_TEXT}</div>
+        </div>
+      </div>
+      <div class="scale-labels"><span>Very hard to read</span><span>Very easy to read</span></div>
+      <div class="rating-scale" id="rating-scale-${i}">
+        ${[1,2,3,4,5,6,7].map(v=>`<button class="rating-btn" onclick="selectRating(${i},${v})">${v}</button>`).join('')}
+      </div>`;
+    el.appendChild(div);
+  });
+}
+function selectRating(itemIdx, val) {
+  document.querySelectorAll(`#rating-scale-${itemIdx} .rating-btn`).forEach((b, idx) => {
+    b.classList.toggle('selected', idx + 1 === val);
+  });
+  ratingAnswers[itemIdx] = val;
+  document.getElementById('rating-next').disabled = (Object.keys(ratingAnswers).length < ratingStimuli.length);
+}
+function finishRatings() {
+  ratingStimuli.forEach((s, i) => {
+    results.ratings.push({
+      bgHex: s.bgHex, bgName: s.bgName, textColor: s.textColor, polarity: s.polarity,
+      contrastRatio: +s.contrastRatio.toFixed(2), wcagLevel: s.wcagLevel, rating: ratingAnswers[i] || null
+    });
+  });
+  goTo('debrief');
+  buildDebrief();
+}
+
+// ─── Debrief ─────────────────────────────────────────────────────────────────
+function buildDebrief() {
+  const total = results.trials.length;
+  const agreedWcag = results.trials.filter(t => t.choseWcagCompliant).length;
+  const pctAgreed = total ? ((agreedWcag / total) * 100).toFixed(0) : 0;
+  const expB2 = results.trialsB2.filter(t => !t.isAttentionCheck);
+  const totalB2 = expB2.length;
+  const choseAchromatic = expB2.filter(t => t.choseAchromatic).length;
+  const pctA = totalB2 ? ((choseAchromatic / totalB2) * 100).toFixed(0) : 0;
+  const attChecks = results.trialsB2.filter(t => t.isAttentionCheck);
+  const attPassed = attChecks.filter(t => t.passedAttentionCheck).length;
+
+  const elapsedMs = experimentStartTime ? (performance.now() - experimentStartTime) : 0;
+  const elapsedMin = Math.floor(elapsedMs / 60000);
+  const elapsedSec = Math.round((elapsedMs % 60000) / 1000);
+  const timeStr = elapsedMin > 0 ? `${elapsedMin}m ${elapsedSec}s` : `${elapsedSec}s`;
+
+  document.getElementById('summary-stats').innerHTML = `
+    <div class="stat-card"><div class="value">${total}</div><div class="label">Block 1 trials</div></div>
+    <div class="stat-card"><div class="value">${pctAgreed}%</div><div class="label">Agreed with WCAG (B1)</div></div>
+    <div class="stat-card"><div class="value">${totalB2}</div><div class="label">Block 2 trials</div></div>
+    <div class="stat-card"><div class="value">${pctA}%</div><div class="label">Chose grey text (B2)</div></div>
+    <div class="stat-card"><div class="value">${results.ratings.length}</div><div class="label">Ratings given</div></div>
+    <div class="stat-card"><div class="value">${timeStr}</div><div class="label">Time taken</div></div>
+  `;
+
+  // Block 1 results table
+  const byBg = {};
+  results.trials.forEach(t => {
+    if (!byBg[t.bgHex]) byBg[t.bgHex] = { name: t.bgName, hex: t.bgHex, choseWhite: 0, choseBlack: 0,
+      wcagPolarity: t.wcagPolarity, cW: t.contrastWhite, cB: t.contrastBlack };
+    if (t.chosenPolarity === 'white') byBg[t.bgHex].choseWhite++;
+    else byBg[t.bgHex].choseBlack++;
+  });
+  const b1Rows = Object.values(byBg).map(bg => {
+    const chosen = bg.choseWhite > bg.choseBlack ? 'white' : 'black';
+    const agreedWcag = chosen === bg.wcagPolarity;
+    const seedWhitePct = SEED_WHITE_PREF[bg.hex] ?? 0.5;
+    const seedPrefersWhite = seedWhitePct >= 0.5;
+    const seedPct = seedPrefersWhite ? Math.round(seedWhitePct * 100) : Math.round((1 - seedWhitePct) * 100);
+    const seedPreferred = seedPrefersWhite ? 'white' : 'black';
+    const youMatchPilot = chosen === seedPreferred;
+    return `<div class="result-row">
+      <div class="swatch" style="background:${bg.hex}"></div>
+      <div class="meta">
+        <strong>${bg.name}</strong>
+        <span>White ${bg.cW.toFixed(1)}:1 <span class="${bg.wcagPolarity==='white'?'wcag-pass':'wcag-fail'}">(${bg.cW>=4.5?'✓ AA':'✗ fail'})</span>
+        &nbsp;·&nbsp; Black ${bg.cB.toFixed(1)}:1 <span class="${bg.wcagPolarity==='black'?'wcag-pass':'wcag-fail'}">(${bg.cB>=4.5?'✓ AA':'✗ fail'})</span></span>
+      </div>
+      <div style="min-width:200px">
+        <div class="result-choice">You preferred: ${chosen}</div>
+        <div style="font-size:0.75rem;margin-top:0.3rem;color:${agreedWcag?'#16a34a':'#dc2626'}">${agreedWcag?'✓ Matches WCAG':'✗ Disagrees with WCAG'}</div>
+        <div style="font-size:0.75rem;margin-top:0.25rem;color:#6b7280">${seedPct}% of pilot preferred <strong>${seedPreferred}</strong>
+          ${youMatchPilot?'– <span style="color:#2563eb">you agree with majority</span>':'– <span style="color:#9333ea">you differ from majority</span>'}
+        </div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('results-table').innerHTML = b1Rows.join('');
+
+  const pilotAgreements = Object.values(byBg).filter(bg => {
+    const chosen = bg.choseWhite > bg.choseBlack ? 'white' : 'black';
+    return chosen === ((SEED_WHITE_PREF[bg.hex] ?? 0.5) >= 0.5 ? 'white' : 'black');
+  }).length;
+  const total1 = Object.keys(byBg).length;
+  document.getElementById('pilot-agreement').innerHTML =
+    `You agreed with the pilot majority on <strong>${pilotAgreements} of ${total1} colours</strong> (${Math.round(pilotAgreements/total1*100)}%). Pilot data: N=${SEED_N}.`;
+
+  // Block 2 results table
+  if (results.trialsB2.length > 0) {
+    document.getElementById('b2-results-section').style.display = 'block';
+    const byBg2 = {};
+    results.trialsB2.filter(t => !t.isAttentionCheck).forEach(t => {
+      const key = t.bgHex + '-' + t.bgName;
+      if (!byBg2[key]) byBg2[key] = { name: t.bgName, hex: t.bgHex, hue: t.bgHue,
+        choseChromatic: 0, choseAchromatic: 0,
+        textAHex: t.textAHex, textAContrast: t.textAContrast,
+        textBHex: t.textBHex, textBContrast: t.textBContrast };
+      if (t.choseAchromatic) byBg2[key].choseAchromatic++; else byBg2[key].choseChromatic++;
+    });
+    const b2Rows = Object.values(byBg2).map(bg => {
+      const total = bg.choseChromatic + bg.choseAchromatic;
+      const pctGrey = total ? Math.round(bg.choseAchromatic / total * 100) : 0;
+      const preferredGrey = bg.choseAchromatic >= bg.choseChromatic;
+      const crA = bg.textAContrast.toFixed(1), crB = bg.textBContrast.toFixed(1);
+      return `<div class="result-row">
+        <div class="swatch" style="background:${bg.hex};
+          box-shadow:inset 2px 0 0 0 ${bg.textAHex},inset -2px 0 0 0 ${bg.textBHex}"></div>
+        <div class="meta">
+          <strong>${bg.name}</strong>
+          <span>A chromatic ${bg.textAHex} ${crA}:1 · B grey ${bg.textBHex} ${crB}:1 (both WCAG AA ✓)</span>
+        </div>
+        <div style="min-width:220px">
+          <div class="result-choice">Preferred: ${preferredGrey ? 'Grey (B)' : 'Chromatic (A)'} — ${preferredGrey ? pctGrey : 100-pctGrey}% of trials</div>
+          <div style="font-size:0.75rem;margin-top:0.3rem;color:${preferredGrey?'#7c3aed':'#374151'}">
+            ${preferredGrey ? '→ Grey felt clearer despite equal WCAG score' : '→ Chromatic felt equally or more readable'}
+          </div>
+        </div>
+      </div>`;
+    });
+    // Attention check summary
+    const attHtml = attChecks.length > 0
+      ? `<div style="font-size:0.8rem;color:${attPassed===attChecks.length?'#16a34a':'#dc2626'};margin-top:0.75rem;">
+          Attention checks: ${attPassed}/${attChecks.length} passed (expected: chose the higher-contrast grey both times).
+          ${attPassed < attChecks.length ? ' ⚠ If you missed these, your Block 2 data may be flagged during analysis.' : ''}
+         </div>` : '';
+    document.getElementById('b2-results-table').innerHTML = b2Rows.join('') + attHtml;
+  }
+
+  // Mode note
+  if (STUDY_MODE !== 'live') {
+    const noteEl = document.getElementById('mode-debrief-note');
+    noteEl.style.display = 'block';
+    document.getElementById('mode-debrief-label').textContent = STUDY_MODE === 'test' ? '🧪 Test Mode: ' : '🔬 Pilot Mode: ';
+    document.getElementById('mode-debrief-text').textContent = STUDY_MODE === 'test'
+      ? 'Data is marked test mode — NOT for analysis.'
+      : 'Data is flagged studyMode:"pilot". Include as a separate pilot cohort or exclude at your discretion.';
+    noteEl.style.background = STUDY_MODE === 'test' ? '#fef3c7' : '#ede9fe';
+    noteEl.style.borderColor = STUDY_MODE === 'test' ? '#f59e0b' : '#8b5cf6';
+  }
+}
+
+// ─── Data Export ──────────────────────────────────────────────────────────────
+function buildExportObject() {
+  return {
+    studyVersion: '2.1.0',
+    studyMode: STUDY_MODE,
+    participantId,
+    collectedAt: new Date().toISOString(),
+    demographics, calibration, deviceInfo,
+    stimulusSetB1: BACKGROUNDS.map(b => ({
+      hex: b.hex, name: b.name, luminance: +b.lum.toFixed(4),
+      contrastWhite: +b.contrastWhite.toFixed(3), contrastBlack: +b.contrastBlack.toFixed(3),
+      wcagLevelWhite: b.wcagLevelWhite, wcagLevelBlack: b.wcagLevelBlack,
+      wcagPolarity: b.wcagPolarity, role: b.role, hue: b.hue
+    })),
+    stimulusSetB2: BACKGROUNDS_B2.map(b => ({
+      hex: b.hex, name: b.name, luminance: +b.lum.toFixed(4),
+      textAHex: b.textAHex, textAType: b.textAType, textAContrast: b.textAContrast,
+      textBHex: b.textBHex, textBType: b.textBType, textBContrast: b.textBContrast,
+      role: b.role, hue: b.hue,
+      paradigm: 'chromatic-vs-achromatic-equal-WCAG'
+    })),
+    trials: results.trials,
+    trialsB2: results.trialsB2,
+    ratings: results.ratings
+  };
+}
+
+function downloadData(format) {
+  const data = buildExportObject();
+  let blob, filename;
+  if (format === 'csv') {
+    if (!data.trials.length) return;
+    const headers = Object.keys(data.trials[0]).join(',');
+    const rows = data.trials.map(t => Object.values(t).map(v => JSON.stringify(v)).join(','));
+    blob = new Blob([[headers, ...rows].join('\n')], {type:'text/csv'});
+    filename = `contrast_study_b1_${participantId}.csv`;
+  } else {
+    blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    filename = `contrast_study_${participantId}.json`;
+  }
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+async function submitData() {
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  const data = buildExportObject();
+  if (!SUBMISSION_ENDPOINT || data.studyMode === 'test') {
+    downloadData();
+    document.getElementById('submit-fallback').style.display = 'block';
+    btn.style.display = 'none';
+    return;
+  }
+  try {
+    const res = await fetch(SUBMISSION_ENDPOINT, {
+      method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data)
+    });
+    if (res.ok) { document.getElementById('submit-success').style.display = 'block'; btn.style.display = 'none'; }
+    else throw new Error(`Server ${res.status}`);
+  } catch (err) {
+    downloadData();
+    document.getElementById('submit-fallback').style.display = 'block';
+    btn.disabled = false; btn.textContent = '↩ Try again';
+  }
+}
+
+// ─── Test Mode Quick-Start ────────────────────────────────────────────────────
+function testModeQuickStart() {
+  demographics = { age:'TEST', sex:null, country:null, correctionType:null, wearingNow:null,
+    colourVision:null, eyeConditions:[], screenType:null, viewingDistance:null,
+    lighting:null, nightMode:null, _testMode:true };
+  calibration = { greyLevelsDistinguished:'TEST', selfReportedBrightness:'50' };
+  captureDevice();
+  startExperiment();
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+document.getElementById('rx-fields').style.display = 'none';
+generateTrials();
+
+// Update dynamic text
+const B2_EXP_COUNT  = BACKGROUNDS_B2.filter(b => b.role === 'experimental').length * REPS;
+const B2_ATT_COUNT  = BACKGROUNDS_B2.filter(b => b.role === 'attention').length;
+const B2_TOTAL      = B2_EXP_COUNT + B2_ATT_COUNT;
+
+document.getElementById('practice-count-txt').textContent = cfg.practiceCount;
+document.getElementById('b1-trial-count-txt').textContent = BACKGROUNDS.filter(b => !b.practiceOnly).length * REPS;
+document.getElementById('b2-trial-count-txt').textContent = B2_TOTAL;
+
+const testDesc = document.getElementById('test-trial-count-desc');
+if (testDesc) testDesc.textContent =
+  `B1: ${BACKGROUNDS.filter(b => !b.practiceOnly).length * REPS} trials + B2: ${B2_TOTAL} trials`;
+
+// Apply mode styling
+if (STUDY_MODE !== 'live') {
+  document.body.classList.add('mode-' + STUDY_MODE + '-active');
+  const banner = document.getElementById('mode-banner');
+  banner.style.background = cfg.bg;
+  banner.style.color = cfg.fg;
+  const b1 = BACKGROUNDS.filter(b => !b.practiceOnly).length * REPS;
+  banner.textContent = STUDY_MODE === 'test'
+    ? `${cfg.label} — B1: ${b1} trials · B2: ${B2_TOTAL} trials · setup skipped · NOT for analysis`
+    : `${cfg.label} — B1: ${b1} + B2: ${B2_TOTAL} trials · data flagged as pilot`;
+}
+</script>
+</body>
+</html>
