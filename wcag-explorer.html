@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WCAG Stress-Tester — Real-World Example Finder</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f5f5;
+    --surface: #ffffff;
+    --border: #e0e0e0;
+    --text: #1a1a1a;
+    --muted: #666;
+    --accent: #1a56db;
+    --pass: #065f46;
+    --pass-bg: #d1fae5;
+    --fail: #991b1b;
+    --fail-bg: #fee2e2;
+    --warn: #78350f;
+    --warn-bg: #fef3c7;
+    --radius: 8px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.10);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+  }
+
+  /* ── Header ── */
+  .app-header {
+    background: #111827;
+    color: #fff;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .app-header h1 { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
+  .app-header .subtitle { font-size: 0.72rem; color: #9ca3af; margin-top: 2px; }
+  .collection-count {
+    background: #374151;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    color: #d1d5db;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .collection-count:hover { background: #4b5563; }
+  .collection-count strong { color: #f3f4f6; }
+
+  /* ── Layout ── */
+  .app-body {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 0;
+    min-height: calc(100vh - 58px);
+  }
+
+  /* ── Left panel ── */
+  .left-panel {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    max-height: calc(100vh - 58px);
+  }
+
+  .panel-section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  /* Presets */
+  .preset-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .preset-btn {
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 6px;
+    cursor: pointer;
+    text-align: left;
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    font-size: 0.67rem;
+    line-height: 1.4;
+  }
+  .preset-btn:hover { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(26,86,219,0.12); }
+  .preset-btn .pb-swatch {
+    width: 100%;
+    height: 28px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .preset-btn .pb-name { font-weight: 600; color: #111; }
+  .preset-btn .pb-note { color: var(--muted); }
+
+  /* Colour inputs */
+  .colour-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .colour-row label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    width: 80px;
+    flex-shrink: 0;
+  }
+  .colour-row input[type="color"] {
+    width: 36px;
+    height: 30px;
+    border: 1.5px solid var(--border);
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 1px;
+    flex-shrink: 0;
+  }
+  .colour-row input[type="text"] {
+    flex: 1;
+    border: 1.5px solid var(--border);
+    border-radius: 5px;
+    padding: 5px 8px;
+    font-size: 0.78rem;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .colour-row input[type="text"]:focus { border-color: var(--accent); }
+
+  .cr-badge {
+    font-size: 0.66rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .cr-pass { background: var(--pass-bg); color: var(--pass); }
+  .cr-fail { background: var(--fail-bg); color: var(--fail); }
+  .cr-warn { background: var(--warn-bg); color: var(--warn); }
+
+  .btn {
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-secondary { background: #f3f4f6; color: #374151; border: 1.5px solid var(--border); }
+  .btn-secondary:hover { background: #e5e7eb; }
+  .btn-sm { padding: 5px 10px; font-size: 0.72rem; }
+  .btn-full { width: 100%; }
+
+  .generate-area { display: flex; flex-direction: column; gap: 8px; }
+
+  /* ── Right panel ── */
+  .right-panel {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: calc(100vh - 58px);
+  }
+
+  /* Preview */
+  .preview-area {
+    padding: 24px;
+    flex-shrink: 0;
+  }
+
+  .preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .preview-header h2 { font-size: 0.85rem; font-weight: 700; }
+
+  .preview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .preview-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+  }
+  .preview-card.selected-a { border-color: #1a56db; }
+  .preview-card.selected-b { border-color: #7c3aed; }
+
+  .preview-card-header {
+    padding: 7px 12px;
+    background: #1f2937;
+    color: #fff;
+    font-size: 0.67rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .preview-body {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+  }
+
+  .preview-sample-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .preview-sample-small {
+    font-size: 0.72rem;
+    text-align: center;
+    opacity: 0.9;
+    line-height: 1.5;
+    max-width: 160px;
+  }
+
+  .preview-footer {
+    padding: 8px 12px;
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    font-size: 0.67rem;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Vote area */
+  .vote-area {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .vote-area h3 { font-size: 0.8rem; font-weight: 700; margin-bottom: 12px; }
+  .vote-buttons { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .vote-btn {
+    border-radius: 6px;
+    padding: 9px 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.15s;
+    text-align: center;
+  }
+  .vote-btn-a { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+  .vote-btn-a:hover, .vote-btn-a.active { background: #1a56db; color: #fff; border-color: #1a56db; }
+  .vote-btn-b { background: #ede9fe; color: #5b21b6; border-color: #c4b5fd; }
+  .vote-btn-b:hover, .vote-btn-b.active { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+  .vote-btn-eq { background: #f3f4f6; color: #374151; border-color: #d1d5db; }
+  .vote-btn-eq:hover, .vote-btn-eq.active { background: #374151; color: #fff; border-color: #374151; }
+
+  .notes-row { display: flex; gap: 8px; align-items: flex-start; }
+  .notes-row textarea {
+    flex: 1;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 10px;
+    font-size: 0.75rem;
+    resize: vertical;
+    min-height: 52px;
+    font-family: inherit;
+    outline: none;
+    color: var(--text);
+  }
+  .notes-row textarea:focus { border-color: var(--accent); }
+
+  /* Significance indicator */
+  .significance-bar {
+    background: #f3f4f6;
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    font-size: 0.72rem;
+  }
+  .sig-label { font-weight: 600; margin-bottom: 6px; }
+  .sig-meter-track {
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .sig-meter-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.4s, background 0.4s;
+  }
+  .sig-desc { color: var(--muted); line-height: 1.5; }
+
+  /* ── Collection ── */
+  .collection-area {
+    border-top: 2px solid var(--border);
+    padding: 20px 24px;
+    background: #fafafa;
+  }
+  .collection-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .collection-header h2 { font-size: 0.85rem; font-weight: 700; }
+  .collection-actions { display: flex; gap: 8px; }
+
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .collection-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+    transition: box-shadow 0.2s;
+  }
+  .collection-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.14); }
+
+  .collection-card-preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 72px;
+  }
+  .cc-half {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px;
+  }
+  .cc-half + .cc-half { border-left: 1.5px solid rgba(255,255,255,0.2); }
+  .cc-label { font-size: 0.55rem; font-weight: 700; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.07em; }
+  .cc-text { font-size: 0.85rem; font-weight: 700; }
+
+  .collection-card-info {
+    padding: 10px 12px;
+  }
+  .cci-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  .cci-name { font-size: 0.72rem; font-weight: 700; }
+  .cci-verdict {
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+  .verdict-a-wins { background: #dbeafe; color: #1e40af; }
+  .verdict-b-wins { background: #ede9fe; color: #5b21b6; }
+  .verdict-equal { background: #f3f4f6; color: #374151; }
+  .cci-cr { font-size: 0.65rem; color: var(--muted); margin-bottom: 5px; }
+  .cci-note { font-size: 0.65rem; color: var(--muted); font-style: italic; line-height: 1.4; }
+
+  .cc-delete {
+    float: right;
+    background: none;
+    border: none;
+    color: #d1d5db;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0 0 0 4px;
+    line-height: 1;
+  }
+  .cc-delete:hover { color: #ef4444; }
+
+  .empty-collection {
+    text-align: center;
+    padding: 32px;
+    color: var(--muted);
+    font-size: 0.8rem;
+    grid-column: 1 / -1;
+  }
+
+  /* Hue sweep panel */
+  .sweep-panel {
+    background: #fffbeb;
+    border: 1.5px solid #fde68a;
+    border-radius: var(--radius);
+    padding: 12px 14px;
+  }
+  .sweep-panel h4 { font-size: 0.72rem; font-weight: 700; color: #78350f; margin-bottom: 6px; }
+  .sweep-panel p { font-size: 0.67rem; color: #92400e; line-height: 1.5; margin-bottom: 8px; }
+  .sweep-hues {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .hue-chip {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.15s, transform 0.1s;
+    flex-shrink: 0;
+  }
+  .hue-chip:hover { transform: scale(1.15); border-color: #111; }
+
+  /* Tooltip */
+  .tooltip { position: relative; }
+  .tooltip:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  .divider { height: 1px; background: var(--border); }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div>
+    <h1>WCAG Stress-Tester — Real-World Example Finder</h1>
+    <div class="subtitle">Human-in-the-loop: explore colour space · flag WCAG failures · build your evidence base</div>
+  </div>
+  <div class="collection-count" onclick="scrollToCollection()">
+    Collection: <strong id="countDisplay">0</strong> examples saved
+  </div>
+</header>
+
+<div class="app-body">
+
+  <!-- ── LEFT PANEL ── -->
+  <aside class="left-panel">
+
+    <div>
+      <div class="panel-section-title">Known Real-World Cases</div>
+      <div class="preset-grid" id="presetGrid"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div>
+      <div class="panel-section-title">Hue Sweep — dark backgrounds</div>
+      <div class="sweep-panel">
+        <h4>Systematically explore dark hue families</h4>
+        <p>Click a chip to load a dark background at that hue. The tool auto-generates the same-hue WCAG-pass text (A) and an achromatic comparison (B).</p>
+        <div class="sweep-hues" id="sweepHues"></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div>
+      <div class="panel-section-title">Custom Colours</div>
+      <div class="colour-row">
+        <label>Background</label>
+        <input type="color" id="bgPicker" value="#004040">
+        <input type="text" id="bgHex" value="#004040" maxlength="7" placeholder="#rrggbb">
+      </div>
+      <div class="colour-row">
+        <label>Text A</label>
+        <input type="color" id="aColorPicker" value="#00B5B5">
+        <input type="text" id="aHex" value="#00B5B5" maxlength="7" placeholder="#rrggbb">
+        <span class="cr-badge" id="aCR">—</span>
+      </div>
+      <div class="colour-row">
+        <label>Text B</label>
+        <input type="color" id="bColorPicker" value="#818181">
+        <input type="text" id="bHex" value="#818181" maxlength="7" placeholder="#rrggbb">
+        <span class="cr-badge" id="bCR">—</span>
+      </div>
+
+      <div class="generate-area">
+        <button class="btn btn-primary btn-full" onclick="autoGenerate()">
+          ⚡ Auto-generate pair from background
+        </button>
+        <button class="btn btn-secondary btn-full btn-sm" onclick="swapAB()">
+          ⇄ Swap A and B
+        </button>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ── RIGHT PANEL ── -->
+  <main class="right-panel" id="rightPanel">
+    <div class="preview-area">
+
+      <div class="preview-header">
+        <h2 id="previewTitle">Text on Background Preview</h2>
+        <span id="bgHexDisplay" style="font-family:monospace;font-size:0.78rem;color:var(--muted)"></span>
+      </div>
+
+      <!-- Side-by-side preview -->
+      <div class="preview-grid">
+        <div class="preview-card" id="cardA" onclick="vote('A')">
+          <div class="preview-card-header">
+            <span>A — <span id="aTypeLabel">Same-hue chromatic</span></span>
+            <span class="cr-badge" id="aCRPreview">—</span>
+          </div>
+          <div class="preview-body" id="previewA">
+            <div class="preview-sample-text" id="sampleTextA">The quick brown fox jumps</div>
+            <div class="preview-sample-small" id="sampleSmallA">Small body text — 14px regular weight</div>
+          </div>
+          <div class="preview-footer">
+            <span id="aFooterHex" style="font-family:monospace">—</span>
+            <span id="aFooterDesc">—</span>
+          </div>
+        </div>
+
+        <div class="preview-card" id="cardB" onclick="vote('B')">
+          <div class="preview-card-header">
+            <span>B — <span id="bTypeLabel">Achromatic grey</span></span>
+            <span class="cr-badge" id="bCRPreview">—</span>
+          </div>
+          <div class="preview-body" id="previewB">
+            <div class="preview-sample-text" id="sampleTextB">The quick brown fox jumps</div>
+            <div class="preview-sample-small" id="sampleSmallB">Small body text — 14px regular weight</div>
+          </div>
+          <div class="preview-footer">
+            <span id="bFooterHex" style="font-family:monospace">—</span>
+            <span id="bFooterDesc">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Significance meter -->
+      <div class="significance-bar" id="sigBar">
+        <div class="sig-label">WCAG prediction vs perceptual interest</div>
+        <div class="sig-meter-track">
+          <div class="sig-meter-fill" id="sigFill" style="width:0%;background:#22c55e"></div>
+        </div>
+        <div class="sig-desc" id="sigDesc">Load a colour pair to see the analysis.</div>
+      </div>
+
+      <!-- Vote & save -->
+      <div class="vote-area">
+        <h3>Which text looks clearer to you?</h3>
+        <div class="vote-buttons">
+          <button class="vote-btn vote-btn-a" id="voteA" onclick="vote('A')">A looks clearer</button>
+          <button class="vote-btn vote-btn-eq" id="voteEq" onclick="vote('equal')">About equal</button>
+          <button class="vote-btn vote-btn-b" id="voteB" onclick="vote('B')">B looks clearer</button>
+        </div>
+        <div class="notes-row">
+          <textarea id="noteText" placeholder="Optional: why is this interesting? What does it tell you about WCAG? (e.g. 'grey felt more distinct despite lower CR — opponent channel effect')"></textarea>
+          <button class="btn btn-primary btn-sm" onclick="saveToCollection()" style="white-space:nowrap;align-self:center">
+            Save to<br>collection
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── COLLECTION ── -->
+    <div class="collection-area" id="collectionArea">
+      <div class="collection-header">
+        <h2>Evidence Collection (<span id="countDisplay2">0</span> examples)</h2>
+        <div class="collection-actions">
+          <button class="btn btn-secondary btn-sm" onclick="exportCollection()">Export JSON</button>
+          <button class="btn btn-secondary btn-sm" onclick="exportCSV()">Export CSV</button>
+          <button class="btn btn-secondary btn-sm" onclick="clearCollection()" style="color:#dc2626">Clear all</button>
+        </div>
+      </div>
+      <div class="collection-grid" id="collectionGrid">
+        <div class="empty-collection">
+          No examples saved yet. Explore colour pairs above, judge which looks clearer, and click "Save to collection" — anything interesting goes here.
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ── Colour math ──────────────────────────────────────────────────────────────
+function sRGBtoLin(c) {
+  const v = c / 255;
+  return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+}
+function hexToRGB(hex) {
+  const h = hex.replace('#','');
+  return [parseInt(h.slice(0,2),16), parseInt(h.slice(2,4),16), parseInt(h.slice(4,6),16)];
+}
+function relLum(hex) {
+  const [r,g,b] = hexToRGB(hex);
+  return 0.2126*sRGBtoLin(r) + 0.7152*sRGBtoLin(g) + 0.0722*sRGBtoLin(b);
+}
+function wcagCR(hex1, hex2) {
+  const l1 = relLum(hex1), l2 = relLum(hex2);
+  return (Math.max(l1,l2)+0.05)/(Math.min(l1,l2)+0.05);
+}
+function crDisplay(cr) { return cr.toFixed(2)+':1'; }
+function isPass(cr) { return cr >= 4.5; }
+
+// ── HSL <-> Hex ──────────────────────────────────────────────────────────────
+function hexToHSL(hex) {
+  let [r,g,b] = hexToRGB(hex).map(x => x/255);
+  const max = Math.max(r,g,b), min = Math.min(r,g,b);
+  let h, s, l = (max+min)/2;
+  if (max === min) { h = s = 0; }
+  else {
+    const d = max-min;
+    s = l > 0.5 ? d/(2-max-min) : d/(max+min);
+    switch(max) {
+      case r: h = ((g-b)/d + (g<b?6:0))/6; break;
+      case g: h = ((b-r)/d + 2)/6; break;
+      case b: h = ((r-g)/d + 4)/6; break;
+    }
+  }
+  return [h*360, s, l];
+}
+function hslToHex(h, s, l) {
+  h = ((h % 360) + 360) % 360;
+  s = Math.max(0, Math.min(1, s));
+  l = Math.max(0, Math.min(1, l));
+  const c = (1 - Math.abs(2*l-1)) * s;
+  const x = c * (1 - Math.abs((h/60)%2 - 1));
+  const m = l - c/2;
+  let r,g,b;
+  if (h<60)       { r=c;g=x;b=0; }
+  else if (h<120) { r=x;g=c;b=0; }
+  else if (h<180) { r=0;g=c;b=x; }
+  else if (h<240) { r=0;g=x;b=c; }
+  else if (h<300) { r=x;g=0;b=c; }
+  else            { r=c;g=0;b=x; }
+  const toHex = v => Math.round((v+m)*255).toString(16).padStart(2,'0');
+  return '#'+toHex(r)+toHex(g)+toHex(b);
+}
+
+// ── Find text colour at target CR, given hue & saturation ───────────────────
+function findTextAtCR(bgHex, targetCR, hue, sat) {
+  const bgL = relLum(bgHex);
+  const needLighter = bgL < 0.18; // dark bg needs lighter text
+
+  // Binary search lightness
+  let lo = needLighter ? 0.4 : 0.02;
+  let hi = needLighter ? 1.0 : 0.5;
+  for (let i = 0; i < 60; i++) {
+    const mid = (lo+hi)/2;
+    const candHex = hslToHex(hue, sat, mid);
+    const cr = wcagCR(bgHex, candHex);
+    if (cr > targetCR) { if (needLighter) hi=mid; else lo=mid; }
+    else               { if (needLighter) lo=mid; else hi=mid; }
+  }
+  return hslToHex(hue, sat, (lo+hi)/2);
+}
+
+function findSameHueText(bgHex, targetCR) {
+  const [h, , ] = hexToHSL(bgHex);
+  // Try max saturation first; if can't hit target, reduce sat
+  for (let sat = 1.0; sat >= 0.1; sat -= 0.1) {
+    const hex = findTextAtCR(bgHex, targetCR, h, sat);
+    const cr = wcagCR(bgHex, hex);
+    if (Math.abs(cr - targetCR) < 0.3) return { hex, sat };
+  }
+  return { hex: findTextAtCR(bgHex, targetCR, h, 0.8), sat: 0.8 };
+}
+
+function findGreyText(bgHex, targetCR) {
+  const bgL = relLum(bgHex);
+  const needLighter = bgL < 0.18;
+  let lo = needLighter ? 0.3 : 0;
+  let hi = needLighter ? 1.0 : 0.5;
+  for (let i = 0; i < 60; i++) {
+    const mid = (lo+hi)/2;
+    const cand = hslToHex(0, 0, mid);
+    const cr = wcagCR(bgHex, cand);
+    if (cr > targetCR) { if (needLighter) hi=mid; else lo=mid; }
+    else               { if (needLighter) lo=mid; else hi=mid; }
+  }
+  return hslToHex(0, 0, (lo+hi)/2);
+}
+
+// ── State ────────────────────────────────────────────────────────────────────
+let state = {
+  bg: '#004040',
+  a: '#00B5B5',
+  b: '#818181',
+  vote: null,
+  collection: []
+};
+
+// ── Known real-world presets ──────────────────────────────────────────────────
+const PRESETS = [
+  {
+    name: 'Capgemini Vibrant Blue',
+    note: 'White vs black on brand blue',
+    bg: '#1DB8F2',
+    a: '#000000', aLabel: 'Black (WCAG ✓)',
+    b: '#FFFFFF', bLabel: 'White (WCAG ✗)',
+    source: 'Capgemini design system'
+  },
+  {
+    name: 'Datawrapper / Somers',
+    note: 'Cyan-blue vs dark grey on black',
+    bg: '#000000',
+    a: '#027BB7', aLabel: 'Cyan-blue 4.5:1 (WCAG ✓)',
+    b: '#595959', bLabel: 'Dark grey 3.0:1 (WCAG ✗)',
+    source: 'Datawrapper analysis; also Block 2'
+  },
+  {
+    name: 'Dark Teal — study',
+    note: 'Cyan vs grey on dark teal',
+    bg: '#004040',
+    a: '#00B5B5', aLabel: 'Pure cyan · ΔH=0°',
+    b: '#818181', bLabel: 'Neutral grey 3.0:1',
+    source: 'Block 2 v4'
+  },
+  {
+    name: 'Dark Indigo — study',
+    note: 'Violet vs grey on indigo',
+    bg: '#380060',
+    a: '#A870FF', aLabel: 'Violet · ΔH≈12°',
+    b: '#6C6C6C', bLabel: 'Neutral grey 3.0:1',
+    source: 'Block 2 v4'
+  },
+  {
+    name: 'Forest Green — study',
+    note: 'Lime vs grey on forest green',
+    bg: '#1A4A14',
+    a: '#11C700', aLabel: 'Lime · ΔH≈2°',
+    b: '#8A8A8A', bLabel: 'Neutral grey 3.0:1',
+    source: 'Block 2 v4'
+  },
+  {
+    name: 'Dark Blue (navy)',
+    note: 'Blue vs grey on dark navy',
+    bg: '#0A2050',
+    a: '#4B85F8', aLabel: 'Blue · ΔH≈1°',
+    b: '#6C6C6C', bLabel: 'Neutral grey 3.0:1',
+    source: 'Block 2 v4'
+  },
+  {
+    name: 'Bootstrap Primary',
+    note: 'White vs blue-same-hue on #0d6efd',
+    bg: '#0d6efd',
+    a: '#FFFFFF', aLabel: 'White (WCAG ~?)',
+    b: '#002b6b', bLabel: 'Dark blue same-hue',
+    source: 'Bootstrap 5 default'
+  },
+  {
+    name: 'Material Blue 700',
+    note: 'Tinted same-hue vs white on #1976d2',
+    bg: '#1976d2',
+    a: '#FFFFFF', aLabel: 'White',
+    b: '#000000', bLabel: 'Black',
+    source: 'Material Design default'
+  },
+];
+
+// ── Dark hue families for sweep ───────────────────────────────────────────────
+const SWEEP_HUES = [
+  { hue: 0,   name: 'Red',     bg: '#400000' },
+  { hue: 30,  name: 'Orange',  bg: '#3d2000' },
+  { hue: 60,  name: 'Yellow',  bg: '#383800' },
+  { hue: 90,  name: 'Lime',    bg: '#1e3800' },
+  { hue: 120, name: 'Green',   bg: '#003800' },
+  { hue: 150, name: 'Emerald', bg: '#00380e' },
+  { hue: 165, name: 'Seafoam', bg: '#003820' },
+  { hue: 180, name: 'Teal',    bg: '#004040' },
+  { hue: 195, name: 'Cyan',    bg: '#003844' },
+  { hue: 210, name: 'Sky',     bg: '#002244' },
+  { hue: 220, name: 'Blue',    bg: '#0a2050' },
+  { hue: 240, name: 'Indigo',  bg: '#200060' },
+  { hue: 260, name: 'Violet',  bg: '#300060' },
+  { hue: 280, name: 'Purple',  bg: '#380040' },
+  { hue: 300, name: 'Magenta', bg: '#400038' },
+  { hue: 330, name: 'Rose',    bg: '#40001c' },
+];
+
+// ── Build UI ─────────────────────────────────────────────────────────────────
+function buildPresets() {
+  const grid = document.getElementById('presetGrid');
+  PRESETS.forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = 'preset-btn';
+    const crA = wcagCR(p.bg, p.a), crB = wcagCR(p.bg, p.b);
+    btn.innerHTML = `
+      <div class="pb-swatch" style="background:${p.bg}">
+        <span style="color:${p.a};font-size:0.68rem;font-weight:700">A</span>
+        <span style="color:#888;padding:0 4px">|</span>
+        <span style="color:${p.b};font-size:0.68rem;font-weight:700">B</span>
+      </div>
+      <div class="pb-name">${p.name}</div>
+      <div class="pb-note">${p.note}</div>
+    `;
+    btn.onclick = () => loadPreset(p);
+    grid.appendChild(btn);
+  });
+}
+
+function buildSweep() {
+  const container = document.getElementById('sweepHues');
+  SWEEP_HUES.forEach(h => {
+    const chip = document.createElement('div');
+    chip.className = 'hue-chip tooltip';
+    chip.style.background = h.bg;
+    chip.setAttribute('data-tip', h.name);
+    chip.title = h.name;
+    chip.onclick = () => loadHue(h);
+    container.appendChild(chip);
+  });
+}
+
+function loadPreset(p) {
+  state.bg = p.bg;
+  state.a = p.a;
+  state.b = p.b;
+  state.vote = null;
+  document.getElementById('bgHex').value = p.bg;
+  document.getElementById('bgPicker').value = p.bg;
+  document.getElementById('aHex').value = p.a;
+  document.getElementById('aColorPicker').value = p.a;
+  document.getElementById('bHex').value = p.b;
+  document.getElementById('bColorPicker').value = p.b;
+  document.getElementById('aTypeLabel').textContent = p.aLabel || 'Text A';
+  document.getElementById('bTypeLabel').textContent = p.bLabel || 'Text B';
+  document.getElementById('noteText').value = p.source ? `Source: ${p.source}` : '';
+  updatePreview();
+}
+
+function loadHue(h) {
+  state.bg = h.bg;
+  document.getElementById('bgHex').value = h.bg;
+  document.getElementById('bgPicker').value = h.bg;
+  autoGenerate();
+}
+
+function autoGenerate() {
+  const bg = state.bg;
+  const { hex: aHex } = findSameHueText(bg, 4.5);
+  const bHex = findGreyText(bg, 3.0);
+  state.a = aHex;
+  state.b = bHex;
+  state.vote = null;
+  document.getElementById('aHex').value = aHex;
+  document.getElementById('aColorPicker').value = aHex;
+  document.getElementById('bHex').value = bHex;
+  document.getElementById('bColorPicker').value = bHex;
+  const [h] = hexToHSL(bg);
+  document.getElementById('aTypeLabel').textContent = `Same-hue ~4.5:1 (WCAG ✓)`;
+  document.getElementById('bTypeLabel').textContent = `Achromatic grey ~3.0:1 (WCAG ✗)`;
+  clearVoteButtons();
+  updatePreview();
+}
+
+function updatePreview() {
+  const { bg, a, b } = state;
+  const crA = wcagCR(bg, a), crB = wcagCR(bg, b);
+
+  // Cards
+  ['A','B'].forEach(side => {
+    const hex = side==='A' ? a : b;
+    const cr = side==='A' ? crA : crB;
+    const card = document.getElementById('card'+side);
+    const previewBody = document.getElementById('preview'+side);
+    const sampleText = document.getElementById('sampleText'+side);
+    const sampleSmall = document.getElementById('sampleSmall'+side);
+    const footerHex = document.getElementById(side.toLowerCase()+'FooterHex');
+    const footerDesc = document.getElementById(side.toLowerCase()+'FooterDesc');
+    const crBadgePreview = document.getElementById(side+'CRPreview');
+    const crBadge = document.getElementById(side.toLowerCase()+'CR');
+
+    previewBody.style.background = bg;
+    sampleText.style.color = hex;
+    sampleSmall.style.color = hex;
+    footerHex.textContent = hex;
+    const pass = isPass(cr);
+    const crStr = crDisplay(cr);
+    crBadgePreview.textContent = crStr + (pass ? ' ✓AA' : ' ✗fail');
+    crBadgePreview.className = 'cr-badge ' + (pass ? 'cr-pass' : 'cr-fail');
+    crBadge.textContent = crStr;
+    crBadge.className = 'cr-badge ' + (pass ? 'cr-pass' : (cr>=3.0 ? 'cr-warn' : 'cr-fail'));
+    footerDesc = footerDesc; // ref already set
+  });
+
+  // Also update colour pickers to stay in sync
+  document.getElementById('aCRPreview').textContent; // already done above
+
+  // Significance meter
+  updateSigMeter(crA, crB);
+
+  // Header
+  document.getElementById('bgHexDisplay').textContent = bg;
+  document.getElementById('aFooterDesc').textContent = isPass(crA) ? 'WCAG AA ✓' : 'WCAG fail ✗';
+  document.getElementById('bFooterDesc').textContent = isPass(crB) ? 'WCAG AA ✓' : 'WCAG fail ✗';
+}
+
+function updateSigMeter(crA, crB) {
+  const fill = document.getElementById('sigFill');
+  const desc = document.getElementById('sigDesc');
+  const passA = isPass(crA), passB = isPass(crB);
+
+  // Interesting if: A passes and B fails (or vice versa), AND gap in human expectation likely exists
+  // Gap score: higher CR gap → less interesting (if A wins by huge margin, it's obvious)
+  // Most interesting: A passes narrowly, B fails but not catastrophically
+  const delta = crA - crB;
+  const interesting = passA && !passB;
+
+  let score = 0;
+  let colour = '#22c55e';
+  let text = '';
+
+  if (!interesting) {
+    // Both pass or both fail or B wins in WCAG
+    if (passA && passB) { score=5; colour='#94a3b8'; text='Both pass WCAG AA — less useful as a counterexample (WCAG agrees with itself on both).'; }
+    else if (!passA && !passB) { score=10; colour='#f59e0b'; text='Both fail WCAG — less targeted, but interesting if you perceive one as clearly more readable.'; }
+    else { score=15; colour='#f59e0b'; text='B passes but A fails — reversed WCAG polarity. Useful if B looks LESS readable than A despite higher CR.'; }
+  } else {
+    // A passes, B fails — the classic counterexample scenario
+    // More interesting when: gap is narrow (delta 1–2), and same-hue suppression is strong (A has same hue as bg)
+    const [bgH] = hexToHSL(state.bg);
+    const [aH] = hexToHSL(state.a);
+    const hueDelta = Math.min(Math.abs(bgH-aH), 360-Math.abs(bgH-aH));
+    const sameHue = hueDelta < 30;
+
+    if (sameHue && delta < 2.5) {
+      score=90; colour='#7c3aed';
+      text=`High-interest case: Text A is same-hue as background (ΔH≈${hueDelta.toFixed(0)}°) and passes WCAG by only ${delta.toFixed(2)}:1 more than B. Colour-opponent suppression may make A look worse despite higher CR. Save this one.`;
+    } else if (sameHue && delta < 4) {
+      score=70; colour='#3b82f6';
+      text=`Interesting: same-hue suppression present (ΔH≈${hueDelta.toFixed(0)}°) but the CR gap is moderately large (Δ${delta.toFixed(2)}). B might still look competitive.`;
+    } else if (!sameHue && delta < 2) {
+      score=55; colour='#22c55e';
+      text=`Moderate interest: A passes and B fails with a narrow gap (Δ${delta.toFixed(2)}:1). Hue difference is ${hueDelta.toFixed(0)}° — less same-hue suppression than ideal.`;
+    } else {
+      score=20; colour='#94a3b8';
+      text=`Lower interest: the CR gap is large (Δ${delta.toFixed(2)}:1) so A should clearly win perceptually. Try narrowing the gap or using a same-hue A.`;
+    }
+  }
+
+  fill.style.width = score+'%';
+  fill.style.background = colour;
+  desc.textContent = text;
+}
+
+function syncFromHex(side, hexVal) {
+  hexVal = hexVal.trim();
+  if (!/^#[0-9a-fA-F]{6}$/.test(hexVal)) return;
+  if (side === 'bg') {
+    state.bg = hexVal;
+    document.getElementById('bgPicker').value = hexVal;
+  } else if (side === 'a') {
+    state.a = hexVal;
+    document.getElementById('aColorPicker').value = hexVal;
+  } else {
+    state.b = hexVal;
+    document.getElementById('bColorPicker').value = hexVal;
+  }
+  updatePreview();
+}
+
+function syncFromPicker(side, val) {
+  if (side === 'bg') {
+    state.bg = val;
+    document.getElementById('bgHex').value = val;
+  } else if (side === 'a') {
+    state.a = val;
+    document.getElementById('aHex').value = val;
+  } else {
+    state.b = val;
+    document.getElementById('bHex').value = val;
+  }
+  updatePreview();
+}
+
+function swapAB() {
+  const tmpHex = state.a, tmpPicker = document.getElementById('aColorPicker').value;
+  const tmpLabel = document.getElementById('aTypeLabel').textContent;
+  state.a = state.b;
+  state.b = tmpHex;
+  document.getElementById('aHex').value = state.a;
+  document.getElementById('aColorPicker').value = state.a;
+  document.getElementById('bHex').value = state.b;
+  document.getElementById('bColorPicker').value = state.b;
+  const bLabel = document.getElementById('bTypeLabel').textContent;
+  document.getElementById('aTypeLabel').textContent = bLabel;
+  document.getElementById('bTypeLabel').textContent = tmpLabel;
+  state.vote = null;
+  clearVoteButtons();
+  updatePreview();
+}
+
+// ── Voting ───────────────────────────────────────────────────────────────────
+function vote(choice) {
+  state.vote = choice;
+  clearVoteButtons();
+  if (choice === 'A') {
+    document.getElementById('voteA').classList.add('active');
+    document.getElementById('cardA').classList.add('selected-a');
+    document.getElementById('cardB').classList.remove('selected-b');
+  } else if (choice === 'B') {
+    document.getElementById('voteB').classList.add('active');
+    document.getElementById('cardB').classList.add('selected-b');
+    document.getElementById('cardA').classList.remove('selected-a');
+  } else {
+    document.getElementById('voteEq').classList.add('active');
+    document.getElementById('cardA').classList.remove('selected-a');
+    document.getElementById('cardB').classList.remove('selected-b');
+  }
+}
+
+function clearVoteButtons() {
+  ['voteA','voteB','voteEq'].forEach(id => document.getElementById(id).classList.remove('active'));
+  ['cardA','cardB'].forEach(id => document.getElementById(id).classList.remove('selected-a','selected-b'));
+}
+
+// ── Collection ───────────────────────────────────────────────────────────────
+function saveToCollection() {
+  const { bg, a, b, vote } = state;
+  if (!vote) { alert('Please judge which text looks clearer (A, B, or Equal) before saving.'); return; }
+
+  const crA = wcagCR(bg, a), crB = wcagCR(bg, b);
+  const [bgH] = hexToHSL(bg);
+  const [aH] = hexToHSL(a);
+  const hueDelta = Math.min(Math.abs(bgH-aH), 360-Math.abs(bgH-aH));
+
+  const entry = {
+    id: Date.now(),
+    bg, a, b,
+    crA: +crA.toFixed(2), crB: +crB.toFixed(2),
+    passA: isPass(crA), passB: isPass(crB),
+    vote,
+    wcagSays: crA > crB ? 'A' : 'B',
+    wcagWrong: (vote !== 'equal') && (vote !== (crA > crB ? 'A' : 'B')),
+    hueDeltaAB: +hueDelta.toFixed(1),
+    aLabel: document.getElementById('aTypeLabel').textContent,
+    bLabel: document.getElementById('bTypeLabel').textContent,
+    note: document.getElementById('noteText').value.trim(),
+    savedAt: new Date().toISOString()
+  };
+
+  state.collection.unshift(entry);
+  renderCollection();
+  document.getElementById('noteText').value = '';
+}
+
+function renderCollection() {
+  const grid = document.getElementById('collectionGrid');
+  const count = state.collection.length;
+  document.getElementById('countDisplay').textContent = count;
+  document.getElementById('countDisplay2').textContent = count;
+
+  if (count === 0) {
+    grid.innerHTML = '<div class="empty-collection">No examples saved yet. Explore colour pairs above, judge which looks clearer, and click "Save to collection" — anything interesting goes here.</div>';
+    return;
+  }
+
+  grid.innerHTML = '';
+  state.collection.forEach(e => {
+    const card = document.createElement('div');
+    card.className = 'collection-card';
+
+    const verdictClass = e.vote==='A' ? 'verdict-a-wins' : e.vote==='B' ? 'verdict-b-wins' : 'verdict-equal';
+    const verdictText = e.vote==='A' ? 'A looked clearer' : e.vote==='B' ? 'B looked clearer' : 'About equal';
+    const wcagFlag = e.wcagWrong ? ' ⚠ WCAG wrong!' : '';
+
+    card.innerHTML = `
+      <div class="collection-card-preview">
+        <div class="cc-half" style="background:${e.bg}">
+          <div class="cc-label" style="color:${e.a}">A</div>
+          <div class="cc-text" style="color:${e.a}">Text</div>
+        </div>
+        <div class="cc-half" style="background:${e.bg}">
+          <div class="cc-label" style="color:${e.b}">B</div>
+          <div class="cc-text" style="color:${e.b}">Text</div>
+        </div>
+      </div>
+      <div class="collection-card-info">
+        <div class="cci-row">
+          <span class="cci-name">${e.bg}</span>
+          <span class="cci-verdict ${verdictClass}">${verdictText}${wcagFlag}</span>
+        </div>
+        <div class="cci-cr">
+          A: <strong>${e.crA}:1</strong> ${e.passA?'✓':'✗'} &nbsp;
+          B: <strong>${e.crB}:1</strong> ${e.passB?'✓':'✗'} &nbsp;
+          WCAG says <strong>${e.wcagSays}</strong>
+        </div>
+        ${e.note ? `<div class="cci-note">${e.note}</div>` : ''}
+        <button class="cc-delete" onclick="deleteEntry(${e.id})" title="Remove">×</button>
+      </div>
+    `;
+    card.querySelector('.collection-card-preview').addEventListener('click', () => {
+      state.bg = e.bg; state.a = e.a; state.b = e.b; state.vote = null;
+      document.getElementById('bgHex').value = e.bg;
+      document.getElementById('bgPicker').value = e.bg;
+      document.getElementById('aHex').value = e.a;
+      document.getElementById('aColorPicker').value = e.a;
+      document.getElementById('bHex').value = e.b;
+      document.getElementById('bColorPicker').value = e.b;
+      document.getElementById('aTypeLabel').textContent = e.aLabel;
+      document.getElementById('bTypeLabel').textContent = e.bLabel;
+      clearVoteButtons();
+      updatePreview();
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+    grid.appendChild(card);
+  });
+}
+
+function deleteEntry(id) {
+  state.collection = state.collection.filter(e => e.id !== id);
+  renderCollection();
+}
+
+function clearCollection() {
+  if (confirm('Clear all saved examples?')) { state.collection=[]; renderCollection(); }
+}
+
+function exportCollection() {
+  const blob = new Blob([JSON.stringify(state.collection, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'wcag-examples-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click(); URL.revokeObjectURL(url);
+}
+
+function exportCSV() {
+  const cols = ['bg','a','b','crA','crB','passA','passB','vote','wcagSays','wcagWrong','hueDeltaAB','aLabel','bLabel','note','savedAt'];
+  const rows = state.collection.map(e => cols.map(k => JSON.stringify(e[k]??'')).join(','));
+  const csv = [cols.join(','), ...rows].join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'wcag-examples-'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click(); URL.revokeObjectURL(url);
+}
+
+function scrollToCollection() {
+  document.getElementById('collectionArea').scrollIntoView({behavior:'smooth'});
+}
+
+// ── Wire up inputs ────────────────────────────────────────────────────────────
+document.getElementById('bgHex').addEventListener('input', e => syncFromHex('bg', e.target.value));
+document.getElementById('aHex').addEventListener('input',  e => syncFromHex('a',  e.target.value));
+document.getElementById('bHex').addEventListener('input',  e => syncFromHex('b',  e.target.value));
+document.getElementById('bgPicker').addEventListener('input', e => syncFromPicker('bg', e.target.value));
+document.getElementById('aColorPicker').addEventListener('input', e => syncFromPicker('a', e.target.value));
+document.getElementById('bColorPicker').addEventListener('input', e => syncFromPicker('b', e.target.value));
+
+// Also update CR badges in colour row when hex text changes
+function updateCRBadges() {
+  const crA = wcagCR(state.bg, state.a), crB = wcagCR(state.bg, state.b);
+  const ba = document.getElementById('aCR'), bb = document.getElementById('bCR');
+  ba.textContent = crDisplay(crA); ba.className='cr-badge '+(isPass(crA)?'cr-pass':(crA>=3?'cr-warn':'cr-fail'));
+  bb.textContent = crDisplay(crB); bb.className='cr-badge '+(isPass(crB)?'cr-pass':(crB>=3?'cr-warn':'cr-fail'));
+}
+
+// ── Boot ──────────────────────────────────────────────────────────────────────
+buildPresets();
+buildSweep();
+// Load first preset on startup
+loadPreset(PRESETS[0]);
+renderCollection();
+</script>
+</body>
+</html>
