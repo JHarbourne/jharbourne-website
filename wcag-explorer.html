@@ -194,7 +194,7 @@
     max-height: calc(100vh - 58px);
   }
 
-  /* Preview */
+  /* Preview — single split swatch */
   .preview-area {
     padding: 24px;
     flex-shrink: 0;
@@ -208,67 +208,84 @@
   }
   .preview-header h2 { font-size: 0.85rem; font-weight: 700; }
 
-  .preview-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-
-  .preview-card {
+  .swatch-card {
     border-radius: var(--radius);
     overflow: hidden;
     box-shadow: var(--shadow);
-    border: 2px solid transparent;
-    transition: border-color 0.2s;
-    cursor: pointer;
+    margin-bottom: 16px;
   }
-  .preview-card.selected-a { border-color: #1a56db; }
-  .preview-card.selected-b { border-color: #7c3aed; }
-
-  .preview-card-header {
-    padding: 7px 12px;
+  .swatch-card-header {
+    padding: 8px 14px;
     background: #1f2937;
     color: #fff;
-    font-size: 0.67rem;
+    font-size: 0.72rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-
-  .preview-body {
-    height: 160px;
+  .swatch-body {
+    display: flex;
+    height: 180px;
+  }
+  .swatch-half {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 8px;
     padding: 16px;
+    cursor: pointer;
+    transition: filter 0.15s;
+    border: 3px solid transparent;
   }
-
-  .preview-sample-text {
-    font-size: 1.3rem;
-    font-weight: 600;
+  .swatch-half:hover { filter: brightness(1.06); }
+  .swatch-half + .swatch-half { border-left: 2px solid rgba(255,255,255,0.18); }
+  .swatch-half.selected { border: 3px solid #fff; }
+  .swatch-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.65;
+  }
+  .swatch-text {
+    font-size: 1.25rem;
+    font-weight: 700;
     text-align: center;
     line-height: 1.3;
   }
-  .preview-sample-small {
-    font-size: 0.72rem;
+  .swatch-meta {
+    font-size: 0.62rem;
     text-align: center;
-    opacity: 0.9;
     line-height: 1.5;
-    max-width: 160px;
+    opacity: 0.9;
+    font-family: 'SF Mono', 'Fira Code', monospace;
   }
-
-  .preview-footer {
-    padding: 8px 12px;
+  .swatch-footer {
+    display: flex;
     background: #f9fafb;
     border-top: 1px solid #e5e7eb;
+  }
+  .swatch-footer-half {
+    flex: 1;
+    padding: 8px 14px;
     font-size: 0.67rem;
     color: var(--muted);
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 8px;
+  }
+  .swatch-footer-half + .swatch-footer-half {
+    border-left: 1px solid #e5e7eb;
+  }
+  .swatch-type-label {
+    font-size: 0.65rem;
+    color: var(--muted);
+    font-style: italic;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   /* Vote area */
@@ -548,35 +565,32 @@
         <span id="bgHexDisplay" style="font-family:monospace;font-size:0.78rem;color:var(--muted)"></span>
       </div>
 
-      <!-- Side-by-side preview -->
-      <div class="preview-grid">
-        <div class="preview-card" id="cardA" onclick="vote('A')">
-          <div class="preview-card-header">
-            <span>A — <span id="aTypeLabel">Same-hue chromatic</span></span>
-            <span class="cr-badge" id="aCRPreview">—</span>
+      <!-- Single split swatch: same background, two text options -->
+      <div class="swatch-card">
+        <div class="swatch-card-header">
+          <span>Background: <strong id="bgHexDisplay2" style="font-family:monospace">—</strong></span>
+          <span style="font-size:0.65rem;color:#9ca3af">Click a side to vote · or use the buttons below</span>
+        </div>
+        <div class="swatch-body" id="swatchBody">
+          <div class="swatch-half" id="halfA" onclick="vote('A')">
+            <div class="swatch-label" id="aSwatchLabel">A</div>
+            <div class="swatch-text" id="sampleTextA">The quick brown fox</div>
+            <div class="swatch-meta" id="sampleSmallA">—</div>
           </div>
-          <div class="preview-body" id="previewA">
-            <div class="preview-sample-text" id="sampleTextA">The quick brown fox jumps</div>
-            <div class="preview-sample-small" id="sampleSmallA">Small body text — 14px regular weight</div>
-          </div>
-          <div class="preview-footer">
-            <span id="aFooterHex" style="font-family:monospace">—</span>
-            <span id="aFooterDesc">—</span>
+          <div class="swatch-half" id="halfB" onclick="vote('B')">
+            <div class="swatch-label" id="bSwatchLabel">B</div>
+            <div class="swatch-text" id="sampleTextB">The quick brown fox</div>
+            <div class="swatch-meta" id="sampleSmallB">—</div>
           </div>
         </div>
-
-        <div class="preview-card" id="cardB" onclick="vote('B')">
-          <div class="preview-card-header">
-            <span>B — <span id="bTypeLabel">Achromatic grey</span></span>
+        <div class="swatch-footer">
+          <div class="swatch-footer-half">
+            <span class="cr-badge" id="aCRPreview">—</span>
+            <span class="swatch-type-label" id="aTypeLabel">—</span>
+          </div>
+          <div class="swatch-footer-half">
             <span class="cr-badge" id="bCRPreview">—</span>
-          </div>
-          <div class="preview-body" id="previewB">
-            <div class="preview-sample-text" id="sampleTextB">The quick brown fox jumps</div>
-            <div class="preview-sample-small" id="sampleSmallB">Small body text — 14px regular weight</div>
-          </div>
-          <div class="preview-footer">
-            <span id="bFooterHex" style="font-family:monospace">—</span>
-            <span id="bFooterDesc">—</span>
+            <span class="swatch-type-label" id="bTypeLabel">—</span>
           </div>
         </div>
       </div>
@@ -870,9 +884,14 @@ function loadPreset(p) {
   document.getElementById('aColorPicker').value = p.a;
   document.getElementById('bHex').value = p.b;
   document.getElementById('bColorPicker').value = p.b;
-  document.getElementById('aTypeLabel').textContent = p.aLabel || 'Text A';
-  document.getElementById('bTypeLabel').textContent = p.bLabel || 'Text B';
+  const aLbl = p.aLabel || 'Text A';
+  const bLbl = p.bLabel || 'Text B';
+  document.getElementById('aTypeLabel').textContent = aLbl;
+  document.getElementById('aTypeLabel').dataset.label = aLbl;
+  document.getElementById('bTypeLabel').textContent = bLbl;
+  document.getElementById('bTypeLabel').dataset.label = bLbl;
   document.getElementById('noteText').value = p.source ? `Source: ${p.source}` : '';
+  clearVoteButtons();
   updatePreview();
 }
 
@@ -894,53 +913,68 @@ function autoGenerate() {
   document.getElementById('aColorPicker').value = aHex;
   document.getElementById('bHex').value = bHex;
   document.getElementById('bColorPicker').value = bHex;
-  const [h] = hexToHSL(bg);
-  document.getElementById('aTypeLabel').textContent = `Same-hue ~4.5:1 (WCAG ✓)`;
-  document.getElementById('bTypeLabel').textContent = `Achromatic grey ~3.0:1 (WCAG ✗)`;
+  const aLbl = 'Same-hue chromatic ~4.5:1 (WCAG ✓)';
+  const bLbl = 'Achromatic grey ~3.0:1 (WCAG ✗)';
+  document.getElementById('aTypeLabel').textContent = aLbl;
+  document.getElementById('aTypeLabel').dataset.label = aLbl;
+  document.getElementById('bTypeLabel').textContent = bLbl;
+  document.getElementById('bTypeLabel').dataset.label = bLbl;
   clearVoteButtons();
   updatePreview();
 }
 
 function updatePreview() {
-  const { bg, a, b } = state;
+  const bg = state.bg, a = state.a, b = state.b;
   const crA = wcagCR(bg, a), crB = wcagCR(bg, b);
 
-  // Cards
-  ['A','B'].forEach(side => {
-    const hex = side==='A' ? a : b;
-    const cr = side==='A' ? crA : crB;
-    const card = document.getElementById('card'+side);
-    const previewBody = document.getElementById('preview'+side);
-    const sampleText = document.getElementById('sampleText'+side);
-    const sampleSmall = document.getElementById('sampleSmall'+side);
-    const footerHex = document.getElementById(side.toLowerCase()+'FooterHex');
-    const footerDesc = document.getElementById(side.toLowerCase()+'FooterDesc');
-    const crBadgePreview = document.getElementById(side+'CRPreview');
-    const crBadge = document.getElementById(side.toLowerCase()+'CR');
+  // ── Single split swatch: both halves share the same background ──
+  // Half A
+  const halfA = document.getElementById('halfA');
+  halfA.style.background = bg;
+  const sampleTextA = document.getElementById('sampleTextA');
+  sampleTextA.style.color = a;
+  const sampleSmallA = document.getElementById('sampleSmallA');
+  sampleSmallA.style.color = a;
+  sampleSmallA.textContent = a + ' · ' + crDisplay(crA);
+  document.getElementById('aSwatchLabel').style.color = a;
 
-    previewBody.style.background = bg;
-    sampleText.style.color = hex;
-    sampleSmall.style.color = hex;
-    footerHex.textContent = hex;
-    const pass = isPass(cr);
-    const crStr = crDisplay(cr);
-    crBadgePreview.textContent = crStr + (pass ? ' ✓AA' : ' ✗fail');
-    crBadgePreview.className = 'cr-badge ' + (pass ? 'cr-pass' : 'cr-fail');
-    crBadge.textContent = crStr;
-    crBadge.className = 'cr-badge ' + (pass ? 'cr-pass' : (cr>=3.0 ? 'cr-warn' : 'cr-fail'));
-    footerDesc = footerDesc; // ref already set
-  });
+  // Half B
+  const halfB = document.getElementById('halfB');
+  halfB.style.background = bg;
+  const sampleTextB = document.getElementById('sampleTextB');
+  sampleTextB.style.color = b;
+  const sampleSmallB = document.getElementById('sampleSmallB');
+  sampleSmallB.style.color = b;
+  sampleSmallB.textContent = b + ' · ' + crDisplay(crB);
+  document.getElementById('bSwatchLabel').style.color = b;
 
-  // Also update colour pickers to stay in sync
-  document.getElementById('aCRPreview').textContent; // already done above
+  // CR badges in swatch footer
+  const passA = isPass(crA), passB = isPass(crB);
+  const aBadge = document.getElementById('aCRPreview');
+  aBadge.textContent = crDisplay(crA) + (passA ? ' ✓ AA' : ' ✗ fail');
+  aBadge.className = 'cr-badge ' + (passA ? 'cr-pass' : 'cr-fail');
+
+  const bBadge = document.getElementById('bCRPreview');
+  bBadge.textContent = crDisplay(crB) + (passB ? ' ✓ AA' : ' ✗ fail');
+  bBadge.className = 'cr-badge ' + (passB ? 'cr-pass' : 'cr-fail');
+
+  // CR badges in left panel colour rows
+  const aCRLeft = document.getElementById('aCR');
+  aCRLeft.textContent = crDisplay(crA);
+  aCRLeft.className = 'cr-badge ' + (passA ? 'cr-pass' : (crA>=3 ? 'cr-warn' : 'cr-fail'));
+
+  const bCRLeft = document.getElementById('bCR');
+  bCRLeft.textContent = crDisplay(crB);
+  bCRLeft.className = 'cr-badge ' + (passB ? 'cr-pass' : (crB>=3 ? 'cr-warn' : 'cr-fail'));
+
+  // Header
+  const bgDisp = document.getElementById('bgHexDisplay');
+  if (bgDisp) bgDisp.textContent = bg;
+  const bgDisp2 = document.getElementById('bgHexDisplay2');
+  if (bgDisp2) bgDisp2.textContent = bg;
 
   // Significance meter
   updateSigMeter(crA, crB);
-
-  // Header
-  document.getElementById('bgHexDisplay').textContent = bg;
-  document.getElementById('aFooterDesc').textContent = isPass(crA) ? 'WCAG AA ✓' : 'WCAG fail ✗';
-  document.getElementById('bFooterDesc').textContent = isPass(crB) ? 'WCAG AA ✓' : 'WCAG fail ✗';
 }
 
 function updateSigMeter(crA, crB) {
@@ -1041,25 +1075,27 @@ function swapAB() {
 // ── Voting ───────────────────────────────────────────────────────────────────
 function vote(choice) {
   state.vote = choice;
-  clearVoteButtons();
+  // Reset
+  ['voteA','voteB','voteEq'].forEach(id => document.getElementById(id).classList.remove('active'));
+  document.getElementById('halfA').classList.remove('selected');
+  document.getElementById('halfB').classList.remove('selected');
+  // Apply
   if (choice === 'A') {
     document.getElementById('voteA').classList.add('active');
-    document.getElementById('cardA').classList.add('selected-a');
-    document.getElementById('cardB').classList.remove('selected-b');
+    document.getElementById('halfA').classList.add('selected');
   } else if (choice === 'B') {
     document.getElementById('voteB').classList.add('active');
-    document.getElementById('cardB').classList.add('selected-b');
-    document.getElementById('cardA').classList.remove('selected-a');
+    document.getElementById('halfB').classList.add('selected');
   } else {
     document.getElementById('voteEq').classList.add('active');
-    document.getElementById('cardA').classList.remove('selected-a');
-    document.getElementById('cardB').classList.remove('selected-b');
   }
 }
 
 function clearVoteButtons() {
   ['voteA','voteB','voteEq'].forEach(id => document.getElementById(id).classList.remove('active'));
-  ['cardA','cardB'].forEach(id => document.getElementById(id).classList.remove('selected-a','selected-b'));
+  const hA = document.getElementById('halfA'), hB = document.getElementById('halfB');
+  if (hA) hA.classList.remove('selected');
+  if (hB) hB.classList.remove('selected');
 }
 
 // ── Collection ───────────────────────────────────────────────────────────────
