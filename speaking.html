@@ -11,6 +11,8 @@
 </head>
 <body>
 
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
 <header class="site-nav">
   <div class="site-nav__inner">
     <a href="index.html" class="site-nav__name">Jonathan Harbourne</a>
@@ -25,7 +27,7 @@
   </div>
 </header>
 
-<main>
+<main id="main-content">
 
   <div class="page-header">
     <div class="wrap">
@@ -38,9 +40,83 @@
   <!-- ── Topics ─────────────────────────────────────────────────── -->
   <section class="topics-section">
     <div class="wrap">
-      <p class="topics-head">Topics</p>
-      <p class="topics-body">Enterprise UX at scale &middot; AI ethics and design accountability &middot; The future of design practice in an AI-native world &middot; Futures design and speculative thinking &middot; Building end-to-end digital products without a team or budget &middot; Accessibility as design leadership, not compliance &middot; Community-led heritage and AI integration</p>
+      <div class="topics-hd">
+        <p class="topics-head">Topics</p>
+        <div class="topics-controls">
+          <button class="topics-btn" id="topics-prev" aria-label="Scroll to previous topics">&#8592;</button>
+          <button class="topics-btn" id="topics-next" aria-label="Scroll to next topics">&#8594;</button>
+        </div>
+      </div>
+      <div class="topics-track" id="topics-track" role="region" aria-label="Speaking topics">
+
+        <div class="topic-card">
+          <span class="topic-card__num" aria-hidden="true">01</span>
+          <p class="topic-card__title">AI and Consciousness</p>
+          <p class="topic-card__sub">What consciousness is really for&mdash;evolutionarily, functionally&mdash;and what that means for the systems we are now building.</p>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-card__num" aria-hidden="true">02</span>
+          <p class="topic-card__title">Enterprise UX at Scale</p>
+          <p class="topic-card__sub">How design leadership works inside large, complex organisations. Growing teams, setting standards, and making design hold at programme level.</p>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-card__num" aria-hidden="true">03</span>
+          <p class="topic-card__title">Digital Accessibility through Governance</p>
+          <p class="topic-card__sub">Why accessibility fails at the audit stage&mdash;and how to embed it into organisational structure, procurement, and accountability.</p>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-card__num" aria-hidden="true">04</span>
+          <p class="topic-card__title">AI Ethics and Design Accountability</p>
+          <p class="topic-card__sub">Who is responsible when AI systems harm? What design accountability looks like when the consequences are real, not theoretical.</p>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-card__num" aria-hidden="true">05</span>
+          <p class="topic-card__title">The Future of Design Practice</p>
+          <p class="topic-card__sub">How the AI-native world changes what it means to be a designer&mdash;and which parts of the craft are more important than ever.</p>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-card__num" aria-hidden="true">06</span>
+          <p class="topic-card__title">Futures Design and Speculation</p>
+          <p class="topic-card__sub">Using speculative and futures thinking to make better decisions in the present&mdash;and to help organisations see what they would rather not.</p>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-card__num" aria-hidden="true">07</span>
+          <p class="topic-card__title">Building Products Without a Budget</p>
+          <p class="topic-card__sub">Designing, building and launching end-to-end digital products solo. What constraints reveal that resources obscure.</p>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-card__num" aria-hidden="true">08</span>
+          <p class="topic-card__title">Community-led Heritage and AI</p>
+          <p class="topic-card__sub">How grassroots archives have moved past the debate institutions are still having&mdash;and what the sector can learn from it.</p>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-card__num" aria-hidden="true">09</span>
+          <p class="topic-card__title">Accessibility as Design Leadership</p>
+          <p class="topic-card__sub">Accessibility is not a compliance exercise. It is the highest expression of design intent&mdash;and the argument for treating it as such.</p>
+        </div>
+
+      </div>
     </div>
+    <script>
+      (function () {
+        var track = document.getElementById('topics-track');
+        var SCROLL = 516; /* ~2 cards at 256px + 1.5px gap */
+        document.getElementById('topics-prev').addEventListener('click', function () {
+          track.scrollBy({ left: -SCROLL, behavior: 'smooth' });
+        });
+        document.getElementById('topics-next').addEventListener('click', function () {
+          track.scrollBy({ left: SCROLL, behavior: 'smooth' });
+        });
+      }());
+    </script>
   </section>
 
   <!-- ── Upcoming ───────────────────────────────────────────────── -->
@@ -68,9 +144,9 @@
       <p class="conf-section-head">Previous</p>
 
       <article class="conf-entry">
-        <p class="conf-entry__meta">Annual event &middot; Capgemini</p>
+        <p class="conf-entry__meta">2021&ndash;present &middot; Annual &middot; Capgemini</p>
         <h2 class="conf-entry__name">Capgemini Global UX Conference</h2>
-        <p class="conf-entry__body">Organiser and regular speaker at the annual Capgemini global UX conference&mdash;the largest internal gathering of UX practitioners across the organisation&rsquo;s worldwide practice.</p>
+        <p class="conf-entry__body">Founder, organiser and regular speaker at the annual Capgemini global UX conference&mdash;now in its sixth year and the largest internal gathering of UX practitioners across the organisation&rsquo;s worldwide practice. Each conference brings together over fourteen speakers from across the global practice. The professional UX community I built at Capgemini has more than 1,500 members, sustained by monthly presentations I have organised and hosted since 2021.</p>
       </article>
 
       <article class="conf-entry">
@@ -82,7 +158,7 @@
       <article class="conf-entry">
         <p class="conf-entry__meta">May 2010 &middot; HMRC</p>
         <h2 class="conf-entry__name">HMRC LGB and Trans Annual Conference</h2>
-        <p class="conf-entry__body">Keynote speaker at HMRC&rsquo;s annual LGB and Trans conference.</p>
+        <p class="conf-entry__body">Keynote speaker at HMRC&rsquo;s annual LGB and Trans conference, alongside Phillipa Dew MBE and Michael Cashman&mdash;the only speaker on the platform without a national honour.</p>
       </article>
     </div>
   </section>
