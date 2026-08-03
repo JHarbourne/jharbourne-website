@@ -259,28 +259,25 @@ a:hover {
   background: var(--bg-off);
   border-right: 1.5px solid var(--rule);
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
   padding: 14px 10px;
 }
 
 .phone-device {
-  flex: 1;
-  background: #111;
+  width: 100%;
+  background: #e8e8e8;
   border-radius: 18px;
-  border: 3px solid #2a2a2a;
+  border: 3px solid #c8c8c8;
   box-shadow:
-    0 0 0 1px rgba(255,255,255,0.08),
-    inset 0 0 0 1px rgba(255,255,255,0.04);
+    0 0 0 1px rgba(0,0,0,0.06),
+    inset 0 0 0 1px rgba(255,255,255,0.8);
   overflow: hidden;
-  min-height: 0;
 }
 
 .phone-device img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  height: auto;
   display: block;
 }
 
@@ -599,8 +596,10 @@ a:hover {
 
 /* Project figures */
 .project-figure {
-  margin-top: 2rem;
-  max-width: 520px;
+  float: right;
+  margin: 0.25rem 0 1.5rem 2.5rem;
+  max-width: 280px;
+  clear: right;
 }
 
 .project-figure img {
@@ -615,6 +614,66 @@ a:hover {
   font-size: 0.75rem;
   color: var(--faint);
   line-height: 1.5;
+}
+
+/* Browser screenshot */
+.project-browser-shot {
+  margin-top: 2rem;
+  max-width: 680px;
+  clear: both;
+}
+
+.project-browser-shot img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+}
+
+/* Two-up browser screenshot gallery */
+.project-browser-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+  max-width: 680px;
+}
+
+.project-browser-gallery img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+/* Phone screenshot gallery */
+.project-phone-gallery {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  align-items: flex-start;
+}
+
+.project-phone-gallery .phone-device {
+  width: 110px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  border: 3px solid #c8c8c8;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.06),
+    inset 0 0 0 1px rgba(255,255,255,0.8);
+  overflow: hidden;
+  background: #e8e8e8;
+}
+
+.project-phone-gallery .phone-device img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* Project links */
@@ -1208,6 +1267,21 @@ a:hover {
 
   .conf-grid {
     grid-template-columns: 1fr;
+  }
+
+  .project-browser-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .project-phone-gallery {
+    gap: 0.6rem;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  .project-phone-gallery .phone-device {
+    width: 90px;
+    flex-shrink: 0;
   }
 
   .writing-entry {
