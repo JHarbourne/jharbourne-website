@@ -76,7 +76,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  height: 56px;
   max-width: var(--content);
   margin-inline: auto;
   padding-inline: var(--pad-h);
@@ -84,7 +84,7 @@ a:hover {
 
 .site-nav__name {
   font-family: var(--display);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: normal;
   letter-spacing: -0.01em;
   color: var(--ink);
@@ -124,7 +124,7 @@ a:hover {
 
 /* ── Section shared ────────────────────────────────────────────── */
 .section {
-  padding-block: 5rem;
+  padding-block: 3.5rem;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -136,7 +136,7 @@ a:hover {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .label {
@@ -160,8 +160,8 @@ a:hover {
 
 /* ── Hero ──────────────────────────────────────────────────────── */
 .hero {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -171,32 +171,42 @@ a:hover {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--faint);
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
 }
 
 .hero__headline {
   font-family: var(--display);
-  font-size: clamp(2.6rem, 6vw, 4.75rem);
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
   font-weight: normal;
-  line-height: 1.08;
+  line-height: 1.1;
   letter-spacing: -0.025em;
   color: var(--ink);
   max-width: 820px;
-  margin-bottom: 2.75rem;
+  margin-bottom: 2rem;
 }
 
 .hero__body {
-  max-width: 600px;
+  max-width: 620px;
 }
 
 .hero__body p {
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.8;
   color: var(--mid);
 }
 
 .hero__body p + p {
-  margin-top: 1.1rem;
+  margin-top: 1rem;
+}
+
+.hero__quals {
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
 }
 
 /* ── Project cards (homepage) ──────────────────────────────────── */
@@ -209,9 +219,7 @@ a:hover {
 
 .project-card {
   display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-  padding: 2.25rem;
+  flex-direction: column;
   background: var(--bg);
 }
 
@@ -219,16 +227,38 @@ a:hover {
   border-right: 1.5px solid var(--rule);
 }
 
+.project-card__image {
+  height: 200px;
+  background: var(--bg-off);
+  border-bottom: 1.5px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.phone-outline {
+  width: 70px;
+  opacity: 0.35;
+}
+
+.project-card__inner {
+  display: flex;
+  gap: 1.75rem;
+  align-items: flex-start;
+  padding: 1.75rem;
+}
+
 .project-card__stat {
   flex-shrink: 0;
   text-align: right;
-  min-width: 72px;
+  min-width: 64px;
 }
 
 .stat-number {
   display: block;
   font-family: var(--display);
-  font-size: 2.75rem;
+  font-size: 2.25rem;
   font-weight: normal;
   line-height: 1;
   color: var(--ink);
@@ -237,7 +267,7 @@ a:hover {
 
 .stat-label {
   display: block;
-  font-size: 0.6rem;
+  font-size: 0.58rem;
   letter-spacing: 0.13em;
   text-transform: uppercase;
   color: var(--faint);
@@ -247,40 +277,40 @@ a:hover {
 .project-card__body {
   flex: 1;
   border-left: 1.5px solid var(--rule);
-  padding-left: 2rem;
+  padding-left: 1.75rem;
 }
 
 .project-card__name {
   font-family: var(--display);
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: normal;
   line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--ink);
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.3rem;
 }
 
 .project-card__role {
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--faint);
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
 }
 
 .project-card__text {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   line-height: 1.7;
   color: var(--mid);
 }
 
 /* ── Speaking teaser (homepage) ────────────────────────────────── */
 .speaking-intro {
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.8;
   color: var(--mid);
   max-width: 600px;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .conference-list {
@@ -289,10 +319,10 @@ a:hover {
 }
 
 .conference-item {
-  padding-block: 1.25rem;
+  padding-block: 1rem;
   border-bottom: 1px solid var(--rule);
   display: flex;
-  gap: 2.5rem;
+  gap: 2rem;
   align-items: baseline;
 }
 
@@ -302,12 +332,12 @@ a:hover {
   text-transform: uppercase;
   color: var(--faint);
   flex-shrink: 0;
-  width: 90px;
+  width: 110px;
 }
 
 .conference-name {
   font-family: var(--display);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: normal;
   line-height: 1.35;
   color: var(--ink);
@@ -323,24 +353,24 @@ a:hover {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--faint);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
 }
 
 .writing-teaser__title {
   font-family: var(--display);
-  font-size: 1.65rem;
+  font-size: 1.5rem;
   font-weight: normal;
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--ink);
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.75rem;
 }
 
 .writing-teaser__body {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   line-height: 1.75;
   color: var(--mid);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .writing-teaser__link {
@@ -356,17 +386,17 @@ a:hover {
 
 /* ── Personal section ──────────────────────────────────────────── */
 .personal-body {
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.8;
   color: var(--mid);
-  max-width: 600px;
+  max-width: 620px;
 }
 
 /* ── Footer ────────────────────────────────────────────────────── */
 .site-footer {
   background: var(--ink);
   color: rgba(255, 255, 255, 0.65);
-  padding-block: 4rem;
+  padding-block: 3.5rem;
 }
 
 .site-footer__inner {
@@ -389,7 +419,7 @@ a:hover {
 
 .footer-email {
   font-family: var(--display);
-  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: normal;
   color: white;
   text-decoration: none;
@@ -430,13 +460,13 @@ a:hover {
   font-size: 0.7rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.25);
-  padding-top: 2.5rem;
+  padding-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* ── Page header (inner pages) ─────────────────────────────────── */
 .page-header {
-  padding-block: 5rem 3.5rem;
+  padding-block: 3.5rem 2.5rem;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -445,12 +475,12 @@ a:hover {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--faint);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .page-header__title {
   font-family: var(--display);
-  font-size: clamp(2.4rem, 5vw, 3.75rem);
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
   font-weight: normal;
   line-height: 1.08;
   letter-spacing: -0.025em;
@@ -458,8 +488,8 @@ a:hover {
 }
 
 .page-header__intro {
-  margin-top: 1.75rem;
-  font-size: 1.05rem;
+  margin-top: 1.25rem;
+  font-size: 1rem;
   line-height: 1.8;
   color: var(--mid);
   max-width: 600px;
@@ -467,7 +497,7 @@ a:hover {
 
 /* ── Projects page ─────────────────────────────────────────────── */
 .project-entry {
-  padding-block: 5rem;
+  padding-block: 3.5rem;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -476,12 +506,12 @@ a:hover {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--faint);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .project-entry__name {
   font-family: var(--display);
-  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: normal;
   line-height: 1.08;
   letter-spacing: -0.025em;
@@ -491,10 +521,10 @@ a:hover {
 
 .project-entry__stat-row {
   display: flex;
-  gap: 4rem;
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
-  padding-block: 2rem;
+  gap: 3.5rem;
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
+  padding-block: 1.5rem;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
 }
@@ -506,7 +536,7 @@ a:hover {
 
 .project-entry__stat-n {
   font-family: var(--display);
-  font-size: 3.25rem;
+  font-size: 3rem;
   font-weight: normal;
   line-height: 1;
   color: var(--ink);
@@ -529,19 +559,41 @@ a:hover {
 }
 
 .project-entry__body p + p {
-  margin-top: 1.1rem;
+  margin-top: 1rem;
+}
+
+/* Project links */
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  max-width: 660px;
+}
+
+.project-link {
+  font-size: 0.82rem;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.project-link:hover {
+  text-decoration: underline;
 }
 
 .sub-project {
-  margin-top: 3rem;
-  padding-top: 3rem;
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
   border-top: 1px solid var(--rule);
   max-width: 660px;
 }
 
 .sub-project__name {
   font-family: var(--display);
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: normal;
   color: var(--ink);
   margin-bottom: 0.25rem;
@@ -553,7 +605,7 @@ a:hover {
   letter-spacing: 0.13em;
   text-transform: uppercase;
   color: var(--faint);
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.75rem;
 }
 
 .sub-project__body {
@@ -562,9 +614,26 @@ a:hover {
   color: var(--mid);
 }
 
+.sub-project__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
+  margin-top: 1rem;
+}
+
+.sub-project__links a {
+  font-size: 0.8rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.sub-project__links a:hover {
+  text-decoration: underline;
+}
+
 /* ── Speaking page ─────────────────────────────────────────────── */
 .topics-section {
-  padding-block: 3.5rem;
+  padding-block: 3rem;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -573,7 +642,7 @@ a:hover {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--faint);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .topics-body {
@@ -584,7 +653,7 @@ a:hover {
 }
 
 .conf-section {
-  padding-block: 4.5rem;
+  padding-block: 3.5rem;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -593,11 +662,11 @@ a:hover {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--faint);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .conf-entry {
-  padding-block: 2.25rem;
+  padding-block: 2rem;
   border-bottom: 1px solid var(--rule);
   max-width: 780px;
 }
@@ -611,17 +680,17 @@ a:hover {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--faint);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
 }
 
 .conf-entry__name {
   font-family: var(--display);
-  font-size: 1.45rem;
+  font-size: 1.35rem;
   font-weight: normal;
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--ink);
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
 }
 
 .conf-entry__body {
@@ -631,16 +700,16 @@ a:hover {
 }
 
 .speaking-cta {
-  padding-block: 4.5rem;
+  padding-block: 4rem;
 }
 
 .speaking-cta__headline {
   font-family: var(--display);
-  font-size: 2rem;
+  font-size: 1.85rem;
   font-weight: normal;
   color: var(--ink);
   letter-spacing: -0.02em;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
 }
 
 .speaking-cta__body {
@@ -648,7 +717,7 @@ a:hover {
   line-height: 1.75;
   color: var(--mid);
   max-width: 520px;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .cta-link {
@@ -668,7 +737,7 @@ a:hover {
 
 /* ── Writing page ──────────────────────────────────────────────── */
 .writing-section {
-  padding-block: 4.5rem;
+  padding-block: 3.5rem;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -677,7 +746,7 @@ a:hover {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--faint);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .writing-section__intro {
@@ -685,11 +754,11 @@ a:hover {
   line-height: 1.8;
   color: var(--mid);
   max-width: 620px;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .writing-entry {
-  padding-block: 2.25rem;
+  padding-block: 2rem;
   border-bottom: 1px solid var(--rule);
   max-width: 700px;
 }
@@ -708,12 +777,12 @@ a:hover {
 
 .writing-entry__title {
   font-family: var(--display);
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: normal;
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--ink);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
 }
 
 .writing-entry__title a {
@@ -729,7 +798,7 @@ a:hover {
   font-size: 0.92rem;
   line-height: 1.75;
   color: var(--mid);
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
 }
 
 .writing-entry__link {
@@ -742,24 +811,85 @@ a:hover {
   text-decoration: underline;
 }
 
+/* ── Books ─────────────────────────────────────────────────────── */
+.book-entry {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+  padding-block: 2.5rem;
+  border-bottom: 1px solid var(--rule);
+  max-width: 760px;
+}
+
+.book-entry:first-of-type {
+  border-top: 1px solid var(--rule);
+}
+
+.book-cover {
+  flex-shrink: 0;
+  width: 110px;
+}
+
+.book-cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--rule);
+}
+
+.book-entry__body {
+  flex: 1;
+}
+
+.book-entry__status {
+  font-size: 0.63rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 0.5rem;
+}
+
+.book-entry__title {
+  font-family: var(--display);
+  font-size: 1.45rem;
+  font-weight: normal;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 0.6rem;
+}
+
+.book-entry__subtitle {
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--mid);
+  margin-bottom: 0.85rem;
+}
+
+.book-entry__desc {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--mid);
+}
+
 /* ── Contact page ──────────────────────────────────────────────── */
 .contact-main {
-  padding-block: 6rem;
+  padding-block: 5rem;
 }
 
 .contact-headline {
   font-family: var(--display);
-  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-size: clamp(1.4rem, 3vw, 2rem);
   font-weight: normal;
   line-height: 1.35;
   color: var(--mid);
   max-width: 620px;
-  margin-bottom: 3.5rem;
+  margin-bottom: 3rem;
 }
 
 .contact-email-link {
   font-family: var(--display);
-  font-size: clamp(2rem, 5.5vw, 4rem);
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
   font-weight: normal;
   line-height: 1;
   letter-spacing: -0.025em;
@@ -778,7 +908,7 @@ a:hover {
   display: flex;
   gap: 2.5rem;
   align-items: center;
-  padding-top: 2rem;
+  padding-top: 1.75rem;
   border-top: 1px solid var(--rule);
 }
 
@@ -823,7 +953,7 @@ a:hover {
     border-bottom: 1.5px solid var(--rule);
   }
 
-  .project-card {
+  .project-card__inner {
     flex-direction: column;
     gap: 1.25rem;
   }
@@ -840,6 +970,15 @@ a:hover {
     padding-left: 0;
     border-top: 1px solid var(--rule);
     padding-top: 1.25rem;
+  }
+
+  .book-entry {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .book-cover {
+    width: 90px;
   }
 
   .conference-item {
@@ -864,7 +1003,7 @@ a:hover {
   }
 
   .project-entry__stat-row {
-    gap: 2.5rem;
+    gap: 2rem;
     flex-wrap: wrap;
   }
 
