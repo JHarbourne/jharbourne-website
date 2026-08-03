@@ -1091,6 +1091,10 @@ a:hover {
   display: block;
 }
 
+/* Compensate for different cover aspect ratios so both render a similar height */
+.book-entry:first-of-type .book-cover  { width: 155px; }
+.book-entry:last-of-type  .book-cover  { width: 200px; }
+
 .book-entry__body {
   flex: 1;
 }
