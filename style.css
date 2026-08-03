@@ -252,22 +252,21 @@ a:hover {
   border-right: 1.5px solid var(--rule);
 }
 
-/* Phone sidebar — portrait, full card height */
+/* App screenshot sidebar — portrait, full card height */
 .project-card__image {
-  width: 96px;
+  width: 130px;
   flex-shrink: 0;
   background: var(--bg-off);
   border-right: 1.5px solid var(--rule);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem 0.85rem;
+  overflow: hidden;
 }
 
-.phone-outline {
-  width: 54px;
-  height: auto;
-  opacity: 0.4;
+.project-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
 }
 
 /* Content area to the right of the phone */
@@ -795,6 +794,44 @@ a:hover {
   border-top: 1px solid var(--rule);
 }
 
+/* Two-column grid for submitted conference papers */
+.conf-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5px;
+  background: var(--rule);
+  border: 1.5px solid var(--rule);
+  margin-top: 2rem;
+}
+
+.conf-grid .conf-entry {
+  border: none;
+  border-top: 3px solid var(--accent);
+  background: var(--bg);
+  padding: 2rem;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.conf-grid .conf-entry:first-of-type {
+  border-top: 3px solid var(--accent);
+}
+
+.conf-entry__link {
+  display: inline-block;
+  margin-top: auto;
+  padding-top: 1.25rem;
+  font-size: 0.82rem;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.conf-entry__link:hover {
+  text-decoration: underline;
+}
+
 .conf-entry__meta {
   font-size: 0.63rem;
   letter-spacing: 0.14em;
@@ -878,13 +915,37 @@ a:hover {
 }
 
 .writing-entry {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 1.5rem;
   padding-block: 2rem;
   border-bottom: 1px solid var(--rule);
-  max-width: 700px;
+  max-width: 780px;
 }
 
 .writing-entry:first-of-type {
   border-top: 1px solid var(--rule);
+}
+
+.writing-entry__thumb {
+  flex-shrink: 0;
+  width: 88px;
+  background: var(--bg-off);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+
+.writing-entry__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.writing-entry__content {
+  flex: 1;
+  min-width: 0;
 }
 
 .writing-entry__source {
@@ -947,7 +1008,7 @@ a:hover {
 
 .book-cover {
   flex-shrink: 0;
-  width: 110px;
+  width: 180px;
 }
 
 .book-cover img {
@@ -1073,12 +1134,7 @@ a:hover {
   }
 
   .project-card__image {
-    width: 72px;
-    padding: 1.25rem 0.6rem;
-  }
-
-  .phone-outline {
-    width: 42px;
+    width: 90px;
   }
 
   .project-card__inner {
@@ -1091,7 +1147,7 @@ a:hover {
   }
 
   .book-cover {
-    width: 90px;
+    width: 150px;
   }
 
   .conference-item {
@@ -1128,5 +1184,18 @@ a:hover {
 
   .topic-card {
     width: 210px;
+  }
+
+  .conf-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .writing-entry {
+    flex-direction: column;
+  }
+
+  .writing-entry__thumb {
+    width: 100%;
+    height: 140px;
   }
 }
