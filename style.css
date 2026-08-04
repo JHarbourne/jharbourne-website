@@ -182,6 +182,41 @@ a:hover {
   text-decoration: underline;
 }
 
+/* ── CV preview (hero) ─────────────────────────────────────────── */
+.hero__cv {
+  float: right;
+  margin: 0 0 1.5rem 2.5rem;
+  clear: right;
+}
+
+.hero__cv-link {
+  display: block;
+  text-decoration: none;
+}
+
+.hero__cv-img {
+  display: block;
+  width: 140px;
+  height: auto;
+  border: 1px solid var(--rule);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.08);
+  transition: box-shadow 0.15s ease;
+}
+
+.hero__cv-link:hover .hero__cv-img {
+  box-shadow: 0 4px 22px rgba(0,0,0,0.14);
+}
+
+.hero__cv-label {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: center;
+}
+
 /* ── Hero ──────────────────────────────────────────────────────── */
 .hero {
   padding-top: 4rem;
@@ -378,6 +413,29 @@ a:hover {
 /* ── Writing teaser (homepage) ─────────────────────────────────── */
 .writing-teaser {
   max-width: 680px;
+  display: flex;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.writing-teaser__thumb {
+  flex-shrink: 0;
+  width: 88px;
+  background: var(--bg-off);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+
+.writing-teaser__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.writing-teaser__content {
+  flex: 1;
+  min-width: 0;
 }
 
 .writing-teaser__source {
@@ -594,12 +652,17 @@ a:hover {
   margin-top: 1rem;
 }
 
-/* Project figures */
+/* Two-column layout: body text + image */
+.project-entry__cols {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* Project figures — no float, sits in grid column */
 .project-figure {
-  float: right;
-  margin: 0.25rem 0 1.5rem 2.5rem;
-  max-width: 280px;
-  clear: right;
+  max-width: 260px;
 }
 
 .project-figure img {
@@ -620,7 +683,6 @@ a:hover {
 .project-browser-shot {
   margin-top: 2rem;
   max-width: 680px;
-  clear: both;
 }
 
 .project-browser-shot img {
@@ -632,22 +694,22 @@ a:hover {
   box-shadow: 0 2px 16px rgba(0,0,0,0.07);
 }
 
-/* Two-up browser screenshot gallery */
-.project-browser-gallery {
+/* Sub-project two-column: text + screenshot */
+.sub-project__cols {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-top: 2rem;
-  max-width: 680px;
+  grid-template-columns: 1fr 320px;
+  gap: 2rem;
+  align-items: start;
 }
 
-.project-browser-gallery img {
+.sub-project__browser-img {
   width: 100%;
   height: auto;
   display: block;
   border: 1px solid var(--rule);
   border-radius: 6px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  margin-top: 0.25rem;
 }
 
 /* Phone screenshot gallery */
