@@ -1359,3 +1359,243 @@ a:hover {
     height: 140px;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   PROJECT PANELS (portfolio index page)
+   ══════════════════════════════════════════════════════════════ */
+
+.projects-index {
+  padding: 0 0 4rem;
+}
+
+.project-panel {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  background: var(--bg);
+  transition: box-shadow 0.2s ease;
+}
+
+.project-panel:hover {
+  box-shadow: 0 6px 28px rgba(0,0,0,0.09);
+}
+
+.project-panel__inner {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  min-height: 320px;
+}
+
+.project-panel__content {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-panel__tags {
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin: 0 0 0.9rem;
+}
+
+.project-panel__name {
+  font-family: var(--display);
+  font-size: 2rem;
+  font-weight: normal;
+  color: var(--ink);
+  margin: 0 0 0.9rem;
+  line-height: 1.1;
+}
+
+.project-panel__body {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--mid);
+  margin: 0 0 1.5rem;
+  max-width: 52ch;
+}
+
+.project-panel__stats {
+  display: flex;
+  gap: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.project-panel__stat-n {
+  display: block;
+  font-family: var(--display);
+  font-size: 1.5rem;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.project-panel__stat-l {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-top: 0.25rem;
+}
+
+.project-panel__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding: 0.7rem 1.4rem;
+  background: var(--accent);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  border-radius: 4px;
+  align-self: flex-start;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.project-panel__cta:hover {
+  background: #162c49;
+  box-shadow: 0 2px 12px rgba(30,58,95,0.22);
+  color: #ffffff;
+}
+
+.project-panel__visual {
+  overflow: hidden;
+  border-left: 1px solid var(--rule);
+  background: var(--bg-off);
+}
+
+.project-panel__visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  display: block;
+}
+
+/* Panel without image (Moxii) */
+.project-panel__inner--solo {
+  grid-template-columns: 1fr;
+}
+
+.project-panel__inner--solo .project-panel__content {
+  max-width: 680px;
+}
+
+/* ── Individual project page (case study) ───────────────────── */
+
+.project-page-header {
+  padding: 3rem 0 2.5rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0;
+}
+
+.project-page-header .wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.project-page-header__back {
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.project-page-header__back:hover {
+  color: var(--accent);
+}
+
+.project-page-header__label {
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin: 0 0 0.6rem;
+}
+
+.project-page-header__title {
+  font-family: var(--display);
+  font-size: 2.75rem;
+  font-weight: normal;
+  color: var(--ink);
+  margin: 0 0 1rem;
+  line-height: 1.05;
+}
+
+.project-page-header__subtitle {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--mid);
+  margin: 0;
+  max-width: 60ch;
+}
+
+.project-page-stats {
+  display: flex;
+  gap: 3rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+
+.project-page-stat__n {
+  display: block;
+  font-family: var(--display);
+  font-size: 2rem;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.project-page-stat__l {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-top: 0.3rem;
+}
+
+.project-page-body {
+  max-width: 720px;
+  margin-bottom: 3rem;
+}
+
+.project-page-body p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--ink);
+  margin: 0 0 1.25rem;
+}
+
+@media (max-width: 860px) {
+  .project-panel__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .project-panel__visual {
+    border-left: none;
+    border-top: 1px solid var(--rule);
+    min-height: 220px;
+  }
+
+  .project-page-header__title {
+    font-size: 2rem;
+  }
+
+  .project-page-stats {
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+}

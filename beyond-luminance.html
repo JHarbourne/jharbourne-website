@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beyond Luminance &mdash; Jonathan Harbourne</title>
+  <meta name="description" content="Beyond Luminance: original research examining where WCAG colour contrast requirements fail in practice, grounded in a purpose-built stress-testing tool.">
+  <meta property="og:title" content="Beyond Luminance — Jonathan Harbourne">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header class="site-nav">
+  <div class="site-nav__inner">
+    <a href="index.html" class="site-nav__name">Jonathan Harbourne</a>
+    <nav aria-label="Main navigation">
+      <ul class="site-nav__links">
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="speaking.html">Speaking</a></li>
+        <li><a href="writing.html">Writing</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <div class="project-page-header">
+    <div class="wrap">
+      <div>
+        <a href="projects.html" class="project-page-header__back">&larr; Projects</a>
+        <p class="project-page-header__label">Original research &middot; Accessibility &middot; WCAG &middot; Academic paper &middot; In progress</p>
+        <h1 class="project-page-header__title">Beyond Luminance</h1>
+        <p class="project-page-header__subtitle">Research into where WCAG colour contrast requirements fail in practice&mdash;not because the maths is wrong, but because the standard was built on assumptions about perception that real-world design routinely violates.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="project-page-body" style="margin-top: 3rem;">
+        <p>WCAG 2.x defines colour contrast in terms of relative luminance: a ratio of the brightness of foreground to background. A ratio of 4.5:1 passes for normal text; 3:1 for large text. Most accessibility audits test this ratio and stop there. The assumption is that if the luminance ratio passes, the text is readable.</p>
+
+        <p>That assumption is wrong in a significant number of real-world cases. The standard was developed primarily with achromatic (grey-scale) perception in mind, and it does not account for several factors that are known to affect readability: chromatic contrast, simultaneous contrast effects, hue saturation, and the specific failure modes of colour vision deficiencies. Colour combinations that pass the luminance ratio can be perceptually unreadable; combinations that fail it can read clearly.</p>
+
+        <p>The work is grounded in a purpose-built stress-testing tool: the WCAG Stress-Tester. The tool generates and presents colour combinations at the edges of WCAG compliance&mdash;combinations that pass the ratio but might fail perceptually, and combinations that fail the ratio but might read clearly. Visitors judge which text looks clearer to them, and vote. The data from those judgements builds an evidence base of real-world perceptual failures and non-failures in the WCAG model.</p>
+
+        <p>That evidence base forms the empirical foundation for an academic paper, currently in preparation. The paper will argue for an extension to the WCAG contrast model that accounts for the perceptual factors the luminance ratio cannot capture.</p>
+      </div>
+
+      <div class="project-browser-shot">
+        <img src="images/beyond-luminance-tool.jpg" alt="The WCAG Stress-Tester tool: side-by-side colour contrast comparisons with perceptual voting" loading="lazy">
+      </div>
+
+      <div class="project-links" style="margin-top: 2rem;">
+        <a href="wcag-explorer.html" class="project-link">Try the WCAG Stress-Tester &rarr;</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <p class="footer-label">Get in touch</p>
+      <a href="mailto:hello@jharbourne.com" class="footer-email">hello@jharbourne.com</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/jonathan-harbourne" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+      <span class="footer-location">Essex &amp; London</span>
+    </div>
+    <p class="footer-meta">Built to the standard it advertises: WCAG 2.2 AA &middot; keyboard-navigable &middot; fast &middot; cookieless. No trackers, no external requests, no fonts phoning home.</p>
+  </div>
+</footer>
+
+</body>
+</html>
