@@ -1,0 +1,53 @@
+name: CI — Lint · Accessibility · Lighthouse
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  ci:
+    name: Quality gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      # ── Linting ────────────────────────────────────────────────────────────
+
+      - name: Lint HTML
+        run: npm run lint:html
+
+      - name: Lint CSS
+        run: npm run lint:css
+
+      # ── Accessibility ──────────────────────────────────────────────────────
+
+      - name: Install Playwright (Chromium only)
+        run: npx playwright install chromium --with-deps
+
+      - name: Start local server
+        run: npx http-server . -p 8080 --silent &
+        shell: bash
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:8080 --timeout 15000
+
+      - name: WCAG 2.2 AA — axe-core
+        run: npm run test:a11y
+
+      # ── Lighthouse CI ──────────────────────────────────────────────────────
+
+      - name: Lighthouse CI
+        run: npm run lhci
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

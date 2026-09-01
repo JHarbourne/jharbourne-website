@@ -1,0 +1,21 @@
+{
+  "name": "jharbourne-com",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "lint:html": "htmlhint '*.html' --ignore 'colour-swatch-check.html,contrast-study.html,contrast-study-v4.html,wcag-explorer.html'",
+    "lint:css": "stylelint style.css",
+    "test:a11y": "node scripts/axe-check.js",
+    "lhci": "lhci autorun"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "@lhci/cli": "^0.14.0",
+    "@playwright/test": "^1.47.0",
+    "htmlhint": "^1.1.4",
+    "http-server": "^14.1.1",
+    "stylelint": "^16.9.0",
+    "stylelint-config-standard": "^36.0.0",
+    "wait-on": "^7.2.0"
+  }
+}
