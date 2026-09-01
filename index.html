@@ -54,46 +54,315 @@
     </div>
   </section>
 
-  <!-- ── Five things ──────────────────────────────────────────── -->
-  <section class="section five-things">
+  <!-- ── Five things carousel ──────────────────────────────────── -->
+  <section class="five-things-section" aria-label="Five things to know about Jonathan Harbourne">
     <div class="wrap">
       <div class="section__header">
         <span class="label">Five things to know</span>
       </div>
-      <ol class="five-things__grid">
-
-        <li class="five-things__card">
-          <span class="five-things__n" aria-hidden="true">1</span>
-          <p class="five-things__claim">Designed the <em>Back Pocket Guide to London</em></p>
-          <p class="five-things__detail">Now held in the permanent collections of The Wellcome Collection and the London Museum Library.</p>
-        </li>
-
-        <li class="five-things__card">
-          <span class="five-things__n" aria-hidden="true">2</span>
-          <p class="five-things__claim">Prime Minister&rsquo;s Points of Light Award</p>
-          <p class="five-things__detail">For founding the LGBT History Project&mdash;a community archive viewed over 50&nbsp;million times and archived by the British Library.</p>
-        </li>
-
-        <li class="five-things__card">
-          <span class="five-things__n" aria-hidden="true">3</span>
-          <p class="five-things__claim">Rebranded the National Trust in Jersey</p>
-          <p class="five-things__detail">Designed the logo and full corporate identity&mdash;the charity&rsquo;s first rebrand since 1936.</p>
-        </li>
-
-        <li class="five-things__card">
-          <span class="five-things__n" aria-hidden="true">4</span>
-          <p class="five-things__claim">Leads Digital Accessibility at Capgemini</p>
-          <p class="five-things__detail">Setting inclusion standards for one of the world&rsquo;s largest technology consultancies, across enterprise clients globally.</p>
-        </li>
-
-        <li class="five-things__card">
-          <span class="five-things__n" aria-hidden="true">5</span>
-          <p class="five-things__claim">Builds and writes about AI</p>
-          <p class="five-things__detail">Creating apps used at national scale. Published in <em>Fast Company</em>, <em>Towards AI</em>, and the British Psychological Society.</p>
-        </li>
-
-      </ol>
     </div>
+
+    <div class="fthings">
+      <div class="fthings__viewport" aria-live="polite" aria-atomic="true">
+        <ul class="fthings__track" id="fthingsTrack">
+
+          <!-- 1 · Back Pocket Guide -->
+          <li class="fthings__slide" aria-label="1 of 5">
+            <div class="fthings__visual fthings__visual--navy">
+              <span class="fthings__watermark" aria-hidden="true">01</span>
+              <div class="fthings__visual-content">
+                <p class="fthings__visual-eyebrow">Publishing &middot; Design &middot; Heritage</p>
+                <p class="fthings__visual-pull">&ldquo;Now held by The Wellcome Collection&rdquo;</p>
+              </div>
+            </div>
+            <div class="fthings__body">
+              <p class="fthings__count" aria-hidden="true">1&thinsp;/&thinsp;5</p>
+              <h2 class="fthings__claim">Designed the <em>Back Pocket Guide to London</em></h2>
+              <p class="fthings__detail">Now held in the permanent collections of The Wellcome Collection and the London Museum Library&mdash;a piece of design that found its way into the city&rsquo;s cultural record.</p>
+            </div>
+          </li>
+
+          <!-- 2 · Points of Light -->
+          <li class="fthings__slide" aria-label="2 of 5">
+            <div class="fthings__visual fthings__visual--photo">
+              <img src="images/points-of-light.png" alt="Jonathan Harbourne receiving the Prime Minister's Points of Light Award" loading="lazy">
+            </div>
+            <div class="fthings__body">
+              <p class="fthings__count" aria-hidden="true">2&thinsp;/&thinsp;5</p>
+              <h2 class="fthings__claim">Prime Minister&rsquo;s Points of Light Award</h2>
+              <p class="fthings__detail">For founding the LGBT History Project&mdash;a volunteer-built community archive viewed over 50&nbsp;million times, archived by the British Library, and recognised at No.&nbsp;10.</p>
+            </div>
+          </li>
+
+          <!-- 3 · National Trust Jersey -->
+          <li class="fthings__slide" aria-label="3 of 5">
+            <div class="fthings__visual fthings__visual--slate">
+              <span class="fthings__watermark" aria-hidden="true">03</span>
+              <div class="fthings__visual-content">
+                <p class="fthings__visual-eyebrow">Corporate identity &middot; Branding</p>
+                <p class="fthings__visual-pull">&ldquo;First rebrand since 1936&rdquo;</p>
+              </div>
+            </div>
+            <div class="fthings__body">
+              <p class="fthings__count" aria-hidden="true">3&thinsp;/&thinsp;5</p>
+              <h2 class="fthings__claim">Rebranded the National Trust in Jersey</h2>
+              <p class="fthings__detail">Designed the logo and full corporate identity for the National Trust in Jersey&mdash;the charity&rsquo;s first rebrand since 1936, setting the visual language for decades ahead.</p>
+            </div>
+          </li>
+
+          <!-- 4 · Capgemini -->
+          <li class="fthings__slide" aria-label="4 of 5">
+            <div class="fthings__visual fthings__visual--deep">
+              <span class="fthings__watermark" aria-hidden="true">04</span>
+              <div class="fthings__visual-content">
+                <p class="fthings__visual-eyebrow">Accessibility &middot; Governance &middot; Enterprise</p>
+                <p class="fthings__visual-pull">&ldquo;Designing for inclusion at global scale&rdquo;</p>
+              </div>
+            </div>
+            <div class="fthings__body">
+              <p class="fthings__count" aria-hidden="true">4&thinsp;/&thinsp;5</p>
+              <h2 class="fthings__claim">Leads Digital Accessibility at Capgemini</h2>
+              <p class="fthings__detail">Responsible for digital accessibility and governance across one of the world&rsquo;s largest technology consultancies&mdash;setting the standards that shape how it designs for inclusion.</p>
+            </div>
+          </li>
+
+          <!-- 5 · AI -->
+          <li class="fthings__slide" aria-label="5 of 5">
+            <div class="fthings__visual fthings__visual--photo">
+              <img src="images/essay-aiscaping.jpg" alt="Article: Meta's AI keeps scraping my community website" loading="lazy">
+            </div>
+            <div class="fthings__body">
+              <p class="fthings__count" aria-hidden="true">5&thinsp;/&thinsp;5</p>
+              <h2 class="fthings__claim">Builds and writes about AI</h2>
+              <p class="fthings__detail">Creating apps used at national scale and publishing critical perspectives on AI in <em>Fast Company</em>, <em>Towards AI</em>, and the British Psychological Society.</p>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
+      <div class="fthings__controls">
+        <button class="fthings__arrow fthings__arrow--prev" id="fthingsPrev" aria-label="Previous">&#8592;</button>
+        <div class="fthings__dots" role="tablist" aria-label="Slide navigation">
+          <button class="fthings__dot fthings__dot--active" role="tab" aria-selected="true"  aria-label="Slide 1" data-i="0"></button>
+          <button class="fthings__dot" role="tab" aria-selected="false" aria-label="Slide 2" data-i="1"></button>
+          <button class="fthings__dot" role="tab" aria-selected="false" aria-label="Slide 3" data-i="2"></button>
+          <button class="fthings__dot" role="tab" aria-selected="false" aria-label="Slide 4" data-i="3"></button>
+          <button class="fthings__dot" role="tab" aria-selected="false" aria-label="Slide 5" data-i="4"></button>
+        </div>
+        <button class="fthings__arrow fthings__arrow--next" id="fthingsNext" aria-label="Next">&#8594;</button>
+      </div>
+    </div>
+
+    <style>
+      .five-things-section { padding: 3rem 0; }
+      .five-things-section .section__header { margin-bottom: 1.75rem; }
+
+      .fthings { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+
+      .fthings__viewport { overflow: hidden; border-radius: 6px; border: 1px solid var(--rule); }
+
+      .fthings__track {
+        display: flex;
+        list-style: none;
+        margin: 0; padding: 0;
+        transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+      }
+
+      .fthings__slide {
+        flex: 0 0 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 380px;
+      }
+
+      /* Visual panels */
+      .fthings__visual {
+        position: relative;
+        overflow: hidden;
+      }
+      .fthings__visual--photo img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+      }
+      .fthings__visual--navy  { background: var(--accent); }
+      .fthings__visual--slate { background: #2d4a6e; }
+      .fthings__visual--deep  { background: #1a2e45; }
+
+      .fthings__watermark {
+        position: absolute;
+        bottom: -0.15em; left: -0.05em;
+        font-family: var(--display);
+        font-size: 12rem;
+        line-height: 1;
+        color: rgba(255,255,255,0.07);
+        font-weight: normal;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .fthings__visual-content {
+        position: absolute;
+        bottom: 2rem; left: 2rem; right: 2rem;
+      }
+      .fthings__visual-eyebrow {
+        font-size: 0.62rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.55);
+        margin: 0 0 0.6rem;
+      }
+      .fthings__visual-pull {
+        font-family: var(--display);
+        font-size: 1.35rem;
+        font-style: italic;
+        color: rgba(255,255,255,0.9);
+        line-height: 1.3;
+        margin: 0;
+      }
+
+      /* Text body */
+      .fthings__body {
+        padding: 2.5rem 2.5rem 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: var(--surface);
+        border-left: 1px solid var(--rule);
+      }
+      .fthings__count {
+        font-size: 0.62rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--mid);
+        margin: 0 0 1rem;
+      }
+      .fthings__claim {
+        font-family: var(--display);
+        font-size: 1.45rem;
+        font-weight: normal;
+        color: var(--ink);
+        line-height: 1.25;
+        margin: 0 0 1rem;
+      }
+      .fthings__detail {
+        font-size: 0.9rem;
+        line-height: 1.75;
+        color: var(--mid);
+        margin: 0;
+        max-width: 42ch;
+      }
+
+      /* Controls */
+      .fthings__controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.25rem;
+        margin-top: 1.25rem;
+      }
+      .fthings__arrow {
+        width: 2.25rem; height: 2.25rem;
+        border-radius: 50%;
+        border: 1px solid var(--rule);
+        background: var(--surface);
+        color: var(--ink);
+        font-size: 0.95rem;
+        cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        transition: background 0.15s, border-color 0.15s;
+        flex-shrink: 0;
+      }
+      .fthings__arrow:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .fthings__arrow:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+      .fthings__dots {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      .fthings__dot {
+        width: 0.5rem; height: 0.5rem;
+        border-radius: 50%;
+        border: none;
+        background: var(--rule);
+        cursor: pointer;
+        padding: 0;
+        transition: background 0.2s, transform 0.2s;
+      }
+      .fthings__dot--active {
+        background: var(--accent);
+        transform: scale(1.4);
+      }
+      .fthings__dot:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      @media (max-width: 760px) {
+        .fthings__slide {
+          grid-template-columns: 1fr;
+          grid-template-rows: 220px auto;
+        }
+        .fthings__body {
+          border-left: none;
+          border-top: 1px solid var(--rule);
+          padding: 1.75rem 1.5rem;
+        }
+        .fthings__claim { font-size: 1.2rem; }
+        .fthings__watermark { font-size: 7rem; }
+      }
+    </style>
+
+    <script>
+      (function () {
+        const track = document.getElementById('fthingsTrack');
+        const dots  = document.querySelectorAll('.fthings__dot');
+        const total = 5;
+        let current = 0;
+        let timer;
+
+        function go(n) {
+          current = (n + total) % total;
+          track.style.transform = 'translateX(-' + (current * 100) + '%)';
+          dots.forEach((d, i) => {
+            const active = i === current;
+            d.classList.toggle('fthings__dot--active', active);
+            d.setAttribute('aria-selected', active ? 'true' : 'false');
+          });
+        }
+
+        function next() { go(current + 1); }
+        function prev() { go(current - 1); }
+
+        function startTimer() { timer = setInterval(next, 5000); }
+        function resetTimer()  { clearInterval(timer); startTimer(); }
+
+        document.getElementById('fthingsNext').addEventListener('click', function() { next(); resetTimer(); });
+        document.getElementById('fthingsPrev').addEventListener('click', function() { prev(); resetTimer(); });
+
+        dots.forEach(function(d) {
+          d.addEventListener('click', function() { go(parseInt(d.dataset.i)); resetTimer(); });
+        });
+
+        // Pause on hover/focus
+        var viewport = document.querySelector('.fthings__viewport');
+        viewport.addEventListener('mouseenter', function() { clearInterval(timer); });
+        viewport.addEventListener('mouseleave', startTimer);
+        viewport.addEventListener('focusin',    function() { clearInterval(timer); });
+        viewport.addEventListener('focusout',   startTimer);
+
+        startTimer();
+      })();
+    </script>
   </section>
 
   <!-- ── Projects ──────────────────────────────────────────────── -->
