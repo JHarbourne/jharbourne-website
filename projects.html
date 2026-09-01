@@ -8,6 +8,61 @@
   <meta property="og:title" content="Projects — Jonathan Harbourne">
   <meta property="og:type" content="website">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── "This site" panel ──────────────────────────────────────────── */
+    .this-site-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 680px) {
+      .this-site-panel { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    .this-site-standards {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .std-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.7rem 0.9rem;
+      background: var(--ground);
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+    }
+    .std-badge__check {
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 700;
+    }
+    .std-badge__label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+    .std-badge__desc {
+      font-size: 0.7rem;
+      color: var(--mid);
+      margin-left: auto;
+      text-align: right;
+      white-space: nowrap;
+    }
+    @media (max-width: 860px) {
+      .std-badge__desc { display: none; }
+    }
+  </style>
 </head>
 <body>
 
@@ -152,10 +207,47 @@
 
       <article class="project-panel">
         <div class="project-panel__inner project-panel__inner--solo">
-          <div class="project-panel__content">
-            <p class="project-panel__tags">Static HTML &middot; GitHub Actions &middot; WCAG 2.2 AA &middot; Lighthouse CI &middot; axe-core &middot; Vercel</p>
-            <h2 class="project-panel__name">This site</h2>
-            <p class="project-panel__body">jharbourne.com is built to the standard it advertises. The footer claim&mdash;&ldquo;WCAG 2.2 AA &middot; keyboard-navigable &middot; fast &middot; cookieless&rdquo;&mdash;is not decoration: it is enforced by a GitHub Actions pipeline that runs on every push. HTML is linted with htmlhint. CSS is checked with stylelint. All eleven public pages are loaded in a real Chromium browser and audited against the full axe-core WCAG 2.2 AA ruleset; the build fails if a violation is found. Lighthouse CI then scores every page for accessibility, performance, best practices, and SEO, with enforced thresholds. No trackers, no external fonts, no cookie banners. Deployed to Vercel on every commit.</p>
+          <div class="this-site-panel">
+
+            <div class="project-panel__content">
+              <p class="project-panel__tags">Static HTML &middot; GitHub Actions &middot; Vercel Pro</p>
+              <h2 class="project-panel__name">This site</h2>
+              <p class="project-panel__body">jharbourne.com is built to the standard it advertises. The footer claim&mdash;&ldquo;WCAG 2.2 AA &middot; keyboard-navigable &middot; fast &middot; cookieless&rdquo;&mdash;is not decoration: it is enforced by a CI pipeline that runs on every push. HTML is linted, CSS is checked, all public pages are audited in a real Chromium browser against the full WCAG 2.2 AA ruleset, and Lighthouse CI scores every page with enforced thresholds. The build fails if any standard is violated. No trackers, no external fonts, no cookie banners.</p>
+            </div>
+
+            <div class="this-site-standards" aria-label="Enforced standards">
+              <div class="std-badge">
+                <span class="std-badge__check" aria-hidden="true">&#10003;</span>
+                <span class="std-badge__label">WCAG 2.2 AA</span>
+                <span class="std-badge__desc">axe-core &middot; all pages</span>
+              </div>
+              <div class="std-badge">
+                <span class="std-badge__check" aria-hidden="true">&#10003;</span>
+                <span class="std-badge__label">Lighthouse CI</span>
+                <span class="std-badge__desc">accessibility &ge;95 &middot; enforced</span>
+              </div>
+              <div class="std-badge">
+                <span class="std-badge__check" aria-hidden="true">&#10003;</span>
+                <span class="std-badge__label">HTML linting</span>
+                <span class="std-badge__desc">htmlhint &middot; zero errors</span>
+              </div>
+              <div class="std-badge">
+                <span class="std-badge__check" aria-hidden="true">&#10003;</span>
+                <span class="std-badge__label">CSS linting</span>
+                <span class="std-badge__desc">stylelint &middot; zero errors</span>
+              </div>
+              <div class="std-badge">
+                <span class="std-badge__check" aria-hidden="true">&#10003;</span>
+                <span class="std-badge__label">Keyboard navigable</span>
+                <span class="std-badge__desc">focus states &middot; skip links</span>
+              </div>
+              <div class="std-badge">
+                <span class="std-badge__check" aria-hidden="true">&#10003;</span>
+                <span class="std-badge__label">Cookieless &middot; no trackers</span>
+                <span class="std-badge__desc">no external requests</span>
+              </div>
+            </div>
+
           </div>
         </div>
       </article>
