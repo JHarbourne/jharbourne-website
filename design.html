@@ -3,242 +3,181 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Design &mdash; Jonathan Harbourne</title>
-  <meta name="description" content="Two decades of design work: corporate identity for the National Trust for Jersey, the CentreSquare brand for BNY Mellon, packaging for Allied Domecq, and UX/UI work up to Capgemini.">
-  <meta property="og:title" content="Design — Jonathan Harbourne">
-  <meta property="og:type" content="website">
+  <title>Design Portfolio &mdash; Jonathan Harbourne</title>
+  <meta name="description" content="Print and digital design portfolios by Jonathan Harbourne — brand identities, publications, websites, UX and UI design.">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ── Portfolio grid ──────────────────────────────────────────────── */
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
-      margin-top: 2.5rem;
+    /* ── Portfolio grid ─────────────────────────────────────── */
+    .portfolio-intro {
+      max-width: 540px;
+      margin-bottom: 3rem;
     }
-    @media (max-width: 640px) {
-      .portfolio-grid { grid-template-columns: 1fr; }
+    .portfolio-intro p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--mid);
     }
 
-    .portfolio-card {
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem 1.5rem;
+    }
+
+    .portfolio-item {
+      cursor: pointer;
+    }
+
+    .portfolio-item__cover {
+      aspect-ratio: 210 / 297;
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      background: var(--bg-off);
+    }
+
+    .portfolio-item:hover .portfolio-item__cover,
+    .portfolio-item:focus-visible .portfolio-item__cover {
+      box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+      transform: translateY(-4px);
+    }
+
+    .portfolio-item:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .portfolio-item__cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .portfolio-item__title {
+      margin: 0.65rem 0 0.2rem;
+      font-family: var(--display);
+      font-size: 0.95rem;
+      font-weight: normal;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .portfolio-item__desc {
+      font-size: 0.78rem;
+      color: var(--mid);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    @media (max-width: 900px) {
+      .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── Spread viewer modal ────────────────────────────────── */
+    .spread-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 900;
       display: flex;
       flex-direction: column;
-      padding: 1.75rem;
-      background: var(--surface);
-      border: 1px solid var(--rule);
-      border-radius: 4px;
-      cursor: pointer;
-      transition: border-color 0.15s, box-shadow 0.15s;
-      text-align: left;
+      align-items: center;
+      justify-content: flex-start;
+      background: rgba(10,10,10,0.92);
+      padding: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .spread-modal.is-open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .spread-modal__bar {
       width: 100%;
-      color: inherit;
-      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.5rem;
+      background: rgba(0,0,0,0.6);
+      flex-shrink: 0;
     }
-    .portfolio-card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+
+    .spread-modal__title {
+      font-family: var(--display);
+      font-size: 0.9rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.85);
+      margin: 0;
     }
-    .portfolio-card:focus-visible {
+
+    .spread-modal__close {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.8);
+      font-size: 1rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: background 0.15s;
+    }
+
+    .spread-modal__close:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .spread-modal__close:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
     }
-    .portfolio-card__discipline {
-      font-size: 0.58rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--mid);
-      margin-bottom: 0.5rem;
-    }
-    .portfolio-card__client {
-      font-family: var(--display);
-      font-size: 1.15rem;
-      font-weight: normal;
-      color: var(--ink);
-      line-height: 1.25;
-      margin-bottom: 0.5rem;
-    }
-    .portfolio-card__role {
-      font-size: 0.78rem;
-      color: var(--mid);
-      font-style: italic;
-      margin-bottom: 0.85rem;
-      line-height: 1.5;
-    }
-    .portfolio-card__body {
-      font-size: 0.84rem;
-      line-height: 1.72;
-      color: var(--ink);
-      flex: 1;
-    }
-    .portfolio-card__footer {
-      margin-top: 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    .portfolio-card__format {
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--mid);
-    }
-    .portfolio-card__open {
-      font-size: 0.72rem;
-      color: var(--accent);
-      white-space: nowrap;
-    }
-    .portfolio-card--full {
-      grid-column: 1 / -1;
-    }
 
-    /* ── Reader modal ────────────────────────────────────────────────── */
-    .reader-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(10, 10, 10, 0.96);
-      z-index: 1000;
+    .spread-modal__viewer {
+      flex: 1;
+      width: 100%;
+      overflow-y: auto;
+      padding: 2rem 1rem 3rem;
       display: flex;
       flex-direction: column;
-      align-items: stretch;
-    }
-    .reader-overlay[hidden] { display: none; }
-
-    .reader-toolbar {
-      display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 1rem;
-      padding: 0.75rem 1.25rem;
-      background: rgba(0,0,0,0.5);
-      flex-shrink: 0;
-      min-height: 3.25rem;
-    }
-    .reader-toolbar__title {
-      font-family: Georgia, serif;
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.85);
-      font-weight: normal;
-    }
-    .reader-toolbar__nav {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .reader-btn {
-      background: none;
-      border: 1px solid rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.8);
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      padding: 0.35rem 0.85rem;
-      cursor: pointer;
-      transition: border-color 0.15s, color 0.15s;
-      font-family: inherit;
-      border-radius: 2px;
-    }
-    .reader-btn:hover:not(:disabled) {
-      border-color: rgba(255,255,255,0.7);
-      color: #fff;
-    }
-    .reader-btn:disabled {
-      opacity: 0.3;
-      cursor: default;
-    }
-    .reader-btn:focus-visible {
-      outline: 2px solid rgba(255,255,255,0.6);
-      outline-offset: 2px;
-    }
-    .reader-page-counter {
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.55);
-      letter-spacing: 0.04em;
-      min-width: 5rem;
-      text-align: center;
-    }
-    .reader-close {
-      background: none;
-      border: none;
-      color: rgba(255,255,255,0.6);
-      font-size: 1.4rem;
-      cursor: pointer;
-      padding: 0.25rem 0.5rem;
-      line-height: 1;
-      transition: color 0.15s;
-    }
-    .reader-close:hover { color: #fff; }
-    .reader-close:focus-visible {
-      outline: 2px solid rgba(255,255,255,0.6);
-      outline-offset: 2px;
     }
 
-    .reader-viewport {
-      flex: 1;
+    .spread-row {
       display: flex;
-      align-items: center;
       justify-content: center;
-      overflow: hidden;
-      padding: 1.25rem;
-      position: relative;
+      gap: 2px;
+      max-width: calc(100vw - 2rem);
     }
 
-    .reader-canvas-wrap {
-      position: relative;
-      box-shadow: 0 8px 48px rgba(0,0,0,0.7);
-      background: #fff;
-      max-width: 100%;
-      max-height: 100%;
-      display: flex;
-    }
-    #reader-canvas {
+    .spread-row canvas {
       display: block;
-      max-width: 100%;
-      max-height: calc(100vh - 8rem);
-      object-fit: contain;
+      max-height: 85vh;
+      width: auto;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
     }
 
-    .reader-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.5);
-      border: none;
-      color: rgba(255,255,255,0.7);
-      font-size: 1.5rem;
-      width: 3rem;
-      height: 3rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s, color 0.15s;
-      border-radius: 2px;
-      z-index: 10;
-    }
-    .reader-arrow:hover { background: rgba(0,0,0,0.8); color: #fff; }
-    .reader-arrow:disabled { opacity: 0.2; cursor: default; }
-    .reader-arrow:focus-visible { outline: 2px solid rgba(255,255,255,0.6); outline-offset: 2px; }
-    .reader-arrow--prev { left: 0.5rem; }
-    .reader-arrow--next { right: 0.5rem; }
-
-    .reader-loading {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    .spread-modal__loading {
       color: rgba(255,255,255,0.5);
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
+      font-size: 0.85rem;
+      padding: 3rem;
     }
 
-    /* ── Design note ─────────────────────────────────────────────────── */
-    .design-note {
-      margin-top: 3.5rem;
-      padding-top: 2.5rem;
-      border-top: 1px solid var(--rule);
-      font-size: 0.88rem;
-      line-height: 1.8;
-      color: var(--mid);
+    @media (max-width: 600px) {
+      .spread-row { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
@@ -266,129 +205,116 @@
 
 <main id="main-content">
 
-  <div class="page-header">
+  <section class="section">
     <div class="wrap">
-      <p class="page-header__label">Design</p>
-      <h1 class="page-header__title">Twenty years of design work</h1>
-      <p class="page-header__intro">Corporate identity, brand, packaging, digital&mdash;across sectors from heritage to financial services to the drinks industry. Click any portfolio to browse it here.</p>
-    </div>
-  </div>
-
-  <section class="writing-section">
-    <div class="wrap">
-
-      <div class="portfolio-grid">
-
-        <button class="portfolio-card" data-pdf="portfolios/1-NTJ-brand-guidelines.pdf" data-title="National Trust for Jersey — Brand Guidelines">
-          <p class="portfolio-card__discipline">Corporate identity &middot; Heritage</p>
-          <h2 class="portfolio-card__client">National Trust for Jersey</h2>
-          <p class="portfolio-card__role">Complete corporate identity — designed from scratch</p>
-          <p class="portfolio-card__body">The full corporate identity for the National Trust for Jersey: logotype, colour system, typography, brand guidelines, and application across all materials. Institutional identity design at the scale where every decision has to survive being applied by people who were not in the room when it was made.</p>
-          <div class="portfolio-card__footer">
-            <span class="portfolio-card__format">PDF portfolio</span>
-            <span class="portfolio-card__open">Browse &rarr;</span>
-          </div>
-        </button>
-
-        <button class="portfolio-card" data-pdf="portfolios/2-Portfolio-Websites.pdf" data-title="Web &amp; Digital Portfolio">
-          <p class="portfolio-card__discipline">Digital design &middot; Web</p>
-          <h2 class="portfolio-card__client">Web &amp; Digital</h2>
-          <p class="portfolio-card__role">Website design across a range of clients and sectors</p>
-          <p class="portfolio-card__body">A portfolio of website and digital design work from across my client practice — covering brand-led design, content hierarchy, and responsive digital product thinking before responsive design had its current name.</p>
-          <div class="portfolio-card__footer">
-            <span class="portfolio-card__format">PDF portfolio</span>
-            <span class="portfolio-card__open">Browse &rarr;</span>
-          </div>
-        </button>
-
-        <button class="portfolio-card" data-pdf="portfolios/3-CentreSquare-Portfolio.pdf" data-title="CentreSquare — BNY Mellon">
-          <p class="portfolio-card__discipline">Brand creation &middot; Financial services</p>
-          <h2 class="portfolio-card__client">CentreSquare</h2>
-          <p class="portfolio-card__role">Brand created from scratch for a BNY Mellon company</p>
-          <p class="portfolio-card__body">CentreSquare is a real estate investment management firm that I branded from the ground up as part of BNY Mellon. Name, identity, and brand system for a business operating across institutional financial markets — where credibility, precision, and distinctiveness all have to coexist.</p>
-          <div class="portfolio-card__footer">
-            <span class="portfolio-card__format">PDF portfolio</span>
-            <span class="portfolio-card__open">Browse &rarr;</span>
-          </div>
-        </button>
-
-        <button class="portfolio-card" data-pdf="portfolios/4-Portfolio-CoID.pdf" data-title="Corporate Identity — Logos">
-          <p class="portfolio-card__discipline">Corporate identity &middot; Logo design</p>
-          <h2 class="portfolio-card__client">Corporate Identity</h2>
-          <p class="portfolio-card__role">Logos and identity marks across a range of clients</p>
-          <p class="portfolio-card__body">A collection of corporate identity and logo work. Identity design is where the discipline is most compressed: every brand value, every market positioning, every use case has to resolve into a single mark that works at a business card and on the side of a building.</p>
-          <div class="portfolio-card__footer">
-            <span class="portfolio-card__format">PDF portfolio</span>
-            <span class="portfolio-card__open">Browse &rarr;</span>
-          </div>
-        </button>
-
-        <button class="portfolio-card" data-pdf="portfolios/5-Portfolio-TLC.pdf" data-title="The London Chorus">
-          <p class="portfolio-card__discipline">Marketing &middot; Design direction &middot; Arts</p>
-          <h2 class="portfolio-card__client">The London Chorus</h2>
-          <p class="portfolio-card__role">Marketing &amp; Design Director</p>
-          <p class="portfolio-card__body">As Marketing and Design Director of The London Chorus I was responsible for the full visual identity, all print and digital marketing, audience development, and communications strategy. Arts organisations demand a particular kind of design literacy: the work has to feel as good as the product it is promoting.</p>
-          <div class="portfolio-card__footer">
-            <span class="portfolio-card__format">PDF portfolio</span>
-            <span class="portfolio-card__open">Browse &rarr;</span>
-          </div>
-        </button>
-
-        <button class="portfolio-card" data-pdf="portfolios/6-Portfolio-Drinks.pdf" data-title="Allied Domecq — Packaging &amp; POS">
-          <p class="portfolio-card__discipline">Packaging &middot; POS &middot; Drinks industry</p>
-          <h2 class="portfolio-card__client">Allied Domecq</h2>
-          <p class="portfolio-card__role">Bottle design, labels, and point-of-sale</p>
-          <p class="portfolio-card__body">Packaging, label design, and point-of-sale for Allied Domecq — one of the world's largest spirits producers. Drinks packaging is technically demanding: the work has to survive production tolerances, function at scale across dozens of markets, and communicate in three seconds on a shelf.</p>
-          <div class="portfolio-card__footer">
-            <span class="portfolio-card__format">PDF portfolio</span>
-            <span class="portfolio-card__open">Browse &rarr;</span>
-          </div>
-        </button>
-
-        <button class="portfolio-card portfolio-card--full" data-pdf="portfolios/7-Portfolio-UX-UI.pdf" data-title="UX &amp; UI Portfolio — through to Capgemini">
-          <p class="portfolio-card__discipline">UX &middot; UI &middot; Digital product design</p>
-          <h2 class="portfolio-card__client">UX &amp; UI</h2>
-          <p class="portfolio-card__role">User experience and interface design — through to Capgemini</p>
-          <p class="portfolio-card__body">The most recent portfolio: UX and UI work culminating in my time at Capgemini. Enterprise digital product design, service design, and complex information architecture for large organisations. The same discipline that runs through all the earlier work — looking carefully, then making something from what you see — applied to the scale and constraints of enterprise software.</p>
-          <div class="portfolio-card__footer">
-            <span class="portfolio-card__format">PDF portfolio</span>
-            <span class="portfolio-card__open">Browse &rarr;</span>
-          </div>
-        </button>
-
+      <div class="section__header">
+        <span class="label">Design Portfolios</span>
+      </div>
+      <div class="portfolio-intro">
+        <p>Print and digital design work spanning brand identity, publications, exhibition, UX, and web. Each portfolio is presented as a document—click any cover to read it in spread view.</p>
       </div>
 
-      <p class="design-note">This work represents roughly two decades of client and in-house design practice&mdash;from identity and brand through packaging and print to digital product design. The portfolios are presented as PDFs in the form they were originally delivered, which means the design language of each era is visible in the documents themselves.</p>
+      <ul class="portfolio-grid" role="list">
 
+        <li class="portfolio-item" tabindex="0"
+            data-pdf="portfolios/1-NTJ-brand-guidelines.pdf"
+            data-title="National Trust Jersey: Brand Guidelines">
+          <div class="portfolio-item__cover">
+            <img src="images/portfolio-covers/1-NTJ-brand-guidelines-cover.jpg"
+                 alt="Cover of National Trust Jersey Brand Guidelines portfolio"
+                 loading="lazy">
+          </div>
+          <p class="portfolio-item__title">National Trust Jersey</p>
+          <p class="portfolio-item__desc">Brand guidelines &amp; identity system. First rebrand since 1936.</p>
+        </li>
+
+        <li class="portfolio-item" tabindex="0"
+            data-pdf="portfolios/2-Portfolio-Websites.pdf"
+            data-title="Website Design Portfolio">
+          <div class="portfolio-item__cover">
+            <img src="images/portfolio-covers/2-Portfolio-Websites-cover.jpg"
+                 alt="Cover of website design portfolio"
+                 loading="lazy">
+          </div>
+          <p class="portfolio-item__title">Website Design</p>
+          <p class="portfolio-item__desc">Editorial and service design for web.</p>
+        </li>
+
+        <li class="portfolio-item" tabindex="0"
+            data-pdf="portfolios/3-CentreSquare-Portfolio.pdf"
+            data-title="Centre Square Portfolio">
+          <div class="portfolio-item__cover">
+            <img src="images/portfolio-covers/3-CentreSquare-Portfolio-cover.jpg"
+                 alt="Cover of Centre Square design portfolio"
+                 loading="lazy">
+          </div>
+          <p class="portfolio-item__title">Centre Square</p>
+          <p class="portfolio-item__desc">Brand and communications design.</p>
+        </li>
+
+        <li class="portfolio-item" tabindex="0"
+            data-pdf="portfolios/4-Portfolio-CoID.pdf"
+            data-title="CoID Portfolio">
+          <div class="portfolio-item__cover">
+            <img src="images/portfolio-covers/4-Portfolio-CoID-cover.jpg"
+                 alt="Cover of CoID design portfolio"
+                 loading="lazy">
+          </div>
+          <p class="portfolio-item__title">CoID</p>
+          <p class="portfolio-item__desc">Corporate identity and design direction.</p>
+        </li>
+
+        <li class="portfolio-item" tabindex="0"
+            data-pdf="portfolios/5-Portfolio-TLC.pdf"
+            data-title="The London Chorus Portfolio">
+          <div class="portfolio-item__cover">
+            <img src="images/portfolio-covers/5-Portfolio-TLC-cover.jpg"
+                 alt="Cover of The London Chorus design portfolio"
+                 loading="lazy">
+          </div>
+          <p class="portfolio-item__title">The London Chorus</p>
+          <p class="portfolio-item__desc">Identity, publications and marketing design.</p>
+        </li>
+
+        <li class="portfolio-item" tabindex="0"
+            data-pdf="portfolios/6-Portfolio-Drinks.pdf"
+            data-title="Drinks Industry Portfolio">
+          <div class="portfolio-item__cover">
+            <img src="images/portfolio-covers/6-Portfolio-Drinks-cover.jpg"
+                 alt="Cover of drinks industry design portfolio"
+                 loading="lazy">
+          </div>
+          <p class="portfolio-item__title">Drinks Industry</p>
+          <p class="portfolio-item__desc">Packaging, brand and print design.</p>
+        </li>
+
+        <li class="portfolio-item" tabindex="0"
+            data-pdf="portfolios/7-Portfolio-UX-UI.pdf"
+            data-title="UX &amp; UI Design Portfolio">
+          <div class="portfolio-item__cover">
+            <img src="images/portfolio-covers/7-Portfolio-UX-UI-cover.jpg"
+                 alt="Cover of UX and UI design portfolio"
+                 loading="lazy">
+          </div>
+          <p class="portfolio-item__title">UX &amp; UI Design</p>
+          <p class="portfolio-item__desc">User experience and interface design work.</p>
+        </li>
+
+      </ul>
     </div>
   </section>
 
 </main>
 
-<!-- ══════════════════════════════════════════════════════════════════════
-     PDF READER OVERLAY
-════════════════════════════════════════════════════════════════════════ -->
-<div class="reader-overlay" id="reader" hidden aria-modal="true" role="dialog" aria-labelledby="reader-label">
-
-  <div class="reader-toolbar">
-    <span class="reader-toolbar__title" id="reader-label"></span>
-    <div class="reader-toolbar__nav">
-      <button class="reader-btn" id="btn-prev" aria-label="Previous page" disabled>&#8592; Prev</button>
-      <span class="reader-page-counter" id="page-counter" aria-live="polite"></span>
-      <button class="reader-btn" id="btn-next" aria-label="Next page" disabled>Next &#8594;</button>
-    </div>
-    <button class="reader-close" id="btn-close" aria-label="Close portfolio viewer">&#215;</button>
+<!-- ── Spread viewer ─────────────────────────────────────────── -->
+<div class="spread-modal" id="spreadModal" role="dialog" aria-modal="true" aria-labelledby="spreadModalTitle" hidden>
+  <div class="spread-modal__bar">
+    <p class="spread-modal__title" id="spreadModalTitle"></p>
+    <button class="spread-modal__close" id="spreadClose" aria-label="Close portfolio viewer">&#215;</button>
   </div>
-
-  <div class="reader-viewport">
-    <span class="reader-loading" id="reader-loading">Loading&hellip;</span>
-    <div class="reader-canvas-wrap" id="canvas-wrap" hidden>
-      <canvas id="reader-canvas"></canvas>
-    </div>
-    <button class="reader-arrow reader-arrow--prev" id="arrow-prev" aria-label="Previous page" disabled>&#8249;</button>
-    <button class="reader-arrow reader-arrow--next" id="arrow-next" aria-label="Next page" disabled>&#8250;</button>
+  <div class="spread-modal__viewer" id="spreadViewer">
+    <p class="spread-modal__loading" id="spreadLoading">Loading&hellip;</p>
   </div>
-
 </div>
 
 <footer class="site-footer">
@@ -402,7 +328,7 @@
       <a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
       <span class="footer-location">Essex &amp; London</span>
     </div>
-    <p class="footer-meta">Built to the standard it advertises: WCAG 2.2 AA &middot; keyboard-navigable &middot; fast &middot; cookieless. No trackers, no external requests, no fonts phoning home.</p>
+    <p class="footer-meta">Built to the standard it advertises: WCAG 2.2 AA &middot; keyboard-navigable &middot; fast &middot; cookieless.</p>
   </div>
 </footer>
 
@@ -411,132 +337,112 @@
 (function () {
   'use strict';
 
-  // Configure PDF.js worker
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-  var reader     = document.getElementById('reader');
-  var label      = document.getElementById('reader-label');
-  var loading    = document.getElementById('reader-loading');
-  var canvasWrap = document.getElementById('canvas-wrap');
-  var canvas     = document.getElementById('reader-canvas');
-  var counter    = document.getElementById('page-counter');
+  var modal       = document.getElementById('spreadModal');
+  var titleEl     = document.getElementById('spreadModalTitle');
+  var viewer      = document.getElementById('spreadViewer');
+  var loadingEl   = document.getElementById('spreadLoading');
+  var closeBtn    = document.getElementById('spreadClose');
+  var lastFocused = null;
 
-  var btnPrev  = document.getElementById('btn-prev');
-  var btnNext  = document.getElementById('btn-next');
-  var btnClose = document.getElementById('btn-close');
-  var arrPrev  = document.getElementById('arrow-prev');
-  var arrNext  = document.getElementById('arrow-next');
-
-  var pdfDoc    = null;
-  var pageNum   = 1;
-  var rendering = false;
-  var lastCard  = null;
-
-  function updateButtons() {
-    var total = pdfDoc ? pdfDoc.numPages : 1;
-    btnPrev.disabled  = arrPrev.disabled = (pageNum <= 1);
-    btnNext.disabled  = arrNext.disabled = (pageNum >= total);
-    counter.textContent = 'Page ' + pageNum + ' of ' + total;
-  }
-
-  function renderPage(num) {
-    if (!pdfDoc || rendering) return;
-    rendering = true;
-    pdfDoc.getPage(num).then(function (page) {
-      var viewport = page.getViewport({ scale: 1 });
-      // Scale to fit viewport height (minus toolbar)
-      var maxH = window.innerHeight - 90;
-      var maxW = window.innerWidth  - 120;
-      var scale = Math.min(maxH / viewport.height, maxW / viewport.width, 2.5);
-      var scaled = page.getViewport({ scale: scale });
-      canvas.width  = scaled.width;
-      canvas.height = scaled.height;
-      var ctx = canvas.getContext('2d');
-      page.render({ canvasContext: ctx, viewport: scaled }).promise.then(function () {
-        rendering = false;
-        loading.hidden = true;
-        canvasWrap.hidden = false;
-        updateButtons();
-      });
-    });
-  }
-
-  function goTo(num) {
-    if (!pdfDoc) return;
-    if (num < 1 || num > pdfDoc.numPages) return;
-    pageNum = num;
-    updateButtons();
-    loading.hidden = false;
-    canvasWrap.hidden = true;
-    rendering = false;
-    renderPage(pageNum);
-  }
-
-  function openReader(pdfUrl, title) {
-    label.textContent = title;
-    loading.hidden = false;
-    canvasWrap.hidden = true;
-    reader.hidden = false;
+  function openModal(pdfUrl, title) {
+    lastFocused = document.activeElement;
+    titleEl.textContent = title;
+    viewer.innerHTML = '';
+    loadingEl = document.createElement('p');
+    loadingEl.className = 'spread-modal__loading';
+    loadingEl.textContent = 'Loading…';
+    viewer.appendChild(loadingEl);
+    modal.removeAttribute('hidden');
+    requestAnimationFrame(function () { modal.classList.add('is-open'); });
+    closeBtn.focus();
     document.body.style.overflow = 'hidden';
-    pdfDoc = null;
-    pageNum = 1;
-    counter.textContent = '';
-    btnPrev.disabled = btnNext.disabled = arrPrev.disabled = arrNext.disabled = true;
-
-    pdfjsLib.getDocument(pdfUrl).promise.then(function (doc) {
-      pdfDoc = doc;
-      renderPage(1);
-    }).catch(function (err) {
-      loading.textContent = 'Could not load PDF.';
-      console.error(err);
-    });
+    renderPdf(pdfUrl);
   }
 
-  function closeReader() {
-    reader.hidden = true;
+  function closeModal() {
+    modal.classList.remove('is-open');
     document.body.style.overflow = '';
-    pdfDoc = null;
-    if (lastCard) { lastCard.focus(); lastCard = null; }
+    setTimeout(function () {
+      modal.setAttribute('hidden', '');
+      viewer.innerHTML = '';
+    }, 220);
+    if (lastFocused) { lastFocused.focus(); }
   }
 
-  // Card click
-  document.querySelectorAll('.portfolio-card').forEach(function (card) {
-    card.addEventListener('click', function () {
-      lastCard = card;
-      openReader(card.dataset.pdf, card.dataset.title);
+  function renderPdf(url) {
+    pdfjsLib.getDocument(url).promise.then(function (pdfDoc) {
+      var totalPages = pdfDoc.numPages;
+
+      // Remove loading message
+      viewer.innerHTML = '';
+
+      // Build spread rows: page 1 alone, then pairs
+      var spreads = [[1]];
+      for (var p = 2; p <= totalPages; p += 2) {
+        var pair = [p];
+        if (p + 1 <= totalPages) { pair.push(p + 1); }
+        spreads.push(pair);
+      }
+
+      // Render each spread row
+      spreads.forEach(function (spread) {
+        var row = document.createElement('div');
+        row.className = 'spread-row';
+        viewer.appendChild(row);
+
+        spread.forEach(function (pageNum) {
+          var canvas = document.createElement('canvas');
+          row.appendChild(canvas);
+
+          pdfDoc.getPage(pageNum).then(function (page) {
+            var scale = Math.min(
+              (window.innerHeight * 0.82) / page.getViewport({ scale: 1 }).height,
+              (window.innerWidth * 0.9 / spread.length) / page.getViewport({ scale: 1 }).width
+            );
+            var vp = page.getViewport({ scale: scale });
+            canvas.width  = vp.width;
+            canvas.height = vp.height;
+            page.render({ canvasContext: canvas.getContext('2d'), viewport: vp });
+          });
+        });
+      });
+
+    }).catch(function (err) {
+      viewer.innerHTML = '<p class="spread-modal__loading">Could not load PDF. ' + err.message + '</p>';
+    });
+  }
+
+  // Wire up portfolio items
+  document.querySelectorAll('.portfolio-item').forEach(function (item) {
+    function activate() {
+      openModal(item.dataset.pdf, item.dataset.title);
+    }
+    item.addEventListener('click', activate);
+    item.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
     });
   });
 
-  btnPrev.addEventListener('click',  function () { goTo(pageNum - 1); });
-  btnNext.addEventListener('click',  function () { goTo(pageNum + 1); });
-  arrPrev.addEventListener('click',  function () { goTo(pageNum - 1); });
-  arrNext.addEventListener('click',  function () { goTo(pageNum + 1); });
-  btnClose.addEventListener('click', closeReader);
+  closeBtn.addEventListener('click', closeModal);
 
-  // Keyboard
   document.addEventListener('keydown', function (e) {
-    if (reader.hidden) return;
-    if (e.key === 'Escape')     { closeReader(); }
-    if (e.key === 'ArrowLeft')  { goTo(pageNum - 1); }
-    if (e.key === 'ArrowRight') { goTo(pageNum + 1); }
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) { closeModal(); }
   });
 
-  // Click outside canvas to close
-  reader.addEventListener('click', function (e) {
-    if (e.target === reader) { closeReader(); }
-  });
-
-  // Re-render on resize
-  var resizeTimer;
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      if (!reader.hidden && pdfDoc) {
-        rendering = false;
-        renderPage(pageNum);
-      }
-    }, 200);
+  // Trap focus inside modal
+  modal.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab') { return; }
+    var focusable = modal.querySelectorAll('button, [tabindex]:not([tabindex="-1"])');
+    var first = focusable[0];
+    var last  = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
   });
 })();
 </script>
