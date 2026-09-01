@@ -4,10 +4,75 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Art &mdash; Jonathan Harbourne</title>
-  <meta name="description" content="Paintings and other visual work by Jonathan Harbourne. Acrylic, oil and mixed media. Work in progress and completed pieces on Instagram.">
+  <meta name="description" content="Paintings and visual work by Jonathan Harbourne. Acrylic, oil and mixed media. Follow on Instagram @jharbourne.">
   <meta property="og:title" content="Art — Jonathan Harbourne">
   <meta property="og:type" content="website">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Instagram feed wall ───────────────────────────────────────── */
+    .instagram-feed {
+      margin: 2.5rem 0 3rem;
+    }
+    .instagram-feed behold-widget {
+      display: block;
+    }
+    /* Placeholder shown while Behold widget loads or before ID is set */
+    .feed-placeholder {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+    .feed-placeholder__cell {
+      aspect-ratio: 1;
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+    }
+    /* ── Tollesbury cross-link card ────────────────────────────────── */
+    .art-crosslink {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--rule);
+    }
+    @media (max-width: 620px) {
+      .art-crosslink { grid-template-columns: 1fr; }
+    }
+    .art-crosslink__card {
+      padding: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+    }
+    .art-crosslink__label {
+      font-size: 0.6rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 0.5rem;
+    }
+    .art-crosslink__title {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      font-weight: normal;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .art-crosslink__body {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--mid);
+      margin-bottom: 1rem;
+    }
+    .art-crosslink__link {
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .art-crosslink__link:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
 
@@ -36,15 +101,41 @@
     <div class="wrap">
       <p class="page-header__label">Art</p>
       <h1 class="page-header__title">Paintings &amp; visual work</h1>
-      <p class="page-header__intro">I paint in acrylic and oil&mdash;landscapes, abstracts and whatever is demanding attention. Art and design have always been the same practice for me: looking carefully, then making something from what you see. Work in progress and completed pieces on Instagram.</p>
+      <p class="page-header__intro">I paint in acrylic and oil&mdash;landscapes, abstracts and whatever is demanding attention. Art and design have always been the same practice for me: looking carefully, then making something from what you see.</p>
     </div>
   </div>
 
   <section class="writing-section">
     <div class="wrap">
-      <p class="writing-section-head">Follow the work</p>
-      <p class="writing-section__intro">New paintings, sketches and works in progress posted regularly.</p>
-      <a href="https://www.instagram.com/jharbourne" class="cta-link" target="_blank" rel="noopener noreferrer">@jharbourne on Instagram &rarr;</a>
+      <p class="writing-section-head">Recent work</p>
+
+      <!-- ── Behold.so Instagram feed ──────────────────────────────────
+           To activate: sign up at behold.so → connect @jharbourne →
+           create a feed → copy the Feed ID → replace YOUR_FEED_ID below
+      ─────────────────────────────────────────────────────────────────── -->
+      <div class="instagram-feed">
+        <behold-widget feed-id="YOUR_FEED_ID"></behold-widget>
+        <script src="https://w.behold.so/widget.js" type="module"></script>
+      </div>
+
+      <a href="https://www.instagram.com/jharbourne" class="cta-link" target="_blank" rel="noopener noreferrer">Follow @jharbourne on Instagram &rarr;</a>
+
+      <!-- ── Cross-links ─────────────────────────────────────────────── -->
+      <div class="art-crosslink">
+        <div class="art-crosslink__card">
+          <p class="art-crosslink__label">Community arts project</p>
+          <h2 class="art-crosslink__title">Tollesbury Arts Trail</h2>
+          <p class="art-crosslink__body">I help organise the Tollesbury Arts Trail&mdash;a community arts walk through the village that brings together local artists and brings visitors to the area. Part of what the Nearmark platform was built for.</p>
+          <a href="https://tollesbury.app" class="art-crosslink__link" target="_blank" rel="noopener noreferrer">tollesbury.app &rarr;</a>
+        </div>
+        <div class="art-crosslink__card">
+          <p class="art-crosslink__label">Platform behind the trail</p>
+          <h2 class="art-crosslink__title">Nearmark</h2>
+          <p class="art-crosslink__body">The GPS-based location-aware app platform I built that powers the Tollesbury Arts Trail and the LGBT Heritage walking tours. Open-source, free to self-host, built for communities without technology budgets.</p>
+          <a href="nearmark.html" class="art-crosslink__link">Nearmark project &rarr;</a>
+        </div>
+      </div>
+
     </div>
   </section>
 
