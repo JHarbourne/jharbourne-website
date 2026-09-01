@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saltmarsh Press &mdash; Jonathan Harbourne</title>
+  <meta name="description" content="Saltmarsh Press: Jonathan Harbourne's publishing imprint. Two books in progress — Useful and The Neurotic Gene.">
+  <meta property="og:title" content="Saltmarsh Press — Jonathan Harbourne">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Book cards ─────────────────────────────────────────────────── */
+    .book-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 600px) {
+      .book-grid { grid-template-columns: 1fr; }
+    }
+    .book-card {
+      padding: 1.75rem;
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+    }
+    .book-card__status {
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 0.6rem;
+    }
+    .book-card__title {
+      font-family: var(--display);
+      font-size: 1.5rem;
+      font-weight: normal;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .book-card__subtitle {
+      font-size: 0.8rem;
+      color: var(--mid);
+      line-height: 1.6;
+      margin-bottom: 1.1rem;
+      font-style: normal;
+    }
+    .book-card__body {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: var(--ink);
+    }
+
+    /* ── Imprint section ────────────────────────────────────────────── */
+    .imprint-section {
+      margin-top: 3.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--rule);
+    }
+    .imprint-section__heading {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      font-weight: normal;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header class="site-nav">
+  <div class="site-nav__inner">
+    <a href="index.html" class="site-nav__name">Jonathan Harbourne</a>
+    <nav aria-label="Main navigation">
+      <ul class="site-nav__links">
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="speaking.html">Speaking</a></li>
+        <li><a href="writing.html">Writing</a></li>
+        <li><a href="art.html">Art</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <div class="project-page-header">
+    <div class="wrap">
+      <div>
+        <a href="projects.html" class="project-page-header__back">&larr; Projects</a>
+        <p class="project-page-header__label">Publisher &middot; Books &middot; Two titles in progress</p>
+        <h1 class="project-page-header__title">Saltmarsh Press</h1>
+        <p class="project-page-header__subtitle">My own publishing imprint&mdash;the structure through which my writing will be published and distributed. Two books currently in progress.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="project-page-body" style="margin-top: 3rem;">
+        <p>Publishing under your own imprint is not a consolation prize for writers who cannot find a traditional publisher. It is a deliberate choice about who controls the work, who it reaches, and on what terms. Saltmarsh Press exists because the books I am writing are not easy to categorise&mdash;and categorisation is what traditional publishing runs on.</p>
+        <p>The imprint also reflects a view about the relationship between thinking and making. Writing a book is design work: you are constructing an argument, testing its structure, deciding what to leave out. The same discipline that produces good software&mdash;clarity of purpose, rigour about scope, honesty about what you do not yet know&mdash;produces good books. Saltmarsh Press is where those two practices meet.</p>
+      </div>
+
+      <!-- ── Books ──────────────────────────────────────────────────── -->
+      <div class="book-grid">
+
+        <div class="book-card">
+          <p class="book-card__status">In progress</p>
+          <h2 class="book-card__title">Useful</h2>
+          <p class="book-card__subtitle">Why the software meant to help you is making everything worse</p>
+          <p class="book-card__body">Most productivity software is not designed to make you more productive. It is designed to make you feel more productive&mdash;which is a different thing and produces different incentives. The calendar app, the task manager, the note-taking system: each one adds a layer of administration between you and the thing you were trying to do. <em>Useful</em> is an argument about how that happened, why it keeps happening, and what a different approach would look like.</p>
+        </div>
+
+        <div class="book-card">
+          <p class="book-card__status">In progress</p>
+          <h2 class="book-card__title">The Neurotic Gene</h2>
+          <p class="book-card__subtitle">Why the persistent sense of not being enough is installed, not inherent</p>
+          <p class="book-card__body">A biographical and evolutionary argument. The feeling that you are somehow falling short&mdash;not quite measuring up, not quite keeping pace&mdash;is so common it is almost invisible. <em>The Neurotic Gene</em> traces where that feeling comes from: not from personal inadequacy, but from a trait that was once adaptive and is now running in the wrong environment. Part memoir, part evolutionary biology, part argument about how we live now.</p>
+        </div>
+
+      </div>
+
+      <!-- ── The imprint ─────────────────────────────────────────────── -->
+      <div class="imprint-section">
+        <h2 class="imprint-section__heading">About the imprint</h2>
+        <p>Saltmarsh Press is registered as a publisher and takes its name from the Essex coast where much of the writing happens. It is the structure through which future writing&mdash;books, long-form essays, and other work too long for a magazine and too short for a traditional publisher&mdash;will be published and distributed.</p>
+        <p style="margin-top: 1rem;"><a href="https://saltmarshpress.co.uk" class="project-link" target="_blank" rel="noopener noreferrer">saltmarshpress.co.uk &rarr;</a></p>
+      </div>
+
+      <div class="tech-stack">
+        <span class="tech-stack__label">Built with</span>
+        <ul class="tech-stack__items">
+          <li>Publisher registration</li>
+          <li>Long-form writing</li>
+          <li>Independent distribution</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <p class="footer-label">Get in touch</p>
+      <a href="mailto:hello@jharbourne.com" class="footer-email">hello@jharbourne.com</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/jonathan-harbourne" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+      <span class="footer-location">Essex &amp; London</span>
+    </div>
+    <p class="footer-meta">Built to the standard it advertises: WCAG 2.2 AA &middot; keyboard-navigable &middot; fast &middot; cookieless. No trackers, no external requests, no fonts phoning home.</p>
+  </div>
+</footer>
+
+</body>
+</html>
