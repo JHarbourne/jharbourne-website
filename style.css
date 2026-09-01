@@ -1421,7 +1421,7 @@ a:hover {
 
 .project-panel__inner {
   display: grid;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: 5fr 8fr;
   min-height: 320px;
 }
 
@@ -1505,13 +1505,14 @@ a:hover {
   overflow: hidden;
   border-left: 1px solid var(--rule);
   background: var(--bg-off);
+  aspect-ratio: 16 / 10;
 }
 
 .project-panel__visual img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: top center;
   display: block;
 }
 
