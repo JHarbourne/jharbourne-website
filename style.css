@@ -474,6 +474,46 @@ a:hover {
   text-decoration: underline;
 }
 
+/* ── Five things ───────────────────────────────────────────────── */
+.five-things__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.five-things__item {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 0 1rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: baseline;
+}
+
+.five-things__item:first-child {
+  border-top: 1px solid var(--rule);
+}
+
+.five-things__num {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  color: var(--accent);
+  font-weight: normal;
+  line-height: 1;
+  padding-top: 0.1em;
+}
+
+.five-things__text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 0;
+  max-width: 68ch;
+}
+
 /* ── Personal section ──────────────────────────────────────────── */
 .personal-body {
   font-size: 1rem;
