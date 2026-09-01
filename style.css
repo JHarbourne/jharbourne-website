@@ -705,7 +705,7 @@ a:hover {
 
 .sub-project__browser-img {
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 2;
   object-fit: cover;
   object-position: top left;
   display: block;
@@ -1506,7 +1506,7 @@ a:hover {
   overflow: hidden;
   border-left: 1px solid var(--rule);
   background: var(--bg-off);
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 2;
 }
 
 .project-panel__visual img {
