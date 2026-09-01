@@ -697,14 +697,16 @@ a:hover {
 /* Sub-project two-column: text + screenshot */
 .sub-project__cols {
   display: grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 1fr 480px;
   gap: 2rem;
   align-items: start;
 }
 
 .sub-project__browser-img {
   width: 100%;
-  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top left;
   display: block;
   border: 1px solid var(--rule);
   border-radius: 6px;
@@ -805,6 +807,42 @@ a:hover {
 
 .sub-project__links a:hover {
   text-decoration: underline;
+}
+
+.sub-project__component-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.sub-project__use-cases {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 680px) {
+  .sub-project__use-cases {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sub-project__use-case {
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.sub-project__use-case-name {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: normal;
+  color: var(--ink);
+  margin-bottom: 0.2rem;
+  letter-spacing: -0.01em;
 }
 
 /* ── Speaking page ─────────────────────────────────────────────── */

@@ -67,27 +67,86 @@
 
       <div class="project-entry__cols">
         <div class="project-page-body">
-          <p>Nearmark is an open-source platform that gives any walkable place its own location-aware app&mdash;a heritage trail, an arts walk, a pub crawl, open gardens. It runs on Vue 3, Supabase and Leaflet/OpenStreetMap. Data is EU-hosted. There is no API key billing: the platform is genuinely free to self-host, or available as a managed deployment for communities that want someone else to run the infrastructure.</p>
-          <p>The platform is designed for the people who maintain local heritage and community culture without institutional budgets. The design principle is that &ldquo;open-source&rdquo; should mean accessible, not just theoretically available. Most open-source mapping tools require technical setup that excludes the communities most likely to benefit from them. Nearmark is designed to remove that barrier.</p>
+          <p>Nearmark is an open-source platform that gives any walkable place its own location-aware app&mdash;a heritage trail, an arts walk, a pub crawl, open gardens. It runs on Vue&nbsp;3, Supabase and Leaflet/OpenStreetMap. Data is EU-hosted. There is no API key billing: the platform is genuinely free to self-host, or available as a managed deployment for communities that want someone else to run the infrastructure.</p>
+          <p>The design principle is that &ldquo;open-source&rdquo; should mean accessible, not just theoretically available. Most open-source mapping tools require technical setup that excludes the communities most likely to benefit from them. Nearmark is designed to remove that barrier.</p>
         </div>
         <div>
           <img src="images/nearmark-site.jpg" alt="The Nearmark platform at nearmark.co.uk" class="sub-project__browser-img" loading="lazy">
         </div>
       </div>
 
-      <div class="project-phone-gallery" aria-hidden="true">
-        <div class="phone-device"><img src="images/app-landing.jpg" alt="" loading="lazy"></div>
-        <div class="phone-device"><img src="images/app-lgbtapp.jpg" alt="" loading="lazy"></div>
-        <div class="phone-device"><img src="images/app-sohoqueer.jpg" alt="" loading="lazy"></div>
-        <div class="phone-device"><img src="images/app-discovertollesbury.jpg" alt="" loading="lazy"></div>
+      <!-- ── Platform components ─────────────────────────────────────── -->
+
+      <div class="sub-project">
+        <p class="sub-project__component-label">01</p>
+        <h2 class="sub-project__name">Front End &mdash; Mobile</h2>
+        <p class="sub-project__tags">GPS &middot; Location-aware &middot; Offline-capable &middot; OpenStreetMap &middot; PWA</p>
+        <p class="sub-project__body">The visitor-facing app, optimised for mobile. It delivers GPS-triggered heritage content as a visitor moves through a place&mdash;points of interest, historical photographs, before/after comparisons via Rephoto, and curated walking routes. Runs in the browser as a PWA, so no App Store friction for first use.</p>
+
+        <p class="sub-project__body" style="margin-top: 1rem; font-weight: 500;">Two live use cases:</p>
+
+        <div class="sub-project__use-cases">
+          <div class="sub-project__use-case">
+            <div class="project-phone-gallery" aria-hidden="true" style="margin: 0 0 1rem;">
+              <div class="phone-device"><img src="images/app-discovertollesbury.jpg" alt="" loading="lazy"></div>
+              <div class="phone-device"><img src="images/app-landing.jpg" alt="" loading="lazy"></div>
+            </div>
+            <h3 class="sub-project__use-case-name">Tollesbury Arts Trail</h3>
+            <p class="sub-project__tags">Community heritage &middot; Arts mapping &middot; Essex &middot; App Store &middot; Google Play</p>
+            <p class="sub-project__body">A community heritage and arts mapping app for Tollesbury, Essex. Built end to end: product vision, UX, development and launch across App Store and Google Play.</p>
+            <div class="sub-project__links">
+              <a href="https://tollesbury.app" target="_blank" rel="noopener noreferrer">tollesbury.app &rarr;</a>
+            </div>
+          </div>
+
+          <div class="sub-project__use-case">
+            <div class="project-phone-gallery" aria-hidden="true" style="margin: 0 0 1rem;">
+              <div class="phone-device"><img src="images/app-lgbtapp.jpg" alt="" loading="lazy"></div>
+              <div class="phone-device"><img src="images/app-sohoqueer.jpg" alt="" loading="lazy"></div>
+            </div>
+            <h3 class="sub-project__use-case-name">LGBT Heritage App</h3>
+            <p class="sub-project__tags">GPS heritage tours &middot; LGBTQ+ history &middot; Open-source &middot; White-label</p>
+            <p class="sub-project__body">A GPS-based LGBTQ+ heritage walking tour platform, developed as part of the LGBT History Project ecosystem. Open-source and white-label: available for communities, cultural institutions, and local authorities that want to map and share their own queer heritage.</p>
+            <div class="sub-project__links">
+              <a href="https://app.lgbthistoryuk.org" target="_blank" rel="noopener noreferrer">app.lgbthistoryuk.org &rarr;</a>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="project-links" style="margin: 2rem 0;">
-        <a href="https://nearmark.co.uk" class="project-link" target="_blank" rel="noopener noreferrer">nearmark.co.uk &rarr;</a>
-        <a href="https://nearmark.app" class="project-link" target="_blank" rel="noopener noreferrer">nearmark.app &rarr;</a>
+      <div class="sub-project">
+        <p class="sub-project__component-label">02</p>
+        <h2 class="sub-project__name">Back Office &mdash; Desktop</h2>
+        <p class="sub-project__tags">Content management &middot; Trail management &middot; Media upload &middot; Desktop-first</p>
+        <p class="sub-project__body">The desktop interface for heritage organisations and community editors. Content managers use the back office to create and manage trails, add and edit points of interest, upload and caption historical images, and publish changes to the live app without touching code. Designed for the volunteer coordinator who knows their community&rsquo;s history but is not a developer.</p>
       </div>
 
-      <!-- Rephoto -->
+      <div class="sub-project">
+        <p class="sub-project__component-label">03</p>
+        <h2 class="sub-project__name">Commercial Site</h2>
+        <p class="sub-project__tags">Product marketing &middot; Documentation &middot; Self-hosted deployment guide</p>
+        <div class="sub-project__cols">
+          <div>
+            <p class="sub-project__body">The product and marketing site for Nearmark. It explains what the platform does, who it is for, and how to get started&mdash;whether self-hosting or through a managed deployment. Includes documentation for community organisations and local authorities considering adopting it.</p>
+            <div class="sub-project__links">
+              <a href="https://nearmark.co.uk" target="_blank" rel="noopener noreferrer">nearmark.co.uk &rarr;</a>
+            </div>
+          </div>
+          <img src="images/nearmark-site.jpg" alt="The Nearmark commercial site at nearmark.co.uk" class="sub-project__browser-img" loading="lazy">
+        </div>
+      </div>
+
+      <div class="sub-project">
+        <p class="sub-project__component-label">04</p>
+        <h2 class="sub-project__name">Nearmark App</h2>
+        <p class="sub-project__tags">iOS &middot; Android &middot; App Store &middot; Google Play &middot; White-label</p>
+        <p class="sub-project__body">The packaged app available on the App Store and Google Play. White-label and rebrandable: a community or organisation can deploy Nearmark under their own name, branding and app store listing. The same codebase powers every instance&mdash;infrastructure is shared; identity is not.</p>
+        <div class="sub-project__links">
+          <a href="https://nearmark.app" target="_blank" rel="noopener noreferrer">nearmark.app &rarr;</a>
+        </div>
+      </div>
+
+      <!-- ── Rephoto ──────────────────────────────────────────────────── -->
       <div class="sub-project">
         <h2 class="sub-project__name">Rephoto</h2>
         <div class="sub-project__cols">
@@ -99,26 +158,6 @@
             </div>
           </div>
           <img src="images/nearmark-rephoto.jpg" alt="The Rephoto tool at nearmark.co.uk/rephoto" class="sub-project__browser-img" loading="lazy">
-        </div>
-      </div>
-
-      <!-- Tollesbury Arts Trail -->
-      <div class="sub-project">
-        <h2 class="sub-project__name">Tollesbury Arts Trail</h2>
-        <p class="sub-project__tags">Community heritage &middot; Arts mapping &middot; Essex &middot; App Store &middot; Google Play</p>
-        <p class="sub-project__body">A community heritage and arts mapping app for Tollesbury, Essex. Built end to end: product vision, UX, development and launch across App Store and Google Play. A working demonstration of what the Nearmark platform can do for a small community with no technology budget.</p>
-        <div class="sub-project__links">
-          <a href="https://tollesbury.app" target="_blank" rel="noopener noreferrer">tollesbury.app &rarr;</a>
-        </div>
-      </div>
-
-      <!-- LGBT Heritage App -->
-      <div class="sub-project">
-        <h2 class="sub-project__name">LGBT Heritage App</h2>
-        <p class="sub-project__tags">GPS heritage tours &middot; LGBTQ+ history &middot; Open-source &middot; White-label</p>
-        <p class="sub-project__body">A GPS-based LGBTQ+ heritage walking tour platform, developed as part of the LGBT History Project ecosystem. Open-source and white-label: available for communities, cultural institutions, and local authorities that want to map and share their own queer heritage.</p>
-        <div class="sub-project__links">
-          <a href="https://app.lgbthistoryuk.org" target="_blank" rel="noopener noreferrer">app.lgbthistoryuk.org &rarr;</a>
         </div>
       </div>
 
