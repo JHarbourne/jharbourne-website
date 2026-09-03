@@ -12,6 +12,7 @@
   --faint:     #767676;
   --rule:      #ddddd9;
   --accent:    #1e3a5f;
+  --accent-red: #c0182b;
   --display:   Georgia, 'Palatino Linotype', Palatino, serif;
   --sans:      'Helvetica Neue', Helvetica, 'Segoe UI', Arial, system-ui, sans-serif;
   --content:   1100px;
@@ -1152,6 +1153,16 @@ a.topic-card:focus-visible {
   display: block;
 }
 
+.writing-entry--featured {
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.writing-entry--featured .writing-entry__thumb {
+  width: 100%;
+  aspect-ratio: auto;
+}
+
 .writing-entry__content {
   flex: 1;
   min-width: 0;
@@ -1163,6 +1174,10 @@ a.topic-card:focus-visible {
   text-transform: uppercase;
   color: var(--faint);
   margin-bottom: 0.5rem;
+}
+
+.writing-entry__source--featured {
+  color: var(--accent-red);
 }
 
 .writing-entry__title {
@@ -1225,10 +1240,6 @@ a.topic-card:focus-visible {
   height: auto;
   display: block;
 }
-
-/* Compensate for different cover aspect ratios so both render a similar height */
-.book-entry:first-of-type .book-cover  { width: 155px; }
-.book-entry:last-of-type  .book-cover  { width: 200px; }
 
 .book-entry__body {
   flex: 1;
