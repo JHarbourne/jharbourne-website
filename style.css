@@ -1696,6 +1696,10 @@ a.topic-card:focus-visible {
   grid-template-columns: repeat(3, 1fr);
 }
 
+.browse-cards--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
 .browse-cards--compact {
   max-width: 720px;
 }
