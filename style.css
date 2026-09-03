@@ -1462,7 +1462,7 @@ a:hover {
 .project-panel__stats {
   display: flex;
   gap: 2.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .project-panel__stat-n {
