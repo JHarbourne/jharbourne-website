@@ -1760,6 +1760,20 @@ a.topic-card:focus-visible {
   align-items: stretch;
 }
 
+.browse-cards--3 {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 720px;
+}
+
+/* No numeral on these, so no need to reserve room for one */
+.browse-cards--3 .topic-card {
+  padding-bottom: 1.35rem;
+}
+
+.browse-cards--3 .topic-card__title {
+  margin-bottom: 0;
+}
+
 @media (max-width: 860px) {
   .browse-cards {
     grid-template-columns: repeat(3, 1fr);
