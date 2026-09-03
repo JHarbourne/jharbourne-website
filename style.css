@@ -1767,7 +1767,7 @@ a.topic-card:focus-visible {
 
 .published-grid {
   display: grid;
-  grid-template-columns: 1.7fr 1fr;
+  grid-template-columns: 3fr 1fr;
   gap: 1.75rem;
   align-items: start;
   margin-top: 1.5rem;
@@ -1782,6 +1782,20 @@ a.topic-card:focus-visible {
   height: auto;
   display: block;
   border: 1px solid var(--rule);
+}
+
+.published-item__link {
+  display: block;
+}
+
+.published-item__link:hover img,
+.published-item__link:focus-visible img {
+  border-color: var(--mid);
+}
+
+.published-item__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .published-item__caption {
