@@ -1798,3 +1798,24 @@ a.topic-card:focus-visible {
 .contact-social {
   margin: 2rem 0 0;
 }
+
+/* Two books side by side, so both covers land above the fold */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.book-grid .book-entry {
+  max-width: none;
+  border-top: 0;
+  border-bottom: 0;
+  padding-block: 0;
+}
+
+@media (max-width: 860px) {
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
+}
