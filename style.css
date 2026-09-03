@@ -1505,14 +1505,12 @@ a:hover {
 .project-panel__visual {
   overflow: hidden;
   border-left: 1px solid var(--rule);
-  background: var(--bg-off);
+  background: #ffffff;
 }
 
 .project-panel__visual img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  height: auto;
   display: block;
 }
 
