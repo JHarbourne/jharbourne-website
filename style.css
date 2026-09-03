@@ -412,68 +412,6 @@ a:hover {
 }
 
 /* ── Writing teaser (homepage) ─────────────────────────────────── */
-.writing-teaser {
-  max-width: 680px;
-  display: flex;
-  gap: 1.5rem;
-  align-items: stretch;
-}
-
-.writing-teaser__thumb {
-  flex-shrink: 0;
-  width: 88px;
-  background: var(--bg-off);
-  border: 1px solid var(--rule);
-  overflow: hidden;
-}
-
-.writing-teaser__thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.writing-teaser__content {
-  flex: 1;
-  min-width: 0;
-}
-
-.writing-teaser__source {
-  font-size: 0.65rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-bottom: 0.5rem;
-}
-
-.writing-teaser__title {
-  font-family: var(--display);
-  font-size: 1.5rem;
-  font-weight: normal;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  margin-bottom: 0.75rem;
-}
-
-.writing-teaser__body {
-  font-size: 0.92rem;
-  line-height: 1.75;
-  color: var(--mid);
-  margin-bottom: 1rem;
-}
-
-.writing-teaser__link {
-  font-size: 0.82rem;
-  color: var(--accent);
-  text-decoration: none;
-  letter-spacing: 0.02em;
-}
-
-.writing-teaser__link:hover {
-  text-decoration: underline;
-}
 
 
 /* ── Personal section ──────────────────────────────────────────── */
@@ -1756,6 +1694,9 @@ a.topic-card:focus-visible {
 
 .browse-cards--3 {
   grid-template-columns: repeat(3, 1fr);
+}
+
+.browse-cards--compact {
   max-width: 720px;
 }
 
