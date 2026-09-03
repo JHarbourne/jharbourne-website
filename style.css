@@ -1423,7 +1423,7 @@ a:hover {
   display: grid;
   grid-template-columns: 5fr 8fr;
   align-items: stretch;
-  min-height: 320px;
+  height: 480px;
 }
 
 .project-panel__content {
@@ -1438,6 +1438,9 @@ a:hover {
   text-transform: uppercase;
   color: var(--mid);
   margin: 0 0 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .project-panel__name {
@@ -1510,7 +1513,9 @@ a:hover {
 
 .project-panel__visual img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
   display: block;
 }
 
