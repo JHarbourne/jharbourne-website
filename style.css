@@ -705,7 +705,6 @@ a:hover {
 
 .sub-project__browser-img {
   width: 100%;
-  aspect-ratio: 2;
   object-fit: cover;
   object-position: top left;
   display: block;
@@ -1423,6 +1422,7 @@ a:hover {
 .project-panel__inner {
   display: grid;
   grid-template-columns: 5fr 8fr;
+  align-items: start;
   min-height: 320px;
 }
 
@@ -1506,14 +1506,11 @@ a:hover {
   overflow: hidden;
   border-left: 1px solid var(--rule);
   background: var(--bg-off);
-  aspect-ratio: 2;
 }
 
 .project-panel__visual img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  height: auto;
   display: block;
 }
 
