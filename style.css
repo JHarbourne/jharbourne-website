@@ -1701,11 +1701,13 @@ a.topic-card:focus-visible {
 }
 
 /* No numeral on these, so no need to reserve room for one */
-.browse-cards--3 .topic-card {
+/* Cards with no numeral and no body line.
+   Scoped through .browse-cards so it outranks that grid's own padding. */
+.browse-cards .topic-card--plain {
   padding-bottom: 1.35rem;
 }
 
-.browse-cards--3 .topic-card__title {
+.browse-cards .topic-card--plain .topic-card__title {
   margin-bottom: 0;
 }
 
@@ -1787,4 +1789,8 @@ a.topic-card:focus-visible {
 
 .writing-section--tight .writing-section-head {
   margin-bottom: 1.25rem;
+}
+
+.contact-social {
+  margin: 2rem 0 0;
 }
