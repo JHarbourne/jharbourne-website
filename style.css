@@ -477,12 +477,6 @@ a:hover {
 
 
 /* ── Personal section ──────────────────────────────────────────── */
-.personal-body {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: var(--mid);
-  max-width: 620px;
-}
 
 /* ── Footer ────────────────────────────────────────────────────── */
 .site-footer {
