@@ -1815,3 +1815,16 @@ a.topic-card:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+/* Photography page: pull the work up the page */
+.page-header--tight {
+  padding-block: 2.5rem 1.5rem;
+}
+
+.writing-section--tight {
+  padding-block: 1.5rem 3.5rem;
+}
+
+.writing-section--tight .writing-section-head {
+  margin-bottom: 1.25rem;
+}
