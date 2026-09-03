@@ -1421,7 +1421,7 @@ a:hover {
 
 .project-panel__inner {
   display: grid;
-  grid-template-columns: 5fr 8fr;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 8fr);
   align-items: stretch;
 }
 
