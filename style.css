@@ -646,7 +646,15 @@ a:hover {
 
 /* Where there is a screenshot, 660px minus a fixed 480px left the copy on
    148px too. Let those blocks use the full measure. */
-.sub-project:has(.sub-project__cols > img) {
+/* a linked screenshot should sit flush with the top of the copy beside it;
+   the 0.25rem nudge is for the unlinked case */
+.sub-project__cols > a > .sub-project__browser-img {
+  margin-top: 0;
+}
+
+/* the screenshot may be wrapped in a link, so match either */
+.sub-project:has(.sub-project__cols > img),
+.sub-project:has(.sub-project__cols > a > img) {
   max-width: none;
 }
 
@@ -2141,4 +2149,10 @@ a.topic-card:focus-visible {
 
 .case-block p:not(.case-block__label):last-child {
   margin-bottom: 0;
+}
+
+.footer-copyright {
+  margin: 0.6rem 0 0;
+  font-size: 0.78rem;
+  color: var(--faint);
 }
