@@ -1610,10 +1610,14 @@ a.topic-card:focus-visible {
     grid-template-columns: 1fr;
   }
 
+  /* screenshot leads on a phone; source order is unchanged, so desktop
+     still reads content first */
   .project-panel__visual {
+    order: -1;
     border-left: none;
-    border-top: 1px solid var(--rule);
-    min-height: 220px;
+    border-bottom: 1px solid var(--rule);
+    border-top: none;
+    min-height: 0;
   }
 
   .project-page-header__title {
