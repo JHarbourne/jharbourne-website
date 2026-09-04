@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RePhoto &ndash; Jonathan Harbourne</title>
+  <meta name="description" content="RePhoto: a browser tool that aligns a historical photograph with the live camera view, so a before and after slider lines up exactly. Part of the Nearmark location stack.">
+  <meta property="og:title" content="RePhoto &ndash; Jonathan Harbourne">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header class="site-nav">
+  <div class="site-nav__inner">
+    <a href="index.html" class="site-nav__name">Jonathan Harbourne</a>
+    <nav aria-label="Main navigation">
+      <ul class="site-nav__links" id="site-nav-links">
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="design.html">Design</a></li>
+        <li><a href="speaking.html">Speaking</a></li>
+        <li><a href="writing.html">Writing</a></li>
+        <li><a href="art.html">Art</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>
+      </ul>
+    </nav>
+      <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <div class="project-page-header">
+    <div class="wrap">
+      <div>
+        <div class="project-page-header__nav">
+          <a href="projects.html" class="project-page-header__back">&larr; Projects</a>
+          <div class="project-page-header__pager">
+            <a href="nearmark.html" class="project-page-header__next">&larr; Previous project</a>
+            <a href="moxii.html" class="project-page-header__next">Next project &rarr;</a>
+          </div>
+        </div>
+        <p class="project-page-header__label">GPS &middot; Photography &middot; Historic images &middot; Nearmark</p>
+        <h1 class="project-page-header__title">RePhoto</h1>
+        <p class="project-page-header__subtitle">A location-aware photography tool that surfaces historic images at the exact spot where they were taken, and aligns them with the live camera view.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="project-hero">
+    <div class="wrap">
+    <div class="tech-stack">
+      <span class="tech-stack__label">Built with</span>
+      <ul class="tech-stack__items">
+        <li>React</li>
+        <li>TypeScript</li>
+        <li>PWA</li>
+        <li>OpenCV.js</li>
+        <li>Workbox</li>
+        <li>Vite</li>
+      </ul>
+    </div>
+      <a class="project-hero__link" href="https://nearmark.co.uk/rephoto" target="_blank" rel="noopener noreferrer">
+        <img src="images/rephoto-home.jpg" alt="The RePhoto tool at nearmark.co.uk/rephoto">
+      </a>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="project-page-body" style="margin-top: 3rem;">
+        <p>RePhoto is a free tool for standing where the old photographer stood. It aligns a historical photograph with the live camera view, so that a before and after comparison slider lines up exactly when a visitor drags it, without the jump that happens when two images are not properly matched.</p>
+
+        <p>Most heritage apps show a side by side of an old and a new photograph and leave the matching to the eye. RePhoto is the alignment work underneath: a ghost overlay of the historical image over the camera, a warp to correct for the angle the original was shot from, and an export of the matched pair.</p>
+
+        <p>It runs entirely in the browser. Nothing is uploaded: the images stay on the device, which matters when the photograph belongs to an archive or a family rather than to the person holding the phone. It installs as a progressive web app and works offline, so it is usable standing in a field with no signal, which is where it is actually needed.</p>
+
+        <p>RePhoto is built on the Nearmark location stack, and the two are designed to work together: Nearmark knows where a visitor is standing and what was photographed there, RePhoto handles the matching.</p>
+      </div>
+
+      <div class="project-links" style="margin-top: 2rem;">
+        <a href="https://nearmark.co.uk/rephoto" class="project-link" target="_blank" rel="noopener noreferrer">Try RePhoto &rarr;</a>
+        <a href="https://github.com/JHarbourne/rephoto" class="project-link" target="_blank" rel="noopener noreferrer">Source on GitHub &rarr;</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <p class="footer-label">Get in touch</p>
+      <a href="mailto:hello@jharbourne.com" class="footer-email">hello@jharbourne.com</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/jonathan-harbourne" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+      <span class="footer-location">Essex &amp; London</span>
+    </div>
+    <p class="footer-meta">Built to the standard it advertises: WCAG 2.2 AA &middot; keyboard-navigable &middot; fast &middot; cookieless. No trackers, no cookies, no fonts phoning home.</p>
+  </div>
+</footer>
+
+<script src="scripts/nav.js" defer></script>
+
+</body>
+</html>
