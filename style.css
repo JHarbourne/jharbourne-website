@@ -1060,7 +1060,8 @@ a.topic-card:focus-visible {
   border-bottom: 1px solid var(--rule);
 }
 
-.writing-section-head {
+.writing-section-head,
+.case-block__label {
   font-size: 0.68rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -2110,4 +2111,34 @@ a.topic-card:focus-visible {
 .sub-project__tags a:hover {
   color: var(--accent);
   border-bottom-color: var(--accent);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CASE STUDY BLOCKS
+   A consistent spine for project pages: the problem, the approach,
+   the outcome. Each block is labelled so the thinking is legible
+   without reading the whole thing.
+   ══════════════════════════════════════════════════════════════ */
+
+/* scoped through the body: .project-page-body p is more specific and
+   would otherwise repaint the label as ordinary copy */
+.project-page-body .case-block__label {
+  margin-bottom: 0.6rem;
+  color: var(--accent);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.case-block + .case-block {
+  margin-top: 2.25rem;
+}
+
+.case-block p:not(.case-block__label) {
+  margin-bottom: 1.25rem;
+}
+
+.case-block p:not(.case-block__label):last-child {
+  margin-bottom: 0;
 }
