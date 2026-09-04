@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tollesbury Surgery &mdash; Jonathan Harbourne</title>
+  <meta name="description" content="An accessibility-first homepage concept for a village GP surgery: one clear task per section, plain language, WCAG 2.2 AA contrast and full keyboard support. Built in thirty minutes to show what the approach looks like.">
+  <meta property="og:title" content="Tollesbury Surgery — Jonathan Harbourne">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header class="site-nav">
+  <div class="site-nav__inner">
+    <a href="index.html" class="site-nav__name">Jonathan Harbourne</a>
+    <nav aria-label="Main navigation">
+      <ul class="site-nav__links">
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="design.html">Design</a></li>
+        <li><a href="speaking.html">Speaking</a></li>
+        <li><a href="writing.html">Writing</a></li>
+        <li><a href="art.html">Art</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <div class="project-page-header">
+    <div class="wrap">
+      <div>
+        <a href="projects.html" class="project-page-header__back">&larr; Projects</a>
+        <p class="project-page-header__label">NHS &middot; Accessibility &middot; Healthcare &middot; Primary care</p>
+        <h1 class="project-page-header__title">Tollesbury Surgery</h1>
+        <p class="project-page-header__subtitle">An accessibility-first homepage concept for the village GP practice&mdash;built in thirty minutes to show what the approach looks like, and partly adopted by the surgery since.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="project-page-body" style="margin-top: 3rem;">
+        <p>A GP surgery homepage has one job: get a patient to the thing they came for. Most of the time that is ordering a repeat prescription, cancelling an appointment, or finding the phone number. Yet practice websites, usually built on a shared NHS template, tend to bury those tasks under news, notices and navigation, and to set them in small, low-contrast type that the practice&rsquo;s older patients find hardest to read.</p>
+
+        <p>This concept puts the two commonest tasks in the banner, in plain words, before anything else. Each section below it does one thing and says so in its heading. Body text is 16 to 18 pixels; every colour clears WCAG 2.2 AA contrast; every control is reachable and visibly focused from the keyboard; touch targets are 44 pixels or larger; and the page honours the operating system&rsquo;s reduced-motion setting. None of this is exotic. It is simply what happens when accessibility is the starting point rather than an audit at the end.</p>
+
+        <p>The mockup was made in Figma Make in about thirty minutes, including retouching the photograph, and shown to the practice as a demonstration rather than a proposal. Some of the recommendations, the main banner among them, have since been adopted on the surgery&rsquo;s own site. The code was then tidied by hand: the exported component library and fifty unused dependencies went, hover states moved from JavaScript into CSS so keyboard users get the same feedback, and the contrast failures in the export were fixed.</p>
+
+        <p>The demonstration is deliberately kept out of search engines, so nobody finds it and mistakes it for the practice&rsquo;s website. It carries a notice to that effect and links to the real one.</p>
+      </div>
+
+      <div class="project-browser-shot">
+        <img src="images/tollesbury-surgery.jpg" alt="The Tollesbury Surgery homepage concept: a photograph of the surgery behind a white card reading Welcome to Tollesbury Surgery, with Order a prescription and Cancel your appointment as the first two actions" loading="lazy">
+      </div>
+
+      <div class="project-links" style="margin-top: 2rem;">
+        <a href="https://tollesbury-surgery.vercel.app" class="project-link" target="_blank" rel="noopener noreferrer">Open the concept &rarr;</a>
+        <a href="https://github.com/JHarbourne/tollesbury-surgery-homepage" class="project-link" target="_blank" rel="noopener noreferrer">Source on GitHub &rarr;</a>
+      </div>
+
+      <div class="tech-stack">
+        <span class="tech-stack__label">Built with</span>
+        <ul class="tech-stack__items">
+          <li>Figma Make</li>
+          <li>React</li>
+          <li>WCAG 2.2 AA</li>
+          <li>axe-core</li>
+          <li>Vercel</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <p class="footer-label">Get in touch</p>
+      <a href="mailto:hello@jharbourne.com" class="footer-email">hello@jharbourne.com</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/jonathan-harbourne" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+      <span class="footer-location">Essex &amp; London</span>
+    </div>
+    <p class="footer-meta">Built to the standard it advertises: WCAG 2.2 AA &middot; keyboard-navigable &middot; fast &middot; cookieless. No trackers, no external requests, no fonts phoning home.</p>
+  </div>
+</footer>
+
+</body>
+</html>
