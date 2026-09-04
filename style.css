@@ -639,7 +639,8 @@ a:hover {
 
 /* With no screenshot beside it the 480px column is empty, and the copy is
    left with whatever remains of a 660px block: 148px. Take the full width. */
-.sub-project__cols:has(> :only-child) {
+.sub-project__cols:has(> :only-child),
+.project-entry__cols:has(> :only-child) {
   grid-template-columns: 1fr;
 }
 
