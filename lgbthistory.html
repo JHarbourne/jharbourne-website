@@ -61,11 +61,16 @@
       <ul class="tech-stack__items">
         <li>MediaWiki</li>
         <li>PHP</li>
+        <li>MariaDB</li>
+        <li>nginx</li>
+        <li>Apache</li>
+        <li>Plesk</li>
+        <li>Ubuntu</li>
         <li>AWS</li>
         <li>Cloudflare</li>
-        <li>Project Galileo</li>
-        <li>Anthropic Claude</li>
+        <li>Claude</li>
         <li>Brevo</li>
+        <li>PostHog</li>
       </ul>
     </div>
       <a class="project-hero__link" href="https://lgbthistoryuk.org" target="_blank" rel="noopener noreferrer">
@@ -101,6 +106,8 @@
           <p>The LGBT History Project is the UK&rsquo;s largest community-led archive of lesbian, gay, bisexual and trans history. I founded it in May 2011. It was archived at the British Library in October 2012, and in February 2019 I received a Prime Minister&rsquo;s Points of Light Award from Rt Hon Theresa May MP in recognition of its contribution to the preservation of community memory.</p>
           <p>The project is a volunteer-edited encyclopaedia: anyone from the community can contribute, and a network of volunteer editors governs the content. I am responsible for platform architecture, content strategy, and community governance, the infrastructure that allows volunteers to publish reliably and confidently at scale.</p>
           <p>Over the last year I built a custom AI agent for legal review of new articles, enabling the editorial team to publish with greater speed and accuracy. The tool surfaces potential defamation, privacy, and copyright issues before publication, reducing the risk that comes with a growing volunteer base working without legal support.</p>
+          <p>The wiki runs on self-hosted infrastructure: MediaWiki on PHP&nbsp;8.3 and MariaDB, behind nginx and Apache on Ubuntu at AWS, with Cloudflare in front. The bot management that keeps the crawlers off comes through Project&nbsp;Galileo, Cloudflare&rsquo;s programme for public-interest projects, which is what makes enterprise-grade defence affordable for a volunteer-run archive.</p>
+          <p>I moved the whole thing to that server with Claude&nbsp;Code, which wrote the migration scripts. That mattered more than the time it saved: because the migration was scripted rather than manual, I could rehearse it end to end several times, fix what broke, and run it again from clean. By cut-over day it was a procedure I had already completed successfully, not one I was attempting for the first time on a live archive.</p>
           <p>The project now reaches well beyond the archive. Nearmark, a GPS-based LGBTQ+ heritage walking tour platform, is being built as part of the wider ecosystem, taking the archive into the physical world as a location-aware experience.</p>
         </div>
         <figure class="project-figure">
