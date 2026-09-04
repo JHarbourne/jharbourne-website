@@ -1946,8 +1946,10 @@ a.topic-card:focus-visible {
   padding-block: 1.5rem 3.5rem;
 }
 
-.writing-section--tight .writing-section-head {
-  margin-bottom: 1.25rem;
+/* This section carries no heading, so the first entry's top border would
+   sit as a second rule just under the page header's own. */
+.writing-section--tight .writing-entry:first-of-type {
+  border-top: 0;
 }
 
 .contact-social {
