@@ -22,11 +22,13 @@
       .this-site-panel { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
       .this-site-standards { padding: 0 1.25rem 1.25rem; }
     }
+    /* 52ch site-wide runs this column well past the badges beside it */
+    .this-site-panel .project-panel__body { max-width: 72ch; }
     .this-site-standards {
       padding: 2.5rem;
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
+      gap: 1.05rem;
     }
     .std-badge {
       display: flex;
@@ -270,9 +272,9 @@
           <div class="project-panel__content">
             <p class="project-panel__tags">Static HTML &middot; GitHub Actions &middot; Vercel Pro</p>
             <h2 class="project-panel__name">This site</h2>
-            <p class="project-panel__body">jharbourne.com is built to the standard it advertises: every push lints the HTML and CSS, audits each page in a real browser, and fails on any slip.</p>
-            <p class="project-panel__body">It also takes nothing from you. No cookies, no trackers, no analytics of any kind, no fonts phoning home, and no account needed to read a word of it. A portfolio has no business knowing who you are, so this one does not ask.</p>
-            <p class="project-panel__body">The same rules run through the rest of the work. Where a project genuinely needs to know how it is used, the analytics are cookieless and EU-hosted rather than Google&rsquo;s. Apps ship as progressive web apps, installable straight from the browser, so nobody has to pass through an app store to reach their own community&rsquo;s content. Logins exist only where somebody is editing, never merely to read. Accessibility is WCAG&nbsp;2.2&nbsp;AA, checked automatically rather than asserted.</p>
+            <p class="project-panel__body">jharbourne.com is built to the standard it advertises: every push lints the code, audits each page in a real browser, and fails on any slip.</p>
+            <p class="project-panel__body">It takes nothing from you. No cookies, no trackers, no fonts phoning home. A portfolio has no business knowing who you are.</p>
+            <p class="project-panel__body">The same rules run through the work: cookieless, EU-hosted analytics only where a project needs them, apps that install from the browser rather than an app store, logins only for editing, and accessibility checked rather than asserted.</p>
           </div>
 
           <div class="this-site-standards" aria-label="Enforced standards">
