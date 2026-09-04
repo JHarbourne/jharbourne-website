@@ -421,7 +421,7 @@ a:hover {
 .site-footer {
   background: var(--ink);
   color: rgba(255, 255, 255, 0.65);
-  padding-block: 3.5rem;
+  padding-block: 2.25rem;
 }
 
 .site-footer__inner {
@@ -458,10 +458,12 @@ a:hover {
 
 .footer-links {
   display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 0.4rem 1.4rem;
   text-align: right;
-  padding-top: 0.25rem;
+  padding-top: 0.5rem;
 }
 
 .footer-links a {
@@ -481,12 +483,13 @@ a:hover {
 }
 
 .footer-meta {
-  grid-column: 1 / -1;
+  grid-column: 1;
   font-size: 0.7rem;
-  line-height: 1.7;
+  line-height: 1.6;
   color: rgba(255, 255, 255, 0.5);
-  padding-top: 2rem;
+  padding-top: 1.25rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 0;
 }
 
 /* ── Page header (inner pages) ─────────────────────────────────── */
@@ -1362,6 +1365,7 @@ a.topic-card:focus-visible {
   }
 
   .footer-links {
+    justify-content: flex-start;
     text-align: left;
     flex-direction: row;
     flex-wrap: wrap;
@@ -2152,7 +2156,37 @@ a.topic-card:focus-visible {
 }
 
 .footer-copyright {
-  margin: 0.6rem 0 0;
-  font-size: 0.78rem;
-  color: var(--faint);
+  grid-column: 2;
+  align-self: end;
+  margin: 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.7rem;
+  line-height: 1.6;
+  white-space: nowrap;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* The footer base rules sit at the end of this file, so the narrow-screen
+   overrides have to follow them: at equal specificity, source order wins. */
+@media (max-width: 700px) {
+  .footer-meta,
+  .footer-copyright {
+    grid-column: 1 / -1;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .footer-copyright {
+    padding-top: 0;
+    border-top: 0;
+  }
+}
+
+@media (max-width: 860px) {
+  /* stacked panels have the room to wrap a tag line rather than ellipse it */
+  .project-panel__tags {
+    white-space: normal;
+  }
 }

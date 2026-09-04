@@ -12,12 +12,15 @@
     /* ── "This site" panel ──────────────────────────────────────────── */
     .this-site-panel {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      /* minmax(0,...) or the nowrap tag line floors the column at its
+         min-content width and the panel outgrows the page */
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 3rem;
       align-items: start;
     }
     @media (max-width: 680px) {
-      .this-site-panel { grid-template-columns: 1fr; gap: 2rem; }
+      .this-site-panel { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+      .this-site-standards { padding: 0 1.25rem 1.25rem; }
     }
     .this-site-standards {
       padding: 2.5rem;
