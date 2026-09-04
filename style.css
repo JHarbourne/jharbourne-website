@@ -1180,6 +1180,75 @@ a.topic-card:focus-visible {
   text-decoration: underline;
 }
 
+/* A series is three parts of one argument. Set out as a row, the grouping
+   reads at a glance; down a column it looked like six unrelated pieces.
+   The entries become cards here: thumbnail on top, link pinned to the
+   bottom so the three CTAs line up whatever the summary length. */
+.writing-series {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.writing-series .writing-entry {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.1rem;
+  max-width: none;
+  padding-block: 1.75rem 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 0;
+}
+
+.writing-series .writing-entry__thumb {
+  width: 100%;
+}
+
+.writing-series .writing-entry__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* the summary takes the slack, which pushes the link to the card's foot */
+.writing-series .writing-entry__body {
+  flex: 1;
+}
+
+/* 1.4rem is a full-measure size; in a third of the width it reads as shouting */
+.writing-series .writing-entry__title {
+  font-size: 1.15rem;
+  margin-bottom: 0.55rem;
+}
+
+/* three abreast needs roughly 300px a column; below that, stack. Going to
+   two would split a trilogy 2 + 1, which loses the grouping entirely. */
+@media (max-width: 900px) {
+  .writing-series {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+}
+
+/* Stacked but still wide: keep the thumbnail beside the text rather than
+   running three full-width images down the page. Bounded below so it never
+   fights the 700px rule that turns every entry into a card.  */
+@media (max-width: 900px) and (min-width: 701px) {
+  .writing-series .writing-entry {
+    flex-direction: row;
+    align-items: flex-start;
+    padding-block: 2rem;
+  }
+
+  .writing-series .writing-entry__thumb {
+    width: 160px;
+  }
+
+  .writing-series .writing-entry__title {
+    font-size: 1.4rem;
+  }
+}
+
 /* ── Books ─────────────────────────────────────────────────────── */
 .book-entry {
   display: flex;
