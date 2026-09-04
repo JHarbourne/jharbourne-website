@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tollesbury Arts Trail &ndash; Jonathan Harbourne</title>
+  <meta name="description" content="Turning the Tollesbury Arts Trail website into a year-round online gallery: a WordPress and WooCommerce marketplace where village artists list their own work and set their own prices.">
+  <meta property="og:title" content="Tollesbury Arts Trail &ndash; Jonathan Harbourne">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header class="site-nav">
+  <div class="site-nav__inner">
+    <a href="index.html" class="site-nav__name">Jonathan Harbourne</a>
+    <nav aria-label="Main navigation">
+      <ul class="site-nav__links" id="site-nav-links">
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="design.html">Design</a></li>
+        <li><a href="speaking.html">Speaking</a></li>
+        <li><a href="writing.html">Writing</a></li>
+        <li><a href="art.html">Art</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>
+      </ul>
+    </nav>
+      <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <div class="project-page-header">
+    <div class="wrap">
+      <div>
+        <div class="project-page-header__nav">
+          <a href="projects.html" class="project-page-header__back">&larr; Projects</a>
+          <div class="project-page-header__pager">
+            <a href="beyond-luminance.html" class="project-page-header__next">&larr; Previous project</a>
+            <a href="tollesbury-surgery.html" class="project-page-header__next">Next project &rarr;</a>
+          </div>
+        </div>
+        <p class="project-page-header__label">Community &middot; Arts &middot; Marketplace</p>
+        <h1 class="project-page-header__title">Tollesbury Arts Trail</h1>
+        <p class="project-page-header__subtitle">A website for the village arts trail, and a proposal to turn it into a year-round online gallery where the artists list their own work and set their own prices.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="project-hero">
+    <div class="wrap">
+    <div class="tech-stack">
+      <span class="tech-stack__label">Proposed</span>
+      <ul class="tech-stack__items">
+        <li>WordPress</li>
+        <li>WooCommerce</li>
+        <li>Dokan</li>
+        <li>Stripe</li>
+      </ul>
+    </div>
+      <a class="project-hero__link" href="https://tollesbury.app" target="_blank" rel="noopener noreferrer">
+        <img src="images/tollesbury-arts.jpg" alt="The Tollesbury Arts Trail website">
+      </a>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="project-page-body" style="margin-top: 3rem;">
+        <div class="case-block">
+          <p class="case-block__label">Context</p>
+          <p>The Trail runs for a fortnight. The website that serves it, built on the Nearmark location platform, does its job for those two weeks and then has very little to do for the other fifty. The artists go back to selling from their kitchens, at fairs, or not at all.</p>
+        </div>
+        <div class="case-block">
+          <p class="case-block__label">The problem</p>
+          <p>A village artist has nowhere sensible to sell online. Setting up alone means a shop, a payment provider, postage rules and a tax position, for perhaps a dozen sales a year. The alternative is a commercial gallery, which takes a substantial share of every sale and pays out on its own schedule.</p>
+          <p>So the work exists, the audience exists, and for fifty weeks of the year there is nothing connecting them.</p>
+        </div>
+        <div class="case-block">
+          <p class="case-block__label">The approach</p>
+          <p>A permanent shop window for the Trail&rsquo;s artists: one gallery, one basket, one checkout, with every piece clearly marked with the artist who made it. The walking-tour app links across to it, so somebody who enjoys the Trail in June can still buy from those artists in November.</p>
+          <p>It runs on WordPress and WooCommerce with Dokan on top, which turns a single shop into a marketplace of separate sellers. Each artist gets their own store page, their own listings and their own orders, and cannot see or alter anyone else&rsquo;s. An artist can add a piece, change a price or mark something sold themselves. Stripe handles the cards, and the money is held as the artist&rsquo;s rather than the gallery&rsquo;s income until it is paid out with a statement.</p>
+          <p>The theme is bought rather than built. A shop theme styled to look like a gallery is less exciting on a demo site than the museum themes, and considerably less trouble to live with, because it is built for multiple sellers from the outset.</p>
+        </div>
+        <div class="case-block">
+          <p class="case-block__label">The design decision that matters</p>
+          <p>The self-service dashboard is the part a technologist would lead with, and it is the part I recommended we do not rely on. Several of the Trail&rsquo;s artists have no shop, no social media, and do not check email often. A system that assumes they will log in to spot an order will fail quietly: work goes unposted, and the first anyone hears of it is an unhappy buyer.</p>
+          <p>So for the first year a volunteer lists work on the artists&rsquo; behalf from a simple form, and orders are phoned or texted through. The dashboard sits there, ready, for the artists who want it, and more will want it once they have seen it working. Designing for the users who actually exist is worth more than designing for the ones the software assumes.</p>
+        </div>
+        <div class="case-block">
+          <p class="case-block__label">Where it stands</p>
+          <p>The proposal is with the Trail committee, and the build is conditional on funding being awarded. It also says plainly what I am least comfortable about: the gallery needs somebody other than me to run the day to day, and if the committee cannot find that person, my recommendation is that we do not start.</p>
+        </div>
+      
+      </div>
+
+      <figure class="project-app-shot">
+        <a href="https://tollesbury.app" target="_blank" rel="noopener noreferrer">
+          <img src="images/tollesbury-arts-mockup.jpg" alt="The Tollesbury Arts Trail shown on three phones" loading="lazy">
+        </a>
+        <figcaption>The Trail as it is today, built on the Nearmark location platform.</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <p class="footer-label">Get in touch</p>
+      <a href="mailto:hello@jharbourne.com" class="footer-email">hello@jharbourne.com</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/jonathan-harbourne" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+      <span class="footer-location">Essex &amp; London</span>
+    </div>
+    <p class="footer-meta">Built to the standard it advertises: WCAG 2.2 AA &middot; keyboard-navigable &middot; fast &middot; cookieless. No trackers, no cookies, no fonts phoning home.</p>
+  </div>
+</footer>
+
+<script src="scripts/nav.js" defer></script>
+
+</body>
+</html>
