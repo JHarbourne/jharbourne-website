@@ -1411,6 +1411,7 @@ a.topic-card:focus-visible {
 }
 
 .project-panel {
+  position: relative;
   border: 1px solid var(--rule);
   border-radius: 6px;
   overflow: hidden;
@@ -1851,26 +1852,6 @@ a.topic-card:focus-visible {
   }
 }
 
-/* Two screenshots in one panel: the live site beside the redesign concept */
-.project-panel__visual--pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.project-panel__visual--pair img + img {
-  border-left: 1px solid var(--rule);
-}
-
-@media (max-width: 860px) {
-  /* only the concept is worth the width on a phone */
-  .project-panel__visual--pair {
-    grid-template-columns: 1fr;
-  }
-
-  .project-panel__visual--pair .pair__before {
-    display: none;
-  }
-}
 
 /* ══════════════════════════════════════════════════════════════
    MOBILE NAVIGATION
@@ -2051,6 +2032,18 @@ a.topic-card:focus-visible {
   padding-top: 2.5rem;
 }
 
+/* the stack sits above the image, so it needs no rule of its own here */
+.project-hero .tech-stack {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.project-hero__link {
+  display: block;
+}
+
 .project-hero img {
   width: 100%;
   height: auto;
@@ -2071,4 +2064,17 @@ a.topic-card:focus-visible {
   .published-grid--even {
     grid-template-columns: 1fr;
   }
+}
+
+/* The whole panel is the hit area for its one link. Every panel carries a
+   single CTA and nothing else clickable, so stretching it swallows nothing. */
+.project-panel:has(.project-panel__cta) {
+  cursor: pointer;
+}
+
+.project-panel__cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
