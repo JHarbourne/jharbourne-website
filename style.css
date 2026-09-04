@@ -1547,6 +1547,7 @@ a.topic-card:focus-visible {
 
 .project-page-header__back {
   font-size: 0.8rem;
+  white-space: nowrap;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--mid);
@@ -2013,8 +2014,17 @@ a.topic-card:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
   margin-bottom: 1.25rem;
+}
+
+.project-page-header__pager {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin-left: auto;
 }
 
 .project-page-header__next {
@@ -2031,4 +2041,34 @@ a.topic-card:focus-visible {
 
 .project-page-header__next:hover {
   color: var(--accent);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PROJECT PAGE HERO
+   ══════════════════════════════════════════════════════════════ */
+
+.project-hero {
+  padding-top: 2.5rem;
+}
+
+.project-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+}
+
+/* Two images of equal weight, for a before and after. The stacking rule
+   must follow: .published-grid's own media query sits earlier in this
+   file, and at equal specificity source order decides. */
+.published-grid--even {
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 700px) {
+  .published-grid--even {
+    grid-template-columns: 1fr;
+  }
 }

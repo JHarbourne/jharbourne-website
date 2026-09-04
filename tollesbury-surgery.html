@@ -41,12 +41,22 @@
       <div>
         <div class="project-page-header__nav">
           <a href="projects.html" class="project-page-header__back">&larr; Projects</a>
-          <a href="sailing-club.html" class="project-page-header__next">Next project &rarr;</a>
+          <div class="project-page-header__pager">
+            <a href="beyond-luminance.html" class="project-page-header__next">&larr; Previous project</a>
+            <a href="sailing-club.html" class="project-page-header__next">Next project &rarr;</a>
+          </div>
         </div>
         <p class="project-page-header__label">NHS &middot; Accessibility &middot; Healthcare &middot; Primary care</p>
         <h1 class="project-page-header__title">Tollesbury Surgery</h1>
         <p class="project-page-header__subtitle">An accessibility-first homepage concept for the village GP practice, built in thirty minutes to show what the approach looks like, and partly adopted by the surgery since.</p>
       </div>
+    </div>
+  </div>
+
+
+  <div class="project-hero">
+    <div class="wrap">
+      <img src="images/tollesbury-surgery.jpg" alt="The Tollesbury Surgery homepage concept">
     </div>
   </div>
 
@@ -63,8 +73,19 @@
         <p>The demonstration is deliberately kept out of search engines, so nobody finds it and mistakes it for the practice&rsquo;s website. It carries a notice to that effect and links to the real one.</p>
       </div>
 
-      <div class="project-browser-shot">
-        <img src="images/tollesbury-surgery.jpg" alt="The Tollesbury Surgery homepage concept: a photograph of the surgery behind a white card reading Welcome to Tollesbury Surgery, with Order a prescription and Cancel your appointment as the first two actions" loading="lazy">
+
+      <div class="published-grid published-grid--even" style="margin-top: 2.5rem;">
+
+        <figure class="published-item">
+          <img src="images/tollesbury-surgery-live.jpg" alt="The Tollesbury Surgery practice website as it is today" loading="lazy">
+          <figcaption class="published-item__caption"><strong>Before.</strong> The practice website as it is today.</figcaption>
+        </figure>
+
+        <figure class="published-item">
+          <img src="images/tollesbury-surgery-concept.jpg" alt="The accessibility-first redesign concept for the Tollesbury Surgery homepage" loading="lazy">
+          <figcaption class="published-item__caption"><strong>After.</strong> The accessibility-first concept: plain language, WCAG&nbsp;2.2&nbsp;AA contrast, and the two commonest tasks first.</figcaption>
+        </figure>
+
       </div>
 
       <div class="project-links" style="margin-top: 2rem;">
@@ -79,6 +100,7 @@
           <li>React</li>
           <li>WCAG 2.2 AA</li>
           <li>axe-core</li>
+          <li>Vite</li>
           <li>Vercel</li>
         </ul>
       </div>
