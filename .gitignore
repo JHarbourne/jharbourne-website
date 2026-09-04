@@ -1,3 +1,6 @@
 .vercel
 node_modules/
 .lighthouseci/
+
+# local dev server config
+.claude/

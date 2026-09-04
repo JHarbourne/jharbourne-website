@@ -72,8 +72,11 @@
 <header class="site-nav">
   <div class="site-nav__inner">
     <a href="index.html" class="site-nav__name">Jonathan Harbourne</a>
+      <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     <nav aria-label="Main navigation">
-      <ul class="site-nav__links">
+      <ul class="site-nav__links" id="site-nav-links">
         <li><a href="projects.html" aria-current="page">Projects</a></li>
         <li><a href="design.html">Design</a></li>
         <li><a href="speaking.html">Speaking</a></li>
@@ -214,13 +217,14 @@
       <article class="project-panel">
         <div class="project-panel__inner">
           <div class="project-panel__content">
-            <p class="project-panel__tags">NHS &middot; Accessibility &middot; Healthcare &middot; Primary care</p>
+            <p class="project-panel__tags">NHS &middot; Accessibility &middot; Healthcare</p>
             <h2 class="project-panel__name">Tollesbury Surgery</h2>
             <p class="project-panel__body">An accessibility-first homepage concept for the village GP practice: plain language, WCAG 2.2 AA contrast and the two commonest tasks first. Partly adopted by the surgery.</p>
             <a href="tollesbury-surgery.html" class="project-panel__cta">View project &rarr;</a>
           </div>
-          <div class="project-panel__visual">
-            <img src="images/tollesbury-surgery.jpg" alt="The Tollesbury Surgery homepage concept" loading="lazy">
+          <div class="project-panel__visual project-panel__visual--pair">
+            <img src="images/tollesbury-surgery-live.jpg" alt="The Tollesbury Surgery practice website as it is today" loading="lazy" class="pair__before">
+            <img src="images/tollesbury-surgery-concept.jpg" alt="An accessibility-first redesign concept for the Tollesbury Surgery homepage" loading="lazy">
           </div>
         </div>
       </article>
@@ -321,6 +325,8 @@
     <p class="footer-meta">Built to the standard it advertises: WCAG 2.2 AA &middot; keyboard-navigable &middot; fast &middot; cookieless. No trackers, no external requests, no fonts phoning home.</p>
   </div>
 </footer>
+
+<script src="scripts/nav.js" defer></script>
 
 </body>
 </html>
