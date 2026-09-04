@@ -1406,8 +1406,10 @@ a.topic-card:focus-visible {
    PROJECT PANELS (portfolio index page)
    ══════════════════════════════════════════════════════════════ */
 
+/* the page header carries a full-width rule; give the first panel room to
+   clear it rather than sitting its corner on the line */
 .projects-index {
-  padding: 0 0 4rem;
+  padding: 3rem 0 4rem;
 }
 
 .project-panel {
