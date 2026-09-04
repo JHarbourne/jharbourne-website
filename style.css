@@ -1958,7 +1958,9 @@ a.topic-card:focus-visible {
     margin-bottom: 0.85rem;
   }
 
-  .browse-cards {
+  /* only the home browse rows are carousels; the stock and social rows
+     are short lists and stay as a grid */
+  .browse-row .browse-cards {
     display: flex;
     gap: 1.5px;
     overflow-x: auto;
@@ -1968,11 +1970,11 @@ a.topic-card:focus-visible {
     -ms-overflow-style: none;
   }
 
-  .browse-cards::-webkit-scrollbar {
+  .browse-row .browse-cards::-webkit-scrollbar {
     display: none;
   }
 
-  .browse-cards > li {
+  .browse-row .browse-cards > li {
     flex: 0 0 210px;
     scroll-snap-align: start;
   }
