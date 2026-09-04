@@ -1,0 +1,11 @@
+# jharbourne.com
+#
+# Everything published on this site is meant to be found. Private documents
+# are kept out of search with a noindex meta tag and an X-Robots-Tag header
+# (see vercel.json) rather than a Disallow line here: a crawler that is told
+# not to fetch a page never reads the noindex on it, and can still list the
+# bare URL. Blocking here would also advertise the path to anyone curious
+# enough to read this file.
+
+User-agent: *
+Allow: /

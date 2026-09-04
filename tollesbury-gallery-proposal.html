@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tollesbury Gallery Proposal</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="description" content="Private proposal document. Not linked from the site and not indexed.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+  <style>
+    :root {
+      --ground: #eaefec;
+      --surface: #ffffff;
+      --surface-2: #f3f6f4;
+      --ink: #0e242b;
+      --ink-2: #3c5158;
+      --muted: #6b807a;
+      --line: #cbd8d3;
+      --line-soft: #dde6e2;
+      --accent: #1f6f63;
+      --accent-ink: #14544b;
+      --accent-wash: #dce9e5;
+      --amber: #b26234;
+      --amber-wash: #f2e3d8;
+      --shadow: 0 1px 2px rgba(14, 36, 43, 0.06), 0 8px 24px -12px rgba(14, 36, 43, 0.18);
+      --f-display: "Newsreader", Georgia, "Times New Roman", serif;
+      --f-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+      --f-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+      --col: min(68ch, 100%);
+      --gutter: clamp(1.1rem, 4vw, 2.5rem);
+      --wide: min(1120px, 100%);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: var(--f-body);
+      font-size: 16px;
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      display: grid;
+      grid-template-columns: 1fr var(--col) 1fr;
+      row-gap: 0;
+      padding-inline: var(--gutter);
+    }
+    .wrap > * { grid-column: 2; }
+    .bleed {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr var(--col) 1fr;
+    }
+    .bleed > * { grid-column: 2; }
+    @media (max-width: 640px) {
+      .wrap { grid-template-columns: 1fr 100% 1fr; }
+    }
+
+    h1, h2, h3 {
+      font-family: var(--f-display);
+      font-weight: 400;
+      text-wrap: balance;
+      margin: 0;
+    }
+    h1 { font-size: clamp(2.4rem, 6.5vw, 4.1rem); line-height: 1.02; letter-spacing: -0.022em; }
+    h2 { font-size: clamp(1.6rem, 3.4vw, 2.25rem); line-height: 1.14; letter-spacing: -0.015em; margin-block: 0 0.5rem; }
+    h3 { font-size: 1.16rem; font-weight: 600; line-height: 1.3; margin-block: 0 0.35rem; }
+    p { margin: 0 0 1.05rem; }
+    a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 2.5px; }
+    a:hover { color: var(--accent); }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+    strong { font-weight: 600; }
+
+    .eyebrow {
+      font-family: var(--f-mono);
+      font-size: 0.685rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 0.85rem;
+    }
+    .lede {
+      font-family: var(--f-display);
+      font-size: clamp(1.18rem, 2.4vw, 1.42rem);
+      line-height: 1.5;
+      color: var(--ink-2);
+      font-weight: 300;
+    }
+    .note { font-size: 0.9rem; color: var(--muted); line-height: 1.55; }
+
+    section { padding-block: clamp(2.6rem, 6vw, 4.2rem); }
+    section + section { border-top: 1px solid var(--line-soft); }
+    .bleed section { border-top: 0; }
+
+    .masthead {
+      padding-block: clamp(3rem, 9vw, 6rem) clamp(2.4rem, 6vw, 3.6rem);
+      border-bottom: 1px solid var(--line);
+    }
+    .rule-marks { display: flex; gap: 0.4rem; align-items: center; margin-bottom: 1.6rem; }
+    .rule-marks span { display: block; height: 3px; border-radius: 2px; background: var(--accent); }
+    .rule-marks span:nth-child(1) { width: 44px; }
+    .rule-marks span:nth-child(2) { width: 14px; opacity: 0.6; }
+    .rule-marks span:nth-child(3) { width: 6px; opacity: 0.35; }
+    .masthead h1 em { font-style: italic; color: var(--accent-ink); }
+    .masthead .lede { margin-top: 1.3rem; max-width: 52ch; }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem 1.6rem;
+      margin-top: 2rem;
+      padding-top: 1.3rem;
+      border-top: 1px solid var(--line-soft);
+      font-family: var(--f-mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+    .meta b { color: var(--ink-2); font-weight: 500; }
+
+    .figs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--line-soft);
+      border: 1px solid var(--line-soft);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 2.4rem;
+    }
+    .fig { background: var(--surface); padding: 1.15rem 1.2rem 1.3rem; }
+    .fig dt {
+      font-family: var(--f-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .fig dd {
+      margin: 0;
+      font-family: var(--f-display);
+      font-size: 1.95rem;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .fig small { display: block; margin-top: 0.5rem; font-size: 0.78rem; color: var(--muted); line-height: 1.4; font-family: var(--f-body); }
+    .fig--accent dd { color: var(--accent-ink); }
+
+    .tiers { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin: 1.8rem 0 1rem; }
+    .tier {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--surface);
+      padding: 1.35rem 1.3rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .tier--flag { border-color: var(--accent); box-shadow: var(--shadow); }
+    .tier .tname { font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--accent-ink); margin-bottom: 0.55rem; }
+    .tier .tprice { font-family: var(--f-display); font-size: 2.05rem; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+    .tier .tprice span { font-size: 0.9rem; font-family: var(--f-body); color: var(--muted); letter-spacing: 0; }
+    .tier .tcomm { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--line-soft); font-size: 0.92rem; color: var(--ink-2); }
+    .tier .tcomm b { font-family: var(--f-mono); color: var(--ink); font-size: 1rem; }
+    .tier .tfor { margin-top: 0.65rem; font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+
+    .flow { list-style: none; margin: 1.7rem 0 0; padding: 0; display: grid; gap: 0; }
+    .flow li { display: grid; grid-template-columns: auto 1fr; gap: 1rem; padding: 1rem 0; border-top: 1px solid var(--line-soft); }
+    .flow li:last-child { border-bottom: 1px solid var(--line-soft); }
+    .flow .step { font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.08em; color: var(--accent-ink); padding-top: 0.28rem; white-space: nowrap; }
+    .flow h3 { margin-bottom: 0.15rem; }
+    .flow p { margin: 0; font-size: 0.94rem; color: var(--ink-2); }
+
+    .track { border: 1px solid var(--line); border-radius: 4px; background: var(--surface); padding: 1.35rem 1.35rem 1.1rem; margin-bottom: 1rem; }
+    .track--pick { border-color: var(--accent); box-shadow: var(--shadow); }
+    .track-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.6rem 0.8rem; margin-bottom: 0.5rem; }
+    .pill {
+      font-family: var(--f-mono);
+      font-size: 0.63rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.24rem 0.55rem;
+      border-radius: 2px;
+      background: var(--accent-wash);
+      color: var(--accent-ink);
+      white-space: nowrap;
+    }
+    .pill--warn { background: var(--amber-wash); color: var(--amber); }
+    .themes { list-style: none; margin: 0.9rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
+    .themes li { display: flex; flex-wrap: wrap; gap: 0.35rem 0.7rem; align-items: baseline; padding-bottom: 0.55rem; border-bottom: 1px dotted var(--line); font-size: 0.93rem; }
+    .themes li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .themes .tf-price { font-family: var(--f-mono); font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .themes .tf-note { flex-basis: 100%; font-size: 0.82rem; color: var(--muted); line-height: 1.45; }
+
+    .tbl-scroll { overflow-x: auto; margin: 1.6rem 0 0.6rem; border: 1px solid var(--line-soft); border-radius: 3px; }
+    table { border-collapse: collapse; width: 100%; min-width: 420px; background: var(--surface); font-size: 0.93rem; }
+    caption { text-align: left; font-size: 0.8rem; color: var(--muted); padding: 0.7rem 0.9rem; background: var(--surface-2); border-bottom: 1px solid var(--line-soft); }
+    th, td { padding: 0.62rem 0.9rem; text-align: left; border-bottom: 1px solid var(--line-soft); }
+    thead th { font-family: var(--f-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--surface-2); }
+    td.num, th.num { text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    tbody tr:last-child td { border-bottom: 0; }
+    tr.sum td { font-weight: 600; background: var(--surface-2); border-top: 1px solid var(--line); }
+    tr.sum td.num { color: var(--accent-ink); }
+
+    .band { background: var(--ink); color: var(--ground); }
+    .band h2, .band h3 { color: #fff; }
+    .band .eyebrow { color: rgba(255, 255, 255, 0.55); }
+    .band p { color: rgba(255, 255, 255, 0.82); }
+    .band .gift {
+      margin-top: 1.8rem;
+      padding: 1.3rem 1.4rem;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-left: 3px solid var(--amber);
+    }
+    .band .gift .amt { font-family: var(--f-display); font-size: 2.3rem; line-height: 1; color: var(--amber); letter-spacing: -0.02em; display: block; margin-bottom: 0.45rem; font-variant-numeric: tabular-nums; }
+    .band .gift p { margin: 0; font-size: 0.94rem; color: rgba(255, 255, 255, 0.78); }
+    .band table { background: rgba(255, 255, 255, 0.04); color: var(--ground); }
+    .band .tbl-scroll { border-color: rgba(255, 255, 255, 0.16); }
+    .band caption { background: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.6); border-bottom-color: rgba(255, 255, 255, 0.14); }
+    .band thead th { background: rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.6); }
+    .band th, .band td { border-bottom-color: rgba(255, 255, 255, 0.11); }
+    .band tr.sum td { background: rgba(255, 255, 255, 0.09); color: #fff; }
+    .band tr.sum td.num { color: var(--amber); }
+
+    .asks { list-style: none; margin: 1.7rem 0 0; padding: 0; display: grid; gap: 0.85rem; }
+    .asks li { background: var(--surface); border: 1px solid var(--line-soft); border-radius: 3px; padding: 0.95rem 1.1rem; display: grid; grid-template-columns: auto 1fr; gap: 0.9rem; align-items: start; }
+    .asks .tick { width: 17px; height: 17px; border: 1.5px solid var(--accent); border-radius: 2px; margin-top: 0.25rem; }
+    .asks b { display: block; font-weight: 600; margin-bottom: 0.12rem; }
+    .asks span.d { font-size: 0.9rem; color: var(--ink-2); line-height: 1.5; }
+
+    .straight { border-left: 2px solid var(--amber); padding-left: 1.15rem; margin: 1.6rem 0 0; display: grid; gap: 1.15rem; }
+    .straight h3 { font-family: var(--f-body); font-size: 0.97rem; font-weight: 600; }
+    .straight p { margin: 0.2rem 0 0; font-size: 0.93rem; color: var(--ink-2); }
+
+    footer { border-top: 1px solid var(--line); padding-block: 2.2rem 3rem; font-size: 0.83rem; color: var(--muted); }
+    footer p { margin: 0 0 0.4rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Proposal &middot; Tollesbury Arts Trail</p>
+    <div class="rule-marks"><span></span><span></span><span></span></div>
+    <h1>An online gallery<br>for <em>Tollesbury</em></h1>
+    <p class="lede">A permanent shop window for the Trail's artists, open all year rather than only when the Trail is on. Built on the domains we already own, funded by a grant in year one, and paying for itself thereafter.</p>
+    <div class="meta">
+      <span><b>For</b> the Arts Trail committee</span>
+      <span><b>From</b> Jonathan Harbourne</span>
+      <span><b>Site</b> tollesbury.arts</span>
+      <span><b>Date</b> August 2026</span>
+    </div>
+
+    <dl class="figs">
+      <div class="fig fig--accent">
+        <dt>Grant needed, year one</dt>
+        <dd>&pound;4,820</dd>
+        <small>Build plus the first year's running costs</small>
+      </div>
+      <div class="fig">
+        <dt>Running cost thereafter</dt>
+        <dd>&pound;1,195</dd>
+        <small>Per year, all in</small>
+      </div>
+      <div class="fig">
+        <dt>Commission on a sale</dt>
+        <dd>5&ndash;15%</dd>
+        <small>A commercial gallery takes 40&ndash;50%</small>
+      </div>
+      <div class="fig">
+        <dt>Artists needed</dt>
+        <dd>27</dd>
+        <small>The point at which it funds itself</small>
+      </div>
+    </dl>
+  </header>
+
+  <section>
+    <p class="eyebrow">The proposal</p>
+    <h2>What we would build</h2>
+    <p>A proper online gallery at <strong>tollesbury.arts</strong>, where every artist on the Trail has their own page and their own listings, and visitors can buy work with a card in the ordinary way. The walking-tour app at tollesbury.app links across to it, so someone who enjoys the Trail can still buy from those artists months later.</p>
+    <p>The gallery sells on the artists' behalf as their agent. One basket, one checkout, one set of postage rules, but every piece is clearly marked with the artist who made it, and the money is theirs from the moment it arrives.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Taking part</p>
+    <h2>Two ways for an artist to join</h2>
+    <p>Artists choose whichever suits how much they expect to sell. The break-even between the two is around &pound;400 of sales a year, so the choice is honest either way.</p>
+
+    <div class="tiers">
+      <div class="tier">
+        <p class="tname">Pay as you go</p>
+        <p class="tprice">&pound;20<span> / year</span></p>
+        <p class="tcomm">Commission <b>15%</b></p>
+        <p class="tfor">For artists testing the water, or selling occasional lower-priced work.</p>
+      </div>
+      <div class="tier tier--flag">
+        <p class="tname">Member</p>
+        <p class="tprice">&pound;60<span> / year</span></p>
+        <p class="tcomm">Commission <b>5%</b></p>
+        <p class="tfor">For artists who expect to sell regularly, or whose pieces carry higher prices.</p>
+      </div>
+    </div>
+    <p class="note">Both compare very favourably with a commercial gallery, which typically takes 40 to 50 per cent of the sale price and pays out on its own schedule. In year one we suggest waiving joining fees entirely as a launch incentive: it is the fastest way to reach the numbers the gallery needs.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">The money</p>
+    <h2>How a sale reaches the artist</h2>
+    <ol class="flow">
+      <li>
+        <span class="step">01</span>
+        <div>
+          <h3>A buyer pays by card</h3>
+          <p>Stripe handles the card details. The gallery never sees or stores them. The buyer's purchase is complete at that moment: nothing about their contract depends on when the artist is paid.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step">02</span>
+        <div>
+          <h3>The money sits in the company's account, ring-fenced</h3>
+          <p>It is the artist's money held in trust, not the gallery's income. It is never used as working capital, and it appears separately in the accounts.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step">03</span>
+        <div>
+          <h3>The artist packs and posts the work</h3>
+          <p>Postage is charged at the checkout using gallery-wide flat rates by size, so nobody has to guess. Larger pieces can be marked collection-only.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step">04</span>
+        <div>
+          <h3>Artists are paid quarterly, with a statement</h3>
+          <p>The same rhythm the village gallery already works to, so it will feel familiar. Commission and card fees are shown as separate lines, so there is nothing to query.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <p class="eyebrow">Look and feel</p>
+    <h2>The design</h2>
+    <p>We would buy a professionally designed theme rather than build one from scratch. It is a fraction of the cost and gets us a far better-looking site. There is a real choice to make here, and it is worth the committee understanding it, because the prettiest option is not the most practical one.</p>
+
+    <div class="track track--pick">
+      <div class="track-head">
+        <h3>Recommended: a shop theme, styled as a gallery</h3>
+        <span class="pill">Our pick</span>
+      </div>
+      <p class="note">Built for selling and for multiple sellers from the outset, then styled to look like a gallery. Less exciting to look at on the demo site, far less trouble to live with.</p>
+      <ul class="themes">
+        <li>
+          <a href="https://themeforest.net/item/woodmart-woocommerce-wordpress-theme/20264492" target="_blank" rel="noopener noreferrer">WoodMart</a>
+          <span class="tf-price">$69</span>
+          <span class="tf-note">118,000 sales, rated 4.91, updated last month. Explicitly supports the multi-vendor plugin we need, so artists' own shop pages work out of the box. This is the safe, well-supported choice.</span>
+        </li>
+        <li>
+          <a href="https://themeforest.net/item/uncode-creative-multiuse-wordpress-theme/13373220" target="_blank" rel="noopener noreferrer">Uncode</a>
+          <span class="tf-price">$59</span>
+          <span class="tf-note">138,000 sales. A designer's theme with an enormous following: the most visually flexible option if we want something more unusual.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="track">
+      <div class="track-head">
+        <h3>The beautiful ones: gallery and museum themes</h3>
+        <span class="pill pill--warn">Extra work</span>
+      </div>
+      <p class="note">These look wonderful, and they are worth a look so the committee can see what is possible. But they are built to <em>show</em> art rather than sell it from many separate sellers, so making artists' individual shops work inside them adds around two days to the build.</p>
+      <ul class="themes">
+        <li>
+          <a href="https://themeforest.net/item/gesso-art-print-shop-theme/35070670" target="_blank" rel="noopener noreferrer">Gesso, Art &amp; Print Shop</a>
+          <span class="tf-price">$85</span>
+          <span class="tf-note">The closest to what we are actually doing: artist portfolios alongside a print shop.</span>
+        </li>
+        <li>
+          <a href="https://themeforest.net/item/ozeum-art-gallery-and-museum-wordpress-theme/25312661" target="_blank" rel="noopener noreferrer">Ozeum, Art Gallery &amp; Museum</a>
+          <span class="tf-price">$69</span>
+          <span class="tf-note">Handsome exhibition layouts and a virtual tour feature that might suit the Trail itself.</span>
+        </li>
+        <li>
+          <a href="https://themeforest.net/item/arte-art-gallery-wordpress-theme/20633505" target="_blank" rel="noopener noreferrer">Arte, Gallery &amp; Museum</a>
+          <span class="tf-price">$69</span>
+          <span class="tf-note">An Awwwards mention for arts. Uses an older page builder, which counts against it.</span>
+        </li>
+        <li>
+          <a href="https://themeforest.net/item/musea-art-gallery-and-museum-theme/24972022" target="_blank" rel="noopener noreferrer">Musea, Art Gallery &amp; Museum</a>
+          <span class="tf-price">$85</span>
+          <span class="tf-note">Includes exhibition ticketing, which could be useful for Trail events later on.</span>
+        </li>
+      </ul>
+    </div>
+    <p class="note">A theme licence is a one-off cost of &pound;45 to &pound;70 and is already inside the budget below. Whichever we choose, the committee should see it working with our own artists' pictures in it before we sign it off.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Technology</p>
+    <h2>Artists can run their own shop</h2>
+    <p>The gallery runs on WordPress and WooCommerce, the same software behind a large share of the world's small online shops, and something I already know well. On top of that sits a plugin called <a href="https://dokan.co/wordpress/" target="_blank" rel="noopener noreferrer">Dokan</a>, which turns a single shop into a marketplace of separate sellers.</p>
+    <p>What that means in practice: each artist gets their own store page, their own listings and their own orders, and they cannot see or alter anyone else's. If an artist wants to add a new piece, change a price or mark something sold, they can log in and do it themselves. The <a href="https://wordpress.org/plugins/dokan-lite/" target="_blank" rel="noopener noreferrer">free version</a> is on the WordPress plugin directory if anyone would like to look; we would use the paid tier, at about &pound;118 a year, because that is what allows the two different commission rates.</p>
+    <p><strong>My honest recommendation is that we do not rely on that at the start.</strong> Several of our artists have no shop, no social media and do not check email often. If we depend on them logging in to spot an order, work will go unposted and we will hear about it from an unhappy buyer. So for the first year a volunteer lists work on artists' behalf from a simple paper or online form, and orders are phoned or texted through. The self-service dashboard is there, ready, for the artists who want it, and more will want it once they have seen it working.</p>
+  </section>
+
+  <div class="bleed band">
+    <section>
+      <p class="eyebrow">Costs</p>
+      <h2>What it costs, and who pays</h2>
+      <p>Full figures, with every assumption exposed, are in the accompanying budget spreadsheet.</p>
+
+      <div class="tbl-scroll">
+        <table>
+          <caption>Year one, proposed grant application</caption>
+          <thead>
+            <tr><th scope="col">Item</th><th scope="col" class="num">Amount</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Build: design, development, setup, artist onboarding</td><td class="num">&pound;3,625</td></tr>
+            <tr><td>Running costs: hosting, licences, domains, fees</td><td class="num">&pound;595</td></tr>
+            <tr><td>Maintenance retainer, &pound;50 per month</td><td class="num">&pound;600</td></tr>
+            <tr class="sum"><td>Total grant sought</td><td class="num">&pound;4,820</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tbl-scroll">
+        <table>
+          <caption>Year two onward, self-funding</caption>
+          <thead>
+            <tr><th scope="col">Item</th><th scope="col" class="num">Amount</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Artist joining fees</td><td class="num">&pound;996</td></tr>
+            <tr><td>Commission on sales</td><td class="num">&pound;380</td></tr>
+            <tr><td>Less running costs and retainer</td><td class="num">&minus;&pound;1,195</td></tr>
+            <tr class="sum"><td>Surplus to the company</td><td class="num">&pound;181</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="gift">
+        <span class="amt">&pound;3,125</span>
+        <p>The build is worth <strong>&pound;6,750</strong> at commercial rates, around twelve and a half days of professional work. I am proposing to charge &pound;3,625, roughly half. The difference is a contribution to the Trail, and I would ask that it be recorded as such: funders count it as match funding, and it strengthens every application we make.</p>
+      </div>
+    </section>
+  </div>
+
+  <section>
+    <p class="eyebrow">Next steps</p>
+    <h2>What I need from the committee</h2>
+    <ul class="asks">
+      <li><span class="tick"></span><div><b>Agreement in principle</b><span class="d">That the Trail wants an online gallery on these terms, and that the company will own and run it.</span></div></li>
+      <li><span class="tick"></span><div><b>A named volunteer for orders</b><span class="d">Someone other than me to handle orders and ring artists. This is the single condition I would attach to the build: without it, the gallery will fail on operations rather than technology.</span></div></li>
+      <li><span class="tick"></span><div><b>Approval to apply for funding</b><span class="d">The Taylor Fund first, then other village and county sources. I will draft the applications. The build contract would be conditional on a grant being awarded, so the company carries no risk.</span></div></li>
+      <li><span class="tick"></span><div><b>A decision on the artist tiers</b><span class="d">The &pound;20 / 15% and &pound;60 / 5% structure, with fees waived in year one.</span></div></li>
+      <li><span class="tick"></span><div><b>Sign-off on the artist agreement</b><span class="d">A short contract each artist signs. It is the document that keeps the tax, financial and consumer-law positions clean, and it needs the committee behind it.</span></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="eyebrow">Straight talk</p>
+    <h2>Three things I want to be honest about</h2>
+    <div class="straight">
+      <div>
+        <h3>The margin is thin</h3>
+        <p>At thirty artists and a modest &pound;4,000 of sales, the gallery clears about &pound;181 a year. It funds itself and no more. Break-even is around twenty-seven artists, uncomfortably close to what we expect to have. Raising the pay-as-you-go joining fee to &pound;30 would give us more room, and I would suggest we consider it.</p>
+      </div>
+      <div>
+        <h3>Joining fee plus commission is more than the headline rate</h3>
+        <p>An artist selling a little will find that fees and commission together come to around a third of what they sell in the first year. That is still better than a commercial gallery, and it falls sharply as sales grow, but we should say so ourselves at the artists' meeting rather than let someone work it out and feel misled.</p>
+      </div>
+      <div>
+        <h3>It needs more than one person</h3>
+        <p>I can build and maintain it. I should not also be the person packing enquiries, chasing artists and answering the phone. If the committee cannot find someone to own the day-to-day running, I would rather we did not start.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Prepared for the Tollesbury Arts Trail committee, August 2026. Figures accompany the full budget spreadsheet, where every assumption can be changed and tested.</p>
+    <p>Theme prices in US dollars as listed on ThemeForest and subject to change. All costs shown exclude VAT.</p>
+    <p>This page is not linked from jharbourne.com and is excluded from search engines.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
