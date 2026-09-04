@@ -2078,3 +2078,22 @@ a.topic-card:focus-visible {
   inset: 0;
   z-index: 1;
 }
+
+/* App mockup: full measure, not a right-column figure */
+.project-app-shot {
+  margin: 2.5rem 0 0;
+  max-width: 720px;
+}
+
+.project-app-shot img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.project-app-shot figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--faint);
+  line-height: 1.5;
+}
