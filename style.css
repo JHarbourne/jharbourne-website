@@ -637,6 +637,18 @@ a:hover {
   align-items: start;
 }
 
+/* With no screenshot beside it the 480px column is empty, and the copy is
+   left with whatever remains of a 660px block: 148px. Take the full width. */
+.sub-project__cols:has(> :only-child) {
+  grid-template-columns: 1fr;
+}
+
+/* Where there is a screenshot, 660px minus a fixed 480px left the copy on
+   148px too. Let those blocks use the full measure. */
+.sub-project:has(.sub-project__cols > img) {
+  max-width: none;
+}
+
 .sub-project__browser-img {
   width: 100%;
   object-fit: cover;
@@ -857,10 +869,16 @@ a:hover {
 /* Link variant, used where the card is clickable (home page browse grid) */
 a.topic-card {
   display: block;
-  height: 100%;
   text-decoration: none;
   color: inherit;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* Inside a grid the card sits in an li and must fill it. Do not set this
+   in the carousel: a cross size on a flex item cancels align-items:
+   stretch, and the cards fall back to their own content heights. */
+.browse-cards .topic-card {
+  height: 100%;
 }
 
 a.topic-card:hover,
@@ -1702,6 +1720,7 @@ a.topic-card:focus-visible {
   grid-template-columns: repeat(5, 1fr);
   gap: 0.75rem;
   align-items: stretch;
+  grid-auto-rows: 1fr;
 }
 
 .browse-cards--3 {
