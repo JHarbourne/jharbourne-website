@@ -1921,10 +1921,6 @@ a.topic-card:focus-visible {
     width: 180px;
   }
 
-  /* one card per view, snapped */
-  .topics-track .topic-card {
-    width: 100%;
-  }
 }
 
 .topics-btn[disabled] {
@@ -1970,7 +1966,7 @@ a.topic-card:focus-visible {
   }
 
   .browse-cards > li {
-    flex: 0 0 100%;
+    flex: 0 0 210px;
     scroll-snap-align: start;
   }
 }
