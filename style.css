@@ -1290,9 +1290,16 @@ a.topic-card:focus-visible {
     border-bottom: 1.5px solid var(--rule);
   }
 
+  /* a third for the phone, two thirds for the copy */
   .project-card__image {
-    width: 100px;
+    flex: 0 0 33.333%;
+    width: auto;
     padding: 10px 7px;
+  }
+
+  .project-card__inner {
+    flex: 1 1 66.667%;
+    min-width: 0;
   }
 
   .phone-device {
