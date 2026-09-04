@@ -1554,7 +1554,6 @@ a.topic-card:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  margin-bottom: 1.25rem;
 }
 
 .project-page-header__back:hover {
@@ -2001,4 +2000,35 @@ a.topic-card:focus-visible {
     flex: 0 0 210px;
     scroll-snap-align: start;
   }
+}
+
+/* Project header: back on the left, next project on the right.
+   The header wrap is a flex row with one child, so let it take the full
+   measure, otherwise the nav is only as wide as the title block. */
+.project-page-header .wrap > div {
+  flex: 1;
+}
+
+.project-page-header__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.project-page-header__next {
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.project-page-header__next:hover {
+  color: var(--accent);
 }
