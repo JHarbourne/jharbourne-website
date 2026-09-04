@@ -1221,6 +1221,34 @@ a.topic-card:focus-visible {
   margin-bottom: 0.55rem;
 }
 
+/* A recent entry standing on its own, put on the same thirds as the series
+   rows below it: the image occupies one column of three and the text the
+   other two, so its thumbnail is exactly the size of theirs. The column
+   maths repeats the grid's own gap, or the two would not line up. */
+.writing-entry--split {
+  display: grid;
+  grid-template-columns: calc((100% - 4rem) / 3) minmax(0, 1fr);
+  gap: 2rem;
+  max-width: none;
+}
+
+.writing-entry--split .writing-entry__thumb {
+  width: 100%;
+}
+
+/* With the entry below it now spanning the full grid, the featured entry's
+   dividing rule stopped 240px short of every other one. Let the article
+   span the grid so the rules agree, and hold the hero itself at its own
+   width: the text measure is the reason it is narrower, not the layout. */
+.writing-entry--featured {
+  max-width: none;
+}
+
+.writing-entry--featured .writing-entry__thumb,
+.writing-entry--featured .writing-entry__content {
+  max-width: 780px;
+}
+
 /* three abreast needs roughly 300px a column; below that, stack. Going to
    two would split a trilogy 2 + 1, which loses the grouping entirely. */
 @media (max-width: 900px) {
@@ -1246,6 +1274,11 @@ a.topic-card:focus-visible {
 
   .writing-series .writing-entry__title {
     font-size: 1.4rem;
+  }
+
+  .writing-entry--split {
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 1.5rem;
   }
 }
 
@@ -1482,6 +1515,11 @@ a.topic-card:focus-visible {
   .writing-entry__thumb {
     width: 100%;
     height: 140px;
+  }
+
+  .writing-entry--split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
   }
 }
 
