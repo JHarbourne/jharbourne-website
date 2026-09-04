@@ -107,7 +107,7 @@
           <p>The project is a volunteer-edited encyclopaedia: anyone from the community can contribute, and a network of volunteer editors governs the content. I am responsible for platform architecture, content strategy, and community governance, the infrastructure that allows volunteers to publish reliably and confidently at scale.</p>
           <p>Over the last year I built an agentic AI reviewer that sits on the edit queue: a Claude agent that reads every new and edited article before it reaches readers, and checks it against two things at once. First, legal risk, flagging potential defamation, privacy and copyright problems. Second, the project&rsquo;s own editorial policy, catching sourcing, neutrality and style breaches that a human reviewer would otherwise have to find by hand.</p>
           <p>The agent does not publish or block on its own. It triages, explains its reasoning to the volunteer editor, and leaves the decision with a person. That is what lets a growing contributor base publish quickly without legal support behind every edit, and it is the piece of this project I would point to first.</p>
-          <p>The wiki runs on self-hosted infrastructure: MediaWiki on PHP&nbsp;8.3 and MariaDB, behind nginx and Apache on Ubuntu at AWS, with Cloudflare in front. The bot management that keeps the crawlers off comes through Project&nbsp;Galileo, Cloudflare&rsquo;s programme for public-interest projects, which is what makes enterprise-grade defence affordable for a volunteer-run archive.</p>
+          <p>The wiki runs on self-hosted infrastructure: MediaWiki on PHP&nbsp;8.3 and MariaDB, behind nginx and Apache on Ubuntu at AWS, with Cloudflare in front. The bot management that keeps the crawlers off comes through Project&nbsp;Galileo, Cloudflare&rsquo;s programme for public-interest projects, which is what makes enterprise-grade defence affordable for a volunteer-run archive. The archive publishes a running account of what hits it and how the defences hold: <a href="https://lgbthistoryuk.org/bot-report/" class="cta-link" target="_blank" rel="noopener noreferrer">Wiki Bot Watch &rarr;</a></p>
           <p>I moved the whole thing to that server with Claude&nbsp;Code, which wrote the migration scripts. That mattered more than the time it saved: because the migration was scripted rather than manual, I could rehearse it end to end several times, fix what broke, and run it again from clean. By cut-over day it was a procedure I had already completed successfully, not one I was attempting for the first time on a live archive.</p>
           <p>The project now reaches well beyond the archive. Nearmark, a GPS-based LGBTQ+ heritage walking tour platform, is being built as part of the wider ecosystem, taking the archive into the physical world as a location-aware experience.</p>
         </div>
@@ -119,7 +119,6 @@
 
 
       <div class="project-links" style="margin-top: 2rem;">
-        <a href="https://lgbthistoryuk.org" class="project-link" target="_blank" rel="noopener noreferrer">lgbthistoryuk.org &rarr;</a>
         <a href="https://app.lgbthistoryuk.org" class="project-link" target="_blank" rel="noopener noreferrer">app.lgbthistoryuk.org &rarr;</a>
       </div>
 
