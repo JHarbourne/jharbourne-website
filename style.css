@@ -1936,3 +1936,41 @@ a.topic-card:focus-visible {
 .topics-controls .section-link {
   margin-left: 0.75rem;
 }
+
+/* ── Browse rows: grid on desktop, one-card carousel on phones ────────── */
+
+.browse-row__hd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.browse-row__controls {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .browse-row__controls {
+    display: flex;
+    margin-bottom: 0.85rem;
+  }
+
+  .browse-cards {
+    display: flex;
+    gap: 1.5px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .browse-cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .browse-cards > li {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+  }
+}

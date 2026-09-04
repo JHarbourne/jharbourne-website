@@ -4,13 +4,13 @@
    breakpoint. Arrows disable at the ends rather than scrolling into nothing. */
 (function () {
   document.querySelectorAll('[data-carousel]').forEach(function (root) {
-    var track = root.querySelector('.topics-track');
+    var track = root.querySelector('.topics-track, .browse-cards');
     var prev = root.querySelector('[data-carousel-prev]');
     var next = root.querySelector('[data-carousel-next]');
     if (!track || !prev || !next) return;
 
     function step() {
-      var card = track.querySelector('.topic-card');
+      var card = track.querySelector('.topic-card, li');
       if (!card) return track.clientWidth;
       var w = card.getBoundingClientRect().width + 2;
       // move by whole cards, at most a screenful
