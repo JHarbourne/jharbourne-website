@@ -16,9 +16,6 @@
 <header class="site-nav">
   <div class="site-nav__inner">
     <a href="index.html" class="site-nav__name">Jonathan Harbourne</a>
-      <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
     <nav aria-label="Main navigation">
       <ul class="site-nav__links" id="site-nav-links">
         <li><a href="projects.html">Projects</a></li>
@@ -31,6 +28,9 @@
         <li><a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>
       </ul>
     </nav>
+      <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
   </div>
 </header>
 
@@ -45,13 +45,13 @@
   </div>
 
   <!-- ── Topics ─────────────────────────────────────────────────── -->
-  <section class="topics-section">
+  <section class="topics-section" data-carousel>
     <div class="wrap">
       <div class="topics-hd">
         <p class="topics-head">Topics</p>
         <div class="topics-controls">
-          <button class="topics-btn" id="topics-prev" aria-label="Scroll to previous topics">&#8592;</button>
-          <button class="topics-btn" id="topics-next" aria-label="Scroll to next topics">&#8594;</button>
+          <button class="topics-btn" type="button" data-carousel-prev aria-label="Scroll to previous topics">&#8592;</button>
+          <button class="topics-btn" type="button" data-carousel-next aria-label="Scroll to next topics">&#8594;</button>
         </div>
       </div>
       <div class="topics-track" id="topics-track" role="region" aria-label="Speaking topics" tabindex="0">
@@ -112,18 +112,6 @@
 
       </div>
     </div>
-    <script>
-      (function () {
-        var track = document.getElementById('topics-track');
-        var SCROLL = 516; /* ~2 cards at 256px + 1.5px gap */
-        document.getElementById('topics-prev').addEventListener('click', function () {
-          track.scrollBy({ left: -SCROLL, behavior: 'smooth' });
-        });
-        document.getElementById('topics-next').addEventListener('click', function () {
-          track.scrollBy({ left: SCROLL, behavior: 'smooth' });
-        });
-      }());
-    </script>
   </section>
 
   <!-- ── Upcoming ───────────────────────────────────────────────── -->
@@ -195,6 +183,7 @@
 </footer>
 
 <script src="scripts/nav.js" defer></script>
+<script src="scripts/carousel.js" defer></script>
 
 </body>
 </html>

@@ -1910,4 +1910,29 @@ a.topic-card:focus-visible {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
+
+  /* the float turns the hero copy into a narrow gutter beside the CV */
+  .hero__cv {
+    float: none;
+    margin: 0 0 1.75rem;
+  }
+
+  .hero__cv-img {
+    width: 180px;
+  }
+
+  /* one card per view, snapped */
+  .topics-track .topic-card {
+    width: 100%;
+  }
+}
+
+.topics-btn[disabled] {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* the home row reuses the topics header, which needs the section link inline */
+.topics-controls .section-link {
+  margin-left: 0.75rem;
 }
