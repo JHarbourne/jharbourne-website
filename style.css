@@ -1183,7 +1183,7 @@ a.topic-card:focus-visible {
 /* Where someone else has quoted the piece. Set below the call to action and
    quieter than it: the point is the citation exists, not that you follow it. */
 .writing-entry__cited {
-  margin-top: 0.75rem;
+  margin-block: 0.75rem 0.85rem;
   padding-top: 0.75rem;
   border-top: 1px solid var(--rule);
   font-size: 0.82rem;
