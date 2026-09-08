@@ -1180,6 +1180,37 @@ a.topic-card:focus-visible {
   text-decoration: underline;
 }
 
+/* Where someone else has quoted the piece. Set below the call to action and
+   quieter than it: the point is the citation exists, not that you follow it. */
+.writing-entry__cited {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--mid);
+}
+
+.writing-entry__cited-label {
+  display: inline-block;
+  margin-right: 0.45rem;
+  font-size: 0.63rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.writing-entry__cited a {
+  color: var(--mid);
+  text-decoration-color: var(--rule);
+  text-underline-offset: 2px;
+}
+
+.writing-entry__cited a:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
 /* A series is three parts of one argument. Set out as a row, the grouping
    reads at a glance; down a column it looked like six unrelated pieces.
    The entries become cards here: thumbnail on top, link pinned to the
