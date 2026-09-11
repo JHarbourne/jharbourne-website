@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="description" content="Private proposal document. Not linked from the site and not indexed.">
+<title>Tollesbury Gallery Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#EAEFEC;
+  --surface:#FFFFFF;
+  --surface-2:#F3F6F4;
+  --ink:#0E242B;
+  --ink-2:#3C5158;
+  --muted:#6B807A;
+  --line:#CBD8D3;
+  --line-soft:#DDE6E2;
+  --accent:#1F6F63;
+  --accent-ink:#14544B;
+  --accent-wash:#DCE9E5;
+  --amber:#B26234;
+  --amber-wash:#F2E3D8;
+  --shadow:0 1px 2px rgba(14,36,43,.06), 0 8px 24px -12px rgba(14,36,43,.18);
+
+  --f-display:"Newsreader",Georgia,"Times New Roman",serif;
+  --f-body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+
+  --col:min(68ch,100%);
+  --gutter:clamp(1.1rem,4vw,2.5rem);
+  --wide:min(1120px,100%);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0A181C;
+    --surface:#102429;
+    --surface-2:#152D33;
+    --ink:#E2EBE8;
+    --ink-2:#B0C3BE;
+    --muted:#849B95;
+    --line:#28444B;
+    --line-soft:#1E3840;
+    --accent:#5FAE9D;
+    --accent-ink:#8CCBBC;
+    --accent-wash:#153A36;
+    --amber:#D08A57;
+    --amber-wash:#33221A;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0A181C;
+  --surface:#102429;
+  --surface-2:#152D33;
+  --ink:#E2EBE8;
+  --ink-2:#B0C3BE;
+  --muted:#849B95;
+  --line:#28444B;
+  --line-soft:#1E3840;
+  --accent:#5FAE9D;
+  --accent-ink:#8CCBBC;
+  --accent-wash:#153A36;
+  --amber:#D08A57;
+  --amber-wash:#33221A;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-size:16px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- layout ---------- */
+.wrap{
+  display:grid;
+  grid-template-columns:1fr var(--col) 1fr;
+  row-gap:0;
+}
+.wrap > *{grid-column:2}
+.bleed{
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:inherit;
+  grid-template-columns:1fr var(--col) 1fr;
+}
+.bleed > *{grid-column:2}
+.wide{
+  grid-column:1 / -1;
+  width:var(--wide);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+.wrap{padding-inline:var(--gutter)}
+@media (max-width:640px){
+  .wrap{grid-template-columns:1fr 100% 1fr}
+}
+
+/* ---------- type ---------- */
+h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0}
+h1{
+  font-size:clamp(2.4rem,6.5vw,4.1rem);
+  line-height:1.02;
+  letter-spacing:-.022em;
+}
+h2{
+  font-size:clamp(1.6rem,3.4vw,2.25rem);
+  line-height:1.14;
+  letter-spacing:-.015em;
+  margin-block:0 .5rem;
+}
+h3{
+  font-size:1.16rem;
+  font-weight:600;
+  line-height:1.3;
+  margin-block:0 .35rem;
+}
+p{margin:0 0 1.05rem}
+a{color:var(--accent-ink);text-decoration-thickness:1px;text-underline-offset:2.5px}
+a:hover{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+strong{font-weight:600}
+
+.eyebrow{
+  font-family:var(--f-mono);
+  font-size:.685rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:0 0 .85rem;
+}
+.lede{
+  font-family:var(--f-display);
+  font-size:clamp(1.18rem,2.4vw,1.42rem);
+  line-height:1.5;
+  color:var(--ink-2);
+  font-weight:300;
+}
+.note{font-size:.9rem;color:var(--muted);line-height:1.55}
+
+section{padding-block:clamp(2.6rem,6vw,4.2rem)}
+section + section{border-top:1px solid var(--line-soft)}
+.bleed section{border-top:0}
+
+/* ---------- masthead ---------- */
+.masthead{
+  padding-block:clamp(3rem,9vw,6rem) clamp(2.4rem,6vw,3.6rem);
+  border-bottom:1px solid var(--line);
+}
+.rule-marks{
+  display:flex;gap:.4rem;align-items:center;margin-bottom:1.6rem;
+}
+.rule-marks span{display:block;height:3px;border-radius:2px;background:var(--accent)}
+.rule-marks span:nth-child(1){width:44px}
+.rule-marks span:nth-child(2){width:14px;opacity:.6}
+.rule-marks span:nth-child(3){width:6px;opacity:.35}
+.masthead h1 em{font-style:italic;color:var(--accent-ink)}
+.masthead .lede{margin-top:1.3rem;max-width:52ch}
+.meta{
+  display:flex;flex-wrap:wrap;gap:.55rem 1.6rem;
+  margin-top:2rem;padding-top:1.3rem;border-top:1px solid var(--line-soft);
+  font-family:var(--f-mono);font-size:.74rem;letter-spacing:.04em;color:var(--muted);
+}
+.meta b{color:var(--ink-2);font-weight:500}
+
+/* ---------- figures ---------- */
+.figs{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;
+  background:var(--line-soft);
+  border:1px solid var(--line-soft);
+  border-radius:3px;
+  overflow:hidden;
+  margin-top:2.4rem;
+}
+.fig{background:var(--surface);padding:1.15rem 1.2rem 1.3rem}
+.fig dt{
+  font-family:var(--f-mono);font-size:.66rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;
+}
+.fig dd{
+  margin:0;font-family:var(--f-display);font-size:1.95rem;line-height:1;
+  letter-spacing:-.02em;font-variant-numeric:tabular-nums;
+}
+.fig small{display:block;margin-top:.5rem;font-size:.78rem;color:var(--muted);line-height:1.4;font-family:var(--f-body)}
+.fig--accent dd{color:var(--accent-ink)}
+
+/* ---------- gallery mock ---------- */
+.mock{
+  margin:2rem 0 .5rem;
+  border:1px solid var(--line);
+  border-radius:4px;
+  background:var(--surface);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.mock-bar{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.7rem 1rem;border-bottom:1px solid var(--line-soft);
+  background:var(--surface-2);
+}
+.mock-dot{width:8px;height:8px;border-radius:50%;background:var(--line);flex:none}
+.mock-url{
+  font-family:var(--f-mono);font-size:.72rem;color:var(--muted);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.mock-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));
+  gap:1rem;padding:1.1rem;
+}
+.card figure{margin:0;aspect-ratio:4/5;border-radius:2px;overflow:hidden;background:var(--surface-2)}
+.card svg{display:block;width:100%;height:100%}
+.card h4{
+  margin:.6rem 0 .1rem;font-family:var(--f-display);font-size:.94rem;
+  font-weight:500;line-height:1.25;
+}
+.card .by{
+  font-family:var(--f-mono);font-size:.66rem;letter-spacing:.05em;
+  color:var(--muted);display:block;margin-bottom:.3rem;
+}
+.card .price{font-family:var(--f-mono);font-size:.82rem;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.mock-cap{
+  padding:.65rem 1.1rem .9rem;border-top:1px solid var(--line-soft);
+  font-size:.78rem;color:var(--muted);background:var(--surface-2);
+}
+
+/* ---------- tiers ---------- */
+.tiers{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:1.8rem 0 1rem}
+.tier{
+  border:1px solid var(--line);border-radius:4px;background:var(--surface);
+  padding:1.35rem 1.3rem 1.4rem;display:flex;flex-direction:column;gap:.15rem;
+}
+.tier--flag{border-color:var(--accent);box-shadow:var(--shadow)}
+.tier .tname{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:.55rem}
+.tier .tprice{font-family:var(--f-display);font-size:2.05rem;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tier .tprice span{font-size:.9rem;font-family:var(--f-body);color:var(--muted);letter-spacing:0}
+.tier .tcomm{margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--line-soft);font-size:.92rem;color:var(--ink-2)}
+.tier .tcomm b{font-family:var(--f-mono);color:var(--ink);font-size:1rem}
+.tier .tfor{margin-top:.65rem;font-size:.85rem;color:var(--muted);line-height:1.5}
+
+/* ---------- flow ---------- */
+.flow{list-style:none;margin:1.7rem 0 0;padding:0;display:grid;gap:0}
+.flow li{
+  display:grid;grid-template-columns:auto 1fr;gap:1rem;
+  padding:1rem 0;border-top:1px solid var(--line-soft);
+}
+.flow li:last-child{border-bottom:1px solid var(--line-soft)}
+.flow .step{
+  font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;color:var(--accent-ink);
+  padding-top:.28rem;white-space:nowrap;
+}
+.flow h3{margin-bottom:.15rem}
+.flow p{margin:0;font-size:.94rem;color:var(--ink-2)}
+
+/* ---------- option tracks ---------- */
+.track{
+  border:1px solid var(--line);border-radius:4px;background:var(--surface);
+  padding:1.35rem 1.35rem 1.1rem;margin-bottom:1rem;
+}
+.track--pick{border-color:var(--accent);border-width:1px;box-shadow:var(--shadow)}
+.track-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.6rem .8rem;margin-bottom:.5rem}
+.pill{
+  font-family:var(--f-mono);font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.24rem .55rem;border-radius:2px;background:var(--accent-wash);color:var(--accent-ink);white-space:nowrap;
+}
+.pill--warn{background:var(--amber-wash);color:var(--amber)}
+.themes{list-style:none;margin:.9rem 0 0;padding:0;display:grid;gap:.55rem}
+.themes li{
+  display:flex;flex-wrap:wrap;gap:.35rem .7rem;align-items:baseline;
+  padding-bottom:.55rem;border-bottom:1px dotted var(--line);font-size:.93rem;
+}
+.themes li:last-child{border-bottom:0;padding-bottom:0}
+.themes .tf-price{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.themes .tf-note{flex-basis:100%;font-size:.82rem;color:var(--muted);line-height:1.45}
+
+/* ---------- tables ---------- */
+.tbl-scroll{overflow-x:auto;margin:1.6rem 0 .6rem;border:1px solid var(--line-soft);border-radius:3px}
+table{border-collapse:collapse;width:100%;min-width:420px;background:var(--surface);font-size:.93rem}
+caption{text-align:left;font-size:.8rem;color:var(--muted);padding:.7rem .9rem;background:var(--surface-2);border-bottom:1px solid var(--line-soft)}
+th,td{padding:.62rem .9rem;text-align:left;border-bottom:1px solid var(--line-soft)}
+thead th{
+  font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;background:var(--surface-2);
+}
+td.num,th.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tr.sum td{font-weight:600;background:var(--surface-2);border-top:1px solid var(--line)}
+tr.sum td.num{color:var(--accent-ink)}
+
+/* ---------- money band ---------- */
+.band{background:var(--ink);color:var(--ground)}
+.band h2,.band h3{color:#fff}
+.band .eyebrow{color:rgba(255,255,255,.55)}
+.band p{color:rgba(255,255,255,.82)}
+.band .gift{
+  margin-top:1.8rem;padding:1.3rem 1.4rem;border-radius:4px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+  border-left:3px solid var(--amber);
+}
+.band .gift .amt{
+  font-family:var(--f-display);font-size:2.3rem;line-height:1;color:var(--amber);
+  letter-spacing:-.02em;display:block;margin-bottom:.45rem;font-variant-numeric:tabular-nums;
+}
+.band .gift p{margin:0;font-size:.94rem;color:rgba(255,255,255,.78)}
+.band table{background:rgba(255,255,255,.04);color:var(--ground)}
+.band .tbl-scroll{border-color:rgba(255,255,255,.16)}
+.band caption{background:rgba(255,255,255,.05);color:rgba(255,255,255,.6);border-bottom-color:rgba(255,255,255,.14)}
+.band thead th{background:rgba(255,255,255,.06);color:rgba(255,255,255,.6)}
+.band th,.band td{border-bottom-color:rgba(255,255,255,.11)}
+.band tr.sum td{background:rgba(255,255,255,.09);color:#fff}
+.band tr.sum td.num{color:var(--amber)}
+
+/* ---------- asks ---------- */
+.asks{list-style:none;margin:1.7rem 0 0;padding:0;display:grid;gap:.85rem}
+.asks li{
+  background:var(--surface);border:1px solid var(--line-soft);border-radius:3px;
+  padding:.95rem 1.1rem;display:grid;grid-template-columns:auto 1fr;gap:.9rem;align-items:start;
+}
+.asks .tick{
+  width:17px;height:17px;border:1.5px solid var(--accent);border-radius:2px;
+  margin-top:.25rem;flex:none;
+}
+.asks b{display:block;font-weight:600;margin-bottom:.12rem}
+.asks span.d{font-size:.9rem;color:var(--ink-2);line-height:1.5}
+
+/* ---------- straight talk ---------- */
+.straight{border-left:2px solid var(--amber);padding-left:1.15rem;margin:1.6rem 0 0;display:grid;gap:1.15rem}
+.straight h3{font-family:var(--f-body);font-size:.97rem;font-weight:600}
+.straight p{margin:.2rem 0 0;font-size:.93rem;color:var(--ink-2)}
+
+/* ---------- alert ---------- */
+.alert{
+  margin:1.6rem 0 0;padding:1.05rem 1.25rem;
+  background:var(--amber-wash);border-left:3px solid var(--amber);border-radius:0 3px 3px 0;
+}
+.alert h3{
+  font-family:var(--f-body);font-size:.97rem;font-weight:600;color:var(--amber);
+  margin-bottom:.3rem;
+}
+.alert p{margin:0;font-size:.93rem;color:var(--ink-2)}
+
+/* ---------- principles ---------- */
+.vows{list-style:none;margin:1.7rem 0 0;padding:0;display:grid;gap:0;counter-reset:vow}
+.vows li{
+  display:grid;grid-template-columns:auto 1fr;gap:1.1rem;
+  padding:1.05rem 0;border-top:1px solid var(--line-soft);
+}
+.vows li:last-child{border-bottom:1px solid var(--line-soft)}
+.vows li::before{
+  counter-increment:vow;content:counter(vow);
+  font-family:var(--f-mono);font-size:.72rem;color:var(--accent-ink);
+  padding-top:.3rem;font-variant-numeric:tabular-nums;
+}
+.vows h3{margin-bottom:.2rem}
+.vows p{margin:0;font-size:.94rem;color:var(--ink-2)}
+
+/* ---------- calculator ---------- */
+.calc{
+  margin-top:1.9rem;border:1px solid var(--line);border-radius:4px;
+  background:var(--surface);box-shadow:var(--shadow);overflow:hidden;
+}
+.calc-inputs{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:1.15rem 1.7rem;padding:1.3rem 1.35rem 1.45rem;
+}
+.field{display:grid;gap:.4rem}
+.field-top{display:flex;justify-content:space-between;align-items:baseline;gap:.7rem}
+.field label{font-size:.88rem;font-weight:500;color:var(--ink-2)}
+.field .val{
+  font-family:var(--f-mono);font-size:.92rem;color:var(--accent-ink);
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.field input[type="range"]{
+  width:100%;margin:0;accent-color:var(--accent);height:1.35rem;background:transparent;
+}
+.field input[type="range"]:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+.calc-out{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(102px,1fr));
+  gap:1px;background:var(--line-soft);border-top:1px solid var(--line);
+}
+.out{background:var(--surface-2);padding:.9rem .85rem 1rem}
+.out .k{
+  font-family:var(--f-mono);font-size:.63rem;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--muted);display:block;margin-bottom:.42rem;
+}
+.out .v{
+  font-family:var(--f-display);font-size:1.42rem;line-height:1;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;display:block;
+}
+.out--key .v{color:var(--accent-ink)}
+.out--neg .v{color:var(--amber)}
+.calc-foot{
+  padding:.8rem 1.35rem 1rem;border-top:1px solid var(--line-soft);
+  font-size:.8rem;color:var(--muted);line-height:1.5;background:var(--surface);
+}
+.dl{
+  display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;
+  padding:.6rem .95rem;border:1px solid var(--line);border-radius:3px;
+  background:var(--surface);font-size:.9rem;text-decoration:none;color:var(--ink);
+  font-weight:500;
+}
+.dl:hover{border-color:var(--accent);color:var(--accent-ink)}
+.dl .ext{font-family:var(--f-mono);font-size:.68rem;color:var(--muted);letter-spacing:.08em}
+.band .dl{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.2);color:#fff}
+.band .dl:hover{border-color:var(--amber);color:var(--amber)}
+.band .dl .ext{color:rgba(255,255,255,.55)}
+
+footer{
+  border-top:1px solid var(--line);padding-block:2.2rem 3rem;
+  font-size:.83rem;color:var(--muted);
+}
+footer p{margin:0 0 .4rem}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Proposal &middot; Tollesbury Arts Trail</p>
+    <div class="rule-marks"><span></span><span></span><span></span></div>
+    <h1>An online gallery<br>for <em>Tollesbury</em></h1>
+    <p class="lede">A permanent shop window for the Trail's artists — open all year, not just the fortnight the Trail is on. Built on the domains we already own, funded by a grant in year one, and paying for itself thereafter.</p>
+    <div class="meta">
+      <span><b>For</b> the Arts Trail committee</span>
+      <span><b>From</b> Jonathan Harbourne</span>
+      <span><b>Site</b> tollesbury.arts</span>
+      <span><b>Background</b> <a href="https://www.jharbourne.com/tollesbury-arts.html">jharbourne.com</a></span>
+      <span><b>Date</b> September 2026</span>
+    </div>
+
+    <dl class="figs">
+      <div class="fig fig--accent">
+        <dt>Grant needed, year one</dt>
+        <dd>£4,691</dd>
+        <small>Build plus the first year's running costs</small>
+      </div>
+      <div class="fig">
+        <dt>Running cost thereafter</dt>
+        <dd>£1,066</dd>
+        <small>Per year, all in</small>
+      </div>
+      <div class="fig">
+        <dt>Commission on a sale</dt>
+        <dd>10%</dd>
+        <small>A commercial gallery takes 40–50%</small>
+      </div>
+      <div class="fig">
+        <dt>Artists needed</dt>
+        <dd>23</dd>
+        <small>The point at which it funds itself</small>
+      </div>
+    </dl>
+  </header>
+
+  <section>
+    <p class="eyebrow">The proposal</p>
+    <h2>What we would build</h2>
+    <p>A proper online gallery at <strong>tollesbury.arts</strong>, where every artist on the Trail has their own page and their own listings, and visitors can buy work with a card in the ordinary way. The walking-tour app at tollesbury.app links across to it, so someone who enjoys the Trail in June can still buy from those artists in November.</p>
+    <p>The gallery sells on the artists' behalf as their agent. One basket, one checkout, one set of postage rules — but every piece is clearly marked with the artist who made it, and the money is theirs from the moment it arrives.</p>
+
+    <div class="mock" role="img" aria-label="Illustration of the proposed gallery listing page, showing six artworks in a grid, each labelled with the artist's name and a price.">
+      <div class="mock-bar">
+        <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+        <span class="mock-url">tollesbury.arts/gallery</span>
+      </div>
+      <div class="mock-grid">
+        <article class="card">
+          <figure><svg viewBox="0 0 80 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="80" height="100" fill="#1F6F63"/>
+            <path d="M0 64 L80 52 L80 100 L0 100 Z" fill="#0E242B" opacity=".55"/>
+            <path d="M0 72 L80 66 L80 100 L0 100 Z" fill="#0E242B" opacity=".5"/>
+            <circle cx="58" cy="26" r="9" fill="#EAEFEC" opacity=".85"/>
+          </svg></figure>
+          <h4>Blackwater, Low Tide</h4>
+          <span class="by">Sold by A. Fenn</span>
+          <span class="price">£185</span>
+        </article>
+        <article class="card">
+          <figure><svg viewBox="0 0 80 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="80" height="100" fill="#B26234"/>
+            <rect x="10" y="18" width="26" height="64" fill="#0E242B" opacity=".7"/>
+            <rect x="44" y="34" width="22" height="48" fill="#EAEFEC" opacity=".78"/>
+          </svg></figure>
+          <h4>Sail Lofts II</h4>
+          <span class="by">Sold by M. Rowe</span>
+          <span class="price">£240</span>
+        </article>
+        <article class="card">
+          <figure><svg viewBox="0 0 80 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="80" height="100" fill="#0E242B"/>
+            <path d="M40 14 L64 74 L16 74 Z" fill="#1F6F63"/>
+            <path d="M40 34 L54 74 L26 74 Z" fill="#EAEFEC" opacity=".8"/>
+          </svg></figure>
+          <h4>Smack Race</h4>
+          <span class="by">Sold by D. Ellis</span>
+          <span class="price">£95</span>
+        </article>
+        <article class="card">
+          <figure><svg viewBox="0 0 80 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="80" height="100" fill="#EAEFEC"/>
+            <circle cx="40" cy="44" r="24" fill="#B26234" opacity=".85"/>
+            <path d="M0 78 Q40 62 80 78 L80 100 L0 100 Z" fill="#1F6F63"/>
+          </svg></figure>
+          <h4>Marsh Samphire</h4>
+          <span class="by">Sold by S. Keeble</span>
+          <span class="price">£60</span>
+        </article>
+        <article class="card">
+          <figure><svg viewBox="0 0 80 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="80" height="100" fill="#3C5158"/>
+            <rect x="0" y="0" width="80" height="34" fill="#1F6F63" opacity=".8"/>
+            <rect x="0" y="66" width="80" height="34" fill="#B26234" opacity=".7"/>
+          </svg></figure>
+          <h4>Estuary Bands</h4>
+          <span class="by">Sold by A. Fenn</span>
+          <span class="price">£130</span>
+        </article>
+        <article class="card">
+          <figure><svg viewBox="0 0 80 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="80" height="100" fill="#1F6F63" opacity=".25"/>
+            <path d="M8 82 C24 40 56 40 72 82" stroke="#0E242B" stroke-width="4" fill="none"/>
+            <path d="M20 82 C30 54 50 54 60 82" stroke="#B26234" stroke-width="3" fill="none"/>
+          </svg></figure>
+          <h4>Woodrolfe Creek</h4>
+          <span class="by">Sold by M. Rowe</span>
+          <span class="price">£310</span>
+        </article>
+      </div>
+      <p class="mock-cap">Illustrative layout with example artists and prices. Every listing names its maker — this is a legal requirement, not just good manners.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Taking part</p>
+    <h2>One commission rate, two ways to join</h2>
+    <p><strong>Every artist pays the same 10% on a sale.</strong> No tiers, no crossover point, nothing to work out. The only choice is whether to pay a little more up front for a more prominent place in the gallery.</p>
+
+    <div class="tiers">
+      <div class="tier">
+        <p class="tname">Standard</p>
+        <p class="tprice">£20<span> / year</span></p>
+        <p class="tcomm">Commission <b>10%</b></p>
+        <p class="tfor">A listing for every piece, your own artist page, and your name on every sale.</p>
+      </div>
+      <div class="tier tier--flag">
+        <p class="tname">Featured</p>
+        <p class="tprice">£60<span> / year</span></p>
+        <p class="tcomm">Commission <b>10%</b></p>
+        <p class="tfor">Everything above, plus rotation on the gallery homepage, a fuller profile page with a photograph and artist statement, and priority placement in the printed Trail guide.</p>
+      </div>
+    </div>
+    <p class="note">This is a deliberate simplification. An earlier draft charged 5% and 15% depending on tier — but charging two different rates requires a paid plugin licence at £118 a year, which was consuming two-thirds of the gallery's entire annual margin. A single rate runs on the free version, saves roughly £230 a year once the extra commission is counted, and lowers the number of artists we need before the gallery pays for itself from 27 to 23.</p>
+    <p class="note">10% compares very favourably with a commercial gallery, which typically takes 40–50% of the sale price and pays out on its own schedule. In year one we suggest waiving joining fees entirely as a launch incentive — it is the fastest way to reach the numbers the gallery needs.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">The money</p>
+    <h2>How a sale reaches the artist</h2>
+    <ol class="flow">
+      <li>
+        <span class="step">01</span>
+        <div>
+          <h3>A buyer pays by card</h3>
+          <p>Stripe handles the card details. The gallery never sees or stores them. The buyer's purchase is complete at that moment — nothing about their contract depends on when the artist is paid.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step">02</span>
+        <div>
+          <h3>The money sits in the company's account, ring-fenced</h3>
+          <p>It is the artist's money held in trust, not the gallery's income. It is never used as working capital, and it appears separately in the accounts.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step">03</span>
+        <div>
+          <h3>The artist packs and posts the work</h3>
+          <p>Postage is charged at the checkout using gallery-wide flat rates by size, so nobody has to guess. Larger pieces can be marked collection-only.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step">04</span>
+        <div>
+          <h3>Artists are paid quarterly, with a statement</h3>
+          <p>The same rhythm the village gallery already works to, so it will feel familiar. Commission and card fees are shown as separate lines, so there is nothing to query.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <p class="eyebrow">Look and feel</p>
+    <h2>Design, and who can actually use it</h2>
+    <p>We would buy a professionally designed theme rather than build one from scratch — it is a fraction of the cost and gets us a far better-looking site. But the deciding factor is not how the demo looks. It is whether a visitor who cannot use a mouse, or who reads the screen at 200%, or who is squinting at a phone on the sea wall, can still buy a picture.</p>
+    <p>That matters more than usual for us. A good number of the Trail's artists and its visitors are older. A gallery nobody can use is not a gallery.</p>
+    <p>Searching for a theme that does both turned up an awkward finding. Of the twenty-nine marketplace themes that advertise support for the multi-vendor plugin we need, <strong>not one mentions accessibility anywhere</strong>. Of the ninety-five themes that do claim accessibility, <strong>not one mentions the plugin</strong>. There is no theme that satisfies both, so the question is which gap we close ourselves.</p>
+
+    <div class="tbl-scroll">
+      <table>
+        <caption>Shortlist, September 2026. Sales and ratings as listed on ThemeForest.</caption>
+        <thead>
+          <tr><th scope="col">Theme</th><th scope="col" class="num">Price</th><th scope="col" class="num">Sales</th><th scope="col">Accessibility</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="https://themeforest.net/item/icelander-accessible-business-portfolio-woocommerce-wordpress-theme/20138825">Icelander</a></td><td class="num">$66</td><td class="num">1,249</td><td>WCAG 2.2 AA</td></tr>
+          <tr><td><a href="https://themeforest.net/item/monument-valley-accessible-woocommerce-business-masterpiece/19252657">Monument Valley</a></td><td class="num">$66</td><td class="num">511</td><td>WCAG 2.2 AA</td></tr>
+          <tr><td><a href="https://themeforest.net/item/eimear-inclusive-woocommerce-wordpress-theme/27871499">Eimear</a></td><td class="num">$66</td><td class="num">225</td><td>WCAG 2.2 AA</td></tr>
+          <tr><td><a href="https://themeforest.net/item/woodmart-woocommerce-wordpress-theme/20264492">WoodMart</a></td><td class="num">$69</td><td class="num">118,363</td><td>None stated</td></tr>
+          <tr><td><a href="https://themeforest.net/item/martfury-woocommerce-marketplace-wordpress-theme/21273233">Martfury</a></td><td class="num">$59</td><td class="num">15,113</td><td>None stated</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="track track--pick">
+      <div class="track-head">
+        <h3>Recommended — an accessible theme, with the shop pages styled to match</h3>
+        <span class="pill">Our pick</span>
+      </div>
+      <p class="note">Start from a theme built to a published accessibility standard, then do the work to make the artists' shop pages sit inside it. The reverse — bolting accessibility onto a marketplace theme — means fighting the page builder and the drop-down menus it generates, which is days of work with no guarantee of success.</p>
+      <ul class="themes">
+        <li>
+          <a href="https://themeforest.net/item/icelander-accessible-business-portfolio-woocommerce-wordpress-theme/20138825">Icelander</a>
+          <span class="tf-price">$66</span>
+          <span class="tf-note">Passes WCAG 2.2 level AA — the recognised international standard. 1,249 sales, rated 4.86. Keyboard and screen-reader friendly, with proper heading structure and tested colour contrast. The best-established of the accessible options.</span>
+        </li>
+        <li>
+          <a href="https://themeforest.net/item/eimear-inclusive-woocommerce-wordpress-theme/27871499">Eimear</a>
+          <span class="tf-price">$66</span>
+          <span class="tf-note">Same standard, same author, and built specifically for people selling artisan and handmade work — which is exactly us. Fewer sales behind it, so less proven, but worth looking at the demo before we decide.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="track">
+      <div class="track-head">
+        <h3>Considered and set aside</h3>
+        <span class="pill pill--warn">On accessibility</span>
+      </div>
+      <p class="note">Worth recording what was looked at, and why it was not chosen.</p>
+      <ul class="themes">
+        <li>
+          <a href="https://themeforest.net/item/woodmart-woocommerce-wordpress-theme/20264492">WoodMart</a>
+          <span class="tf-price">$69</span>
+          <span class="tf-note">118,000 sales and support for every multi-vendor plugin going — on adoption alone it would win easily. Makes no accessibility claim at all, and its menus and page-builder markup are exactly the parts that are hardest to fix afterwards.</span>
+        </li>
+        <li>
+          <a href="https://themeforest.net/item/martfury-woocommerce-marketplace-wordpress-theme/21273233">Martfury</a>
+          <span class="tf-price">$59</span>
+          <span class="tf-note">15,000 sales and the best-known marketplace theme. Same objection.</span>
+        </li>
+        <li>
+          <a href="https://themeforest.net/item/gesso-art-print-shop-theme/35070670">Gesso, Ozeum, Musea and similar</a>
+          <span class="tf-price">$69–85</span>
+          <span class="tf-note">The handsome gallery and museum themes. Beautiful demos, but built to <em>show</em> art rather than sell it from many separate sellers, and none makes an accessibility claim either. Worth browsing for design ideas we can borrow.</span>
+        </li>
+      </ul>
+    </div>
+
+    <p>A theme licence is a one-off $66, about £52, and is already inside the budget below.</p>
+    <p><strong>One caution the committee should hear.</strong> A theme is only a wrapper. A perfectly accessible theme filled with photographs that have no written description still fails a blind visitor completely. So the artist submission form will require a one-line description of every picture, and that single habit will do more for real accessibility than the theme choice does. Whichever theme we pick, the committee should see it working with our own artists' pictures in it before we sign it off.</p>
+    <p class="note">On the legal position: the Equality Act 2010 asks service providers to make reasonable adjustments rather than naming a standard, and the regulations that bind councils and public bodies do not catch a company like ours. So nothing forces our hand. But WCAG 2.2 AA is the recognised benchmark for what "reasonable" means, it is the right thing for a village that includes a lot of older people, and it reads very well in a funding application.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Principles</p>
+    <h2>How the gallery will behave</h2>
+    <p>Three commitments I would like the committee to hold me to, and to hold the gallery to after I have handed it over. They are the same idea pointed at three different ways of letting people down.</p>
+
+    <ol class="vows">
+      <li>
+        <div>
+          <h3>Everyone can use it</h3>
+          <p>Built to WCAG 2.2 level AA: usable by keyboard alone, readable by a screen reader, legible at 200% zoom, and tested for colour contrast. Every picture carries a written description, because a photograph with no words is invisible to some of our visitors.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Nobody is pressured</h3>
+          <p>No countdown timers, no "three people are looking at this", no invented scarcity. When the gallery says a piece is the only one, that is simply true — it is an original. Honest scarcity sells art perfectly well, and the manufactured kind is now a matter for the Competition and Markets Authority rather than a matter of taste.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Buyers know who they are paying and what it costs</h3>
+          <p>The artist's name on every listing and every confirmation. Postage shown before checkout, never added at the last step. No fee appears late in the process that was not visible at the start.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <p class="eyebrow">Technology</p>
+    <h2>Artists can run their own shop</h2>
+    <p>The gallery runs on WordPress and WooCommerce — the same software behind a large share of the world's small online shops, and something I already know well. On top of that sits a plugin called <a href="https://dokan.co/wordpress/">Dokan</a>, which turns a single shop into a marketplace of separate sellers.</p>
+    <p>What that means in practice: each artist gets their own store page, their own listings and their own orders, and they cannot see or alter anyone else's. If an artist wants to add a new piece, change a price or mark something sold, they can log in and do it themselves. The <a href="https://wordpress.org/plugins/dokan-lite/">free version</a> is on the WordPress plugin directory if anyone would like to look; we would use the paid tier, at about £118 a year, because that is what allows the two different commission rates.</p>
+    <p>One known gap: Dokan's own artist dashboard makes no accessibility claim, and neither does any competing plugin. That is a back-office screen used by a handful of people rather than by the public, so it is the right place to accept a compromise — but the committee should know it exists rather than discover it later.</p>
+    <p><strong>My honest recommendation is that we do not rely on that at the start.</strong> Several of our artists have no shop, no social media and do not check email often. If we depend on them logging in to spot an order, work will go unposted and we will hear about it from an unhappy buyer. So for the first year a volunteer lists work on artists' behalf from a simple paper or online form, and orders are phoned or texted through. The self-service dashboard is there, ready, for the artists who want it — and more will want it once they have seen it working.</p>
+  </section>
+
+  <div class="bleed band">
+    <section>
+      <p class="eyebrow">Costs</p>
+      <h2>What it costs, and who pays</h2>
+      <p>Full figures, with every assumption exposed and testable, are in the accompanying budget spreadsheet. Nothing below is a black box — change any input and the whole model recalculates.</p>
+      <p><a class="dl" href="https://www.jharbourne.com/tollesbury-arts/budget.xlsx">Download the full budget <span class="ext">XLSX · 7 tabs</span></a></p>
+
+      <div class="tbl-scroll">
+        <table>
+          <caption>Year one — proposed grant application</caption>
+          <thead>
+            <tr><th scope="col">Item</th><th scope="col" class="num">Amount</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Build — design, development, setup, artist onboarding</td><td class="num">£3,625</td></tr>
+            <tr><td>Running costs — hosting, domains, card fees, contingency</td><td class="num">£466</td></tr>
+            <tr><td>Maintenance retainer — £50 per month</td><td class="num">£600</td></tr>
+            <tr class="sum"><td>Total grant sought</td><td class="num">£4,691</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tbl-scroll">
+        <table>
+          <caption>Year two onward — self-funding</caption>
+          <thead>
+            <tr><th scope="col">Item</th><th scope="col" class="num">Amount</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Artist joining fees</td><td class="num">£996</td></tr>
+            <tr><td>Commission on sales at 10%</td><td class="num">£400</td></tr>
+            <tr><td>Less running costs and retainer</td><td class="num">−£1,066</td></tr>
+            <tr class="sum"><td>Surplus to the company</td><td class="num">£330</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="gift">
+        <span class="amt">£3,125</span>
+        <p>The build is worth <strong>£6,750</strong> at commercial rates — around twelve and a half days of professional work. I am proposing to charge £3,625, roughly half. The difference is a contribution to the Trail, and I would ask that it be recorded as such: funders count it as match funding, and it strengthens every application we make.</p>
+      </div>
+    </section>
+  </div>
+
+  <section>
+    <p class="eyebrow">Funding</p>
+    <h2>Where the money comes from</h2>
+    <p>The company is not being asked to find £4,691. The plan is two grants, and neither is speculative — both funders are open to applications now, and both have been checked against our circumstances.</p>
+
+    <div class="tbl-scroll">
+      <table>
+        <caption>Proposed funding, September 2026</caption>
+        <thead>
+          <tr><th scope="col">Source</th><th scope="col" class="num">Ask</th><th scope="col">Timing</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Taylor's Charity Trust</strong><br><span class="note">Our own village charity, no. 211742</span></td>
+            <td class="num">£1,000–1,500</td>
+            <td>September meeting — imminent</td>
+          </tr>
+          <tr>
+            <td><strong>Maldon District Council</strong><br><span class="note">"Where Quality of Life Matters" Fund</span></td>
+            <td class="num">~£3,500</td>
+            <td>Window closes 30 September</td>
+          </tr>
+          <tr>
+            <td><strong>National Lottery Awards for All</strong><br><span class="note">Fallback, and a route to year two</span></td>
+            <td class="num">up to £20,000</td>
+            <td>Rolling — 16 weeks to a decision</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Why two grants rather than one.</strong> Taylor's Charity is small — it distributed around £5,900 in the whole of last year — so asking it for the full amount would be neither realistic nor fair. A grant of £1,000 to £1,500 is proportionate. It also does something the money alone doesn't: a village award is the strongest possible evidence for the district application. It says Tollesbury has already backed this with its own money, which is far more persuasive to a council officer than any amount of argument from me.</p>
+
+    <p>Maldon's fund goes up to £10,000 and explicitly accepts applications from registered social enterprises, which our company will be. It asks that projects show wider community benefit rather than benefit to a particular club — so the application will lead on keeping the village's creative life visible all year and drawing visitors to Tollesbury, which is the honest description of what this is.</p>
+
+    <div class="alert">
+      <h3>The one genuinely urgent decision</h3>
+      <p>The Maldon window closes on <strong>30 September 2026</strong>. To meet it, the company needs to be incorporated and I need the committee's approval to apply. Everything else in this proposal can wait a month. This cannot, and the next round would put us a year behind.</p>
+    </div>
+
+    <p class="note">If neither application succeeds, nobody is out of pocket. The build contract would be conditional on a grant being awarded, so the company carries no risk and no debt. We would simply try again in the next round, and I would keep the proposal on the shelf until then.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Test it yourself</p>
+    <h2>Move the numbers and see what happens</h2>
+    <p>Every figure in this proposal rests on estimates, and estimates deserve to be challenged. Rather than ask the committee to take mine on trust, here they are to push around. Change the number of artists, the joining fees, the commission rate or how much we think the gallery will sell, and watch the bottom line move.</p>
+    <p>The one to try first is <strong>artists</strong>. Income turns out to depend far more on how many people join than on how much gets sold — which tells us where the effort belongs.</p>
+
+    <div class="calc">
+      <div class="calc-inputs">
+        <div class="field">
+          <div class="field-top"><label for="c-artists">Participating artists</label><span class="val" id="v-artists">30</span></div>
+          <input type="range" id="c-artists" min="10" max="60" step="1" value="30">
+        </div>
+        <div class="field">
+          <div class="field-top"><label for="c-featured">On the Featured tier</label><span class="val" id="v-featured">33%</span></div>
+          <input type="range" id="c-featured" min="0" max="100" step="1" value="33">
+        </div>
+        <div class="field">
+          <div class="field-top"><label for="c-fees">Standard joining fee</label><span class="val" id="v-fees">£20</span></div>
+          <input type="range" id="c-fees" min="0" max="60" step="5" value="20">
+        </div>
+        <div class="field">
+          <div class="field-top"><label for="c-feef">Featured joining fee</label><span class="val" id="v-feef">£60</span></div>
+          <input type="range" id="c-feef" min="0" max="150" step="5" value="60">
+        </div>
+        <div class="field">
+          <div class="field-top"><label for="c-comm">Commission on sales</label><span class="val" id="v-comm">10%</span></div>
+          <input type="range" id="c-comm" min="0" max="25" step="1" value="10">
+        </div>
+        <div class="field">
+          <div class="field-top"><label for="c-sales">Gallery sales per year</label><span class="val" id="v-sales">£4,000</span></div>
+          <input type="range" id="c-sales" min="0" max="20000" step="250" value="4000">
+        </div>
+      </div>
+
+      <div class="calc-out" id="calc-out" aria-live="polite">
+        <div class="out"><span class="k">Total income</span><span class="v" id="o-income">£1,396</span></div>
+        <div class="out"><span class="k">Running cost</span><span class="v" id="o-cost">£1,066</span></div>
+        <div class="out out--key"><span class="k">Surplus</span><span class="v" id="o-surplus">£330</span></div>
+        <div class="out"><span class="k">Break-even</span><span class="v" id="o-break">23</span></div>
+        <div class="out"><span class="k">Total take</span><span class="v" id="o-take">34.9%</span></div>
+      </div>
+
+      <p class="calc-foot">Running cost is £1,000 of fixed annual spend — hosting, domains, mailboxes, data protection fee, the maintenance retainer and a contingency — plus card processing at 1.5% and 20p per order, assuming an average sale of £150. <strong>Break-even</strong> is the number of artists needed to cover that cost. <strong>Total take</strong> is joining fees and commission together as a share of what the gallery sells: the sum an artist will do for themselves, and the reason it pays to quote it before they ask.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Next steps</p>
+    <h2>What I need from the committee</h2>
+    <ul class="asks">
+      <li><span class="tick" aria-hidden="true"></span><div><b>Agreement in principle</b><span class="d">That the Trail wants an online gallery on these terms, and that the company will own and run it.</span></div></li>
+      <li><span class="tick" aria-hidden="true"></span><div><b>A named volunteer for orders</b><span class="d">Someone other than me to handle orders and ring artists. This is the single condition I would attach to the build — without it, the gallery will fail on operations rather than technology.</span></div></li>
+      <li><span class="tick" aria-hidden="true"></span><div><b>Approval to apply for funding — needed this month</b><span class="d">Taylor's Charity at its September meeting, then Maldon District Council before 30 September. I will draft both applications. The build contract would be conditional on an award, so the company carries no risk.</span></div></li>
+      <li><span class="tick" aria-hidden="true"></span><div><b>Incorporation of the company</b><span class="d">Grant funders need a governing document and a bank account. The account exists; the company does not yet. It needs at least two directors who are not related to each other, which some funders require.</span></div></li>
+      <li><span class="tick" aria-hidden="true"></span><div><b>A decision on the artist tiers</b><span class="d">The £20 / 15% and £60 / 5% structure, with fees waived in year one.</span></div></li>
+      <li><span class="tick" aria-hidden="true"></span><div><b>Sign-off on the artist agreement</b><span class="d">A short contract each artist signs. It is the document that keeps the tax, financial and consumer-law positions clean, and it needs the committee behind it.</span></div></li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="eyebrow">Straight talk</p>
+    <h2>Three things I want to be honest about</h2>
+    <div class="straight">
+      <div>
+        <h3>The margin is thin</h3>
+        <p>At thirty artists and a modest £4,000 of sales, the gallery clears about £330 a year. That is a small reserve, not a profit. Break-even is around twenty-three artists, so there is some room — but not a lot, and the calculator above shows how quickly it disappears if fewer people join than we hope.</p>
+      </div>
+      <div>
+        <h3>Joining fee plus commission is more than the headline rate</h3>
+        <p>An artist selling a little will find that fees and commission together come to around a third of what they sell in the first year, not the 10% on the tin. That is still better than a commercial gallery, and it falls sharply as sales grow — the calculator shows exactly where. We should say so ourselves at the artists' meeting rather than let someone work it out and feel misled.</p>
+      </div>
+      <div>
+        <h3>It needs more than one person</h3>
+        <p>I can build and maintain it. I should not also be the person packing enquiries, chasing artists and answering the phone. If the committee cannot find someone to own the day-to-day running, I would rather we did not start.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Prepared for the Tollesbury Arts Trail committee, September 2026. Figures accompany the full budget spreadsheet, where every assumption can be changed and tested.</p>
+    <p>Project background and previous work for the Trail: <a href="https://www.jharbourne.com/tollesbury-arts.html">jharbourne.com/tollesbury-arts</a> · The walking-tour app: <a href="https://www.jharbourne.com/nearmark.html">Nearmark</a></p>
+    <p>Theme prices in US dollars as listed on ThemeForest, September 2026, and subject to change. All costs shown exclude VAT.</p>
+    <p><a href="https://www.jharbourne.com/tollesbury-arts/budget.xlsx">Download the full budget spreadsheet (XLSX)</a></p>
+
+<script>
+(function () {
+  var FIXED = 1000.40, AOV = 150, STRIPE_PC = 0.015, STRIPE_FIX = 0.20;
+  var ids = ['artists', 'featured', 'fees', 'feef', 'comm', 'sales'];
+  var el = {};
+  ids.forEach(function (k) {
+    el[k] = document.getElementById('c-' + k);
+    el['v' + k] = document.getElementById('v-' + k);
+  });
+  var out = {
+    income: document.getElementById('o-income'),
+    cost: document.getElementById('o-cost'),
+    surplus: document.getElementById('o-surplus'),
+    brk: document.getElementById('o-break'),
+    take: document.getElementById('o-take')
+  };
+  if (!el.artists || !out.income) { return; }
+
+  function gbp(n) {
+    return '£' + Math.round(n).toLocaleString('en-GB');
+  }
+
+  function update() {
+    var artists = +el.artists.value;
+    var featPc = +el.featured.value / 100;
+    var feeS = +el.fees.value;
+    var feeF = +el.feef.value;
+    var rate = +el.comm.value / 100;
+    var sales = +el.sales.value;
+
+    el.vartists.textContent = artists;
+    el.vfeatured.textContent = el.featured.value + '%';
+    el.vfees.textContent = gbp(feeS);
+    el.vfeef.textContent = gbp(feeF);
+    el.vcomm.textContent = el.comm.value + '%';
+    el.vsales.textContent = gbp(sales);
+
+    var featured = artists * featPc;
+    var standard = artists - featured;
+    var joining = featured * feeF + standard * feeS;
+    var commission = sales * rate;
+    var income = joining + commission;
+
+    var orders = sales / AOV;
+    var cost = FIXED + sales * STRIPE_PC + orders * STRIPE_FIX;
+    var surplus = income - cost;
+
+    out.income.textContent = gbp(income);
+    out.cost.textContent = gbp(cost);
+    out.surplus.textContent = (surplus < 0 ? '−' : '') + gbp(Math.abs(surplus));
+    out.surplus.parentNode.className = 'out ' + (surplus < 0 ? 'out--neg' : 'out--key');
+
+    var perArtist = artists > 0 ? income / artists : 0;
+    out.brk.textContent = perArtist > 0 ? Math.ceil(cost / perArtist) : '—';
+    out.take.textContent = sales > 0 ? (income / sales * 100).toFixed(1) + '%' : '—';
+  }
+
+  ids.forEach(function (k) { el[k].addEventListener('input', update); });
+  update();
+})();
+</script>
+  </footer>
+
+</div>
+
+</body>
+</html>
