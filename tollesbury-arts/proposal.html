@@ -28,6 +28,17 @@
   --amber-wash:#F2E3D8;
   --shadow:0 1px 2px rgba(14,36,43,.06), 0 8px 24px -12px rgba(14,36,43,.18);
 
+  /* The dark "costs" band keeps its own palette so it never inverts with the
+     theme. Every colour inside it must come from these, never a literal. */
+  --band-bg:#0E242B;
+  --band-ink:#FFFFFF;
+  --band-body:rgba(255,255,255,.84);
+  --band-dim:rgba(255,255,255,.60);
+  --band-fill:rgba(255,255,255,.05);
+  --band-fill-2:rgba(255,255,255,.09);
+  --band-line:rgba(255,255,255,.16);
+  --band-accent:#E09A63;
+
   --f-display:"Newsreader",Georgia,"Times New Roman",serif;
   --f-body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
   --f-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
@@ -51,6 +62,14 @@
     --accent-wash:#153A36;
     --amber:#D08A57;
     --amber-wash:#33221A;
+    --band-bg:#173741;
+    --band-ink:#F2F7F5;
+    --band-body:rgba(242,247,245,.86);
+    --band-dim:rgba(242,247,245,.64);
+    --band-fill:rgba(242,247,245,.06);
+    --band-fill-2:rgba(242,247,245,.11);
+    --band-line:rgba(242,247,245,.18);
+    --band-accent:#E09A63;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
   }
 }
@@ -68,6 +87,14 @@
   --accent-wash:#153A36;
   --amber:#D08A57;
   --amber-wash:#33221A;
+  --band-bg:#173741;
+  --band-ink:#F2F7F5;
+  --band-body:rgba(242,247,245,.86);
+  --band-dim:rgba(242,247,245,.64);
+  --band-fill:rgba(242,247,245,.06);
+  --band-fill-2:rgba(242,247,245,.11);
+  --band-line:rgba(242,247,245,.18);
+  --band-accent:#E09A63;
   --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
 }
 
@@ -300,27 +327,27 @@ tr.sum td{font-weight:600;background:var(--surface-2);border-top:1px solid var(-
 tr.sum td.num{color:var(--accent-ink)}
 
 /* ---------- money band ---------- */
-.band{background:var(--ink);color:var(--ground)}
-.band h2,.band h3{color:#fff}
-.band .eyebrow{color:rgba(255,255,255,.55)}
-.band p{color:rgba(255,255,255,.82)}
+.band{background:var(--band-bg);color:var(--band-body)}
+.band h2,.band h3{color:var(--band-ink)}
+.band .eyebrow{color:var(--band-dim)}
+.band p{color:var(--band-body)}
 .band .gift{
   margin-top:1.8rem;padding:1.3rem 1.4rem;border-radius:4px;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
-  border-left:3px solid var(--amber);
+  background:var(--band-fill);border:1px solid var(--band-line);
+  border-left:3px solid var(--band-accent);
 }
 .band .gift .amt{
-  font-family:var(--f-display);font-size:2.3rem;line-height:1;color:var(--amber);
+  font-family:var(--f-display);font-size:2.3rem;line-height:1;color:var(--band-accent);
   letter-spacing:-.02em;display:block;margin-bottom:.45rem;font-variant-numeric:tabular-nums;
 }
-.band .gift p{margin:0;font-size:.94rem;color:rgba(255,255,255,.78)}
-.band table{background:rgba(255,255,255,.04);color:var(--ground)}
-.band .tbl-scroll{border-color:rgba(255,255,255,.16)}
-.band caption{background:rgba(255,255,255,.05);color:rgba(255,255,255,.6);border-bottom-color:rgba(255,255,255,.14)}
-.band thead th{background:rgba(255,255,255,.06);color:rgba(255,255,255,.6)}
-.band th,.band td{border-bottom-color:rgba(255,255,255,.11)}
-.band tr.sum td{background:rgba(255,255,255,.09);color:#fff}
-.band tr.sum td.num{color:var(--amber)}
+.band .gift p{margin:0;font-size:.94rem;color:var(--band-body)}
+.band table{background:var(--band-fill);color:var(--band-body)}
+.band .tbl-scroll{border-color:var(--band-line)}
+.band caption{background:var(--band-fill);color:var(--band-dim);border-bottom-color:var(--band-line)}
+.band thead th{background:var(--band-fill);color:var(--band-dim)}
+.band th,.band td{border-bottom-color:var(--band-line)}
+.band tr.sum td{background:var(--band-fill-2);color:var(--band-ink)}
+.band tr.sum td.num{color:var(--band-accent)}
 
 /* ---------- asks ---------- */
 .asks{list-style:none;margin:1.7rem 0 0;padding:0;display:grid;gap:.85rem}
@@ -343,7 +370,7 @@ tr.sum td.num{color:var(--accent-ink)}
 /* ---------- alert ---------- */
 .alert{
   margin:1.6rem 0 0;padding:1.05rem 1.25rem;
-  background:var(--amber-wash);border-left:3px solid var(--amber);border-radius:0 3px 3px 0;
+  background:var(--amber-wash);border-left:3px solid var(--band-accent);border-radius:0 3px 3px 0;
 }
 .alert h3{
   font-family:var(--f-body);font-size:.97rem;font-weight:600;color:var(--amber);
@@ -413,9 +440,9 @@ tr.sum td.num{color:var(--accent-ink)}
 }
 .dl:hover{border-color:var(--accent);color:var(--accent-ink)}
 .dl .ext{font-family:var(--f-mono);font-size:.68rem;color:var(--muted);letter-spacing:.08em}
-.band .dl{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.2);color:#fff}
-.band .dl:hover{border-color:var(--amber);color:var(--amber)}
-.band .dl .ext{color:rgba(255,255,255,.55)}
+.band .dl{background:var(--band-fill);border-color:var(--band-line);color:var(--band-ink)}
+.band .dl:hover{border-color:var(--band-accent);color:var(--band-accent)}
+.band .dl .ext{color:var(--band-dim)}
 
 footer{
   border-top:1px solid var(--line);padding-block:2.2rem 3rem;
@@ -560,7 +587,7 @@ footer p{margin:0 0 .4rem}
         <p class="tname">Featured</p>
         <p class="tprice">£60<span> / year</span></p>
         <p class="tcomm">Commission <b>10%</b></p>
-        <p class="tfor">Everything above, plus rotation on the gallery homepage, a fuller profile page with a photograph and artist statement, and priority placement in the printed Trail guide.</p>
+        <p class="tfor">Everything above, plus rotation on the gallery homepage and a fuller profile page with a photograph and artist statement.</p>
       </div>
     </div>
     <p class="note">This is a deliberate simplification. An earlier draft charged 5% and 15% depending on tier — but charging two different rates requires a paid plugin licence at £118 a year, which was consuming two-thirds of the gallery's entire annual margin. A single rate runs on the free version, saves roughly £230 a year once the extra commission is counted, and lowers the number of artists we need before the gallery pays for itself from 27 to 23.</p>
@@ -616,8 +643,8 @@ footer p{margin:0 0 .4rem}
           <tr><th scope="col">Theme</th><th scope="col" class="num">Price</th><th scope="col" class="num">Sales</th><th scope="col">Accessibility</th></tr>
         </thead>
         <tbody>
+          <tr><td><a href="https://themeforest.net/item/ileana-local-shop-full-site-editing-wordpress-block-theme/51973200">Ileana</a></td><td class="num">$66</td><td class="num">22</td><td>WCAG 2.2 AA</td></tr>
           <tr><td><a href="https://themeforest.net/item/icelander-accessible-business-portfolio-woocommerce-wordpress-theme/20138825">Icelander</a></td><td class="num">$66</td><td class="num">1,249</td><td>WCAG 2.2 AA</td></tr>
-          <tr><td><a href="https://themeforest.net/item/monument-valley-accessible-woocommerce-business-masterpiece/19252657">Monument Valley</a></td><td class="num">$66</td><td class="num">511</td><td>WCAG 2.2 AA</td></tr>
           <tr><td><a href="https://themeforest.net/item/eimear-inclusive-woocommerce-wordpress-theme/27871499">Eimear</a></td><td class="num">$66</td><td class="num">225</td><td>WCAG 2.2 AA</td></tr>
           <tr><td><a href="https://themeforest.net/item/woodmart-woocommerce-wordpress-theme/20264492">WoodMart</a></td><td class="num">$69</td><td class="num">118,363</td><td>None stated</td></tr>
           <tr><td><a href="https://themeforest.net/item/martfury-woocommerce-marketplace-wordpress-theme/21273233">Martfury</a></td><td class="num">$59</td><td class="num">15,113</td><td>None stated</td></tr>
@@ -630,19 +657,20 @@ footer p{margin:0 0 .4rem}
         <h3>Recommended — an accessible theme, with the shop pages styled to match</h3>
         <span class="pill">Our pick</span>
       </div>
-      <p class="note">Start from a theme built to a published accessibility standard, then do the work to make the artists' shop pages sit inside it. The reverse — bolting accessibility onto a marketplace theme — means fighting the page builder and the drop-down menus it generates, which is days of work with no guarantee of success.</p>
+      <p class="note">Start from a theme built to a published accessibility standard, then make the artists' shop pages sit inside it. The reverse — bolting accessibility onto a marketplace theme — means fighting the page builder and the menus it generates, which is days of work with no guarantee of success.</p>
       <ul class="themes">
+        <li>
+          <a href="https://themeforest.net/item/ileana-local-shop-full-site-editing-wordpress-block-theme/51973200">Ileana</a>
+          <span class="tf-price">$66</span>
+          <span class="tf-note">Passes WCAG 2.2 level AA, and built specifically for local shops selling handmade and artisan work — which is precisely us. Last updated a fortnight ago. It is also a modern "block" theme, which matters: WooCommerce is moving steadily to blocks with every release, so this is the version that ages well over the years a volunteer will be maintaining it.</span>
+        </li>
         <li>
           <a href="https://themeforest.net/item/icelander-accessible-business-portfolio-woocommerce-wordpress-theme/20138825">Icelander</a>
           <span class="tf-price">$66</span>
-          <span class="tf-note">Passes WCAG 2.2 level AA — the recognised international standard. 1,249 sales, rated 4.86. Keyboard and screen-reader friendly, with proper heading structure and tested colour contrast. The best-established of the accessible options.</span>
-        </li>
-        <li>
-          <a href="https://themeforest.net/item/eimear-inclusive-woocommerce-wordpress-theme/27871499">Eimear</a>
-          <span class="tf-price">$66</span>
-          <span class="tf-note">Same standard, same author, and built specifically for people selling artisan and handmade work — which is exactly us. Fewer sales behind it, so less proven, but worth looking at the demo before we decide.</span>
+          <span class="tf-note">The cautious alternative. Same standard and same author, with 1,249 sales behind it rather than 22. But it is an older-style theme the author is candid about keeping low in his update queue, so it is the safer choice today and the weaker one in three years.</span>
         </li>
       </ul>
+      <p class="note">We asked the author directly. He was refreshingly straight: none of his themes have been tested with the multi-vendor plugin we need, and he has no way of knowing whether any customer uses the two together. He suggested we test it ourselves using one of his <strong>free</strong> themes first — if the free one works with the plugin, the paid one will. That gives us a way to settle the only real unknown for nothing but an afternoon, before spending a penny.</p>
     </div>
 
     <div class="track">
@@ -706,9 +734,11 @@ footer p{margin:0 0 .4rem}
     <p class="eyebrow">Technology</p>
     <h2>Artists can run their own shop</h2>
     <p>The gallery runs on WordPress and WooCommerce — the same software behind a large share of the world's small online shops, and something I already know well. On top of that sits a plugin called <a href="https://dokan.co/wordpress/">Dokan</a>, which turns a single shop into a marketplace of separate sellers.</p>
-    <p>What that means in practice: each artist gets their own store page, their own listings and their own orders, and they cannot see or alter anyone else's. If an artist wants to add a new piece, change a price or mark something sold, they can log in and do it themselves. The <a href="https://wordpress.org/plugins/dokan-lite/">free version</a> is on the WordPress plugin directory if anyone would like to look; we would use the paid tier, at about £118 a year, because that is what allows the two different commission rates.</p>
-    <p>One known gap: Dokan's own artist dashboard makes no accessibility claim, and neither does any competing plugin. That is a back-office screen used by a handful of people rather than by the public, so it is the right place to accept a compromise — but the committee should know it exists rather than discover it later.</p>
-    <p><strong>My honest recommendation is that we do not rely on that at the start.</strong> Several of our artists have no shop, no social media and do not check email often. If we depend on them logging in to spot an order, work will go unposted and we will hear about it from an unhappy buyer. So for the first year a volunteer lists work on artists' behalf from a simple paper or online form, and orders are phoned or texted through. The self-service dashboard is there, ready, for the artists who want it — and more will want it once they have seen it working.</p>
+    <p>What that means in practice: each artist gets their own store page, their own listings and their own orders, and they cannot see or alter anyone else's. If an artist wants to add a new piece, change a price or mark something sold, they can log in and do it themselves. The <a href="https://wordpress.org/plugins/dokan-lite/">free version</a> is on the WordPress plugin directory if anyone would like to look, and the free version is what we would use. Dokan's support team have confirmed in writing that it handles a single commission rate applied across all artists, which is exactly what we need — so the plugin costs the gallery nothing at all, and there is no annual licence to remember to renew.</p>
+    <p>One known gap, now confirmed rather than suspected: Dokan have told us they have no accessibility statement for the artist dashboard, and no competing plugin has one either. They have invited us to file it as a feature request, which we will. That dashboard is a back-office screen used by a handful of people rather than by the public, so it is the right place to accept a compromise — but the committee should know it exists rather than discover it later.</p>
+    <p><strong>My honest recommendation is that we do not rely on that at the start.</strong> Several of our artists have no shop, no social media and do not check email often. If we depend on them logging in to spot an order, work will go unposted and we will hear about it from an unhappy buyer. So for the first year a volunteer lists work on artists' behalf from a simple paper or online form, and orders are phoned or texted through. Dokan have confirmed an administrator can create listings on an artist's behalf with the commission still calculating correctly, so this is a supported way of working rather than a workaround.</p>
+    <p>There is also a Dokan phone app that sends a push notification when something sells. For artists who are comfortable with a smartphone that may well beat both email and a phone call, and it is free. It is worth offering to anyone who wants it — but it should not be the thing the gallery depends on, because installing an app is exactly the step that will lose the people we are most trying to help. The volunteer and the telephone remain the system; the app is a convenience on top.</p>
+    <p>The self-service dashboard is there, ready, for the artists who want it — and more will want it once they have seen it working.</p>
   </section>
 
   <div class="bleed band">

@@ -23,7 +23,7 @@
   "redirects": [
     {
       "source": "/tollesbury-gallery-proposal(.html)?",
-      "destination": "/tollesbury-arts/proposal",
+      "destination": "/tollesbury-arts/proposal.html",
       "permanent": false
     }
   ],
